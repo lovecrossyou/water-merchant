@@ -33,8 +33,15 @@
 				"navigationBarTitleText": "搜索地址"
 			}
 		}
-
-	],
+        ,{
+			"path": "pages/product/category-list",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
+    ],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#3e87eb",
