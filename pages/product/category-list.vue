@@ -1,10 +1,10 @@
 <template>
-	<view>
+	<view class="main">
 
 		<view class="tag-list">
 			<block v-for="(tag,index) in tagArr" :key="index">
-				<view class="tag-item" @click="chooseTag()">
-					<view class="item-text">{tag.name}</view>
+				<view class="tag-item" :class="(tagId==tag.tagId)?'tag-item-select':'tag-item'" @click="chooseTag(tag.tagId)">
+					<view class="item-text">{{tag.name}}</view>
 				</view>
 			</block>
 		</view>
@@ -13,7 +13,11 @@
 			<block v-for="(category,index) in cateArr" :key="index">
 				<view class="category-item" :style="{width:imgStyle.width+'px',height:imgStyle.height+45+'px'}">
 					<image class="cate-img" :style="{width:imgStyle.width+'px',height:imgStyle.height+'px'}" :src="category.image"></image>
-					<view class="item-text" :style="{width:imgStyle.width+'px'}">{tag.name}</view>
+					<view class="item-text-back" :style="{width:imgStyle.width+'px'}">
+						<view class="item-text">
+							{{category.name}}
+						</view>
+					</view>
 				</view>
 			</block>
 		</view>
@@ -25,16 +29,22 @@
 	export default {
 		data() {
 			return {
+				tagId: 0,
 				tagArr: [{
-					name: "热门推荐"
+					name: "热门推荐",
+					tagId: 0
 				}, {
-					name: "饮用水"
+					name: "饮用水",
+					tagId: 1
 				}, {
-					name: "酒水饮料"
+					name: "酒水饮料",
+					tagId: 2
 				}, {
-					name: "粮油副食"
+					name: "粮油副食",
+					tagId: 3
 				}, {
-					name: "香烟茗茶"
+					name: "香烟茗茶",
+					tagId: 4
 				}],
 				cateArr: [{
 					image: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568425437,867090213&fm=26&gp=0.jpg",
@@ -56,8 +66,8 @@
 			}
 		},
 		methods: {
-			chooseTag() {
-
+			chooseTag(tagId) {
+				this.tagId = tagId;
 			}
 		},
 		onReady() {
@@ -66,10 +76,10 @@
 				success: function(rect) {
 					console.log(rect.windowWidth);
 					let windouW = rect.windowWidth;
-					let width = (windouW - 160) / 2;
+					let width = (windouW - 236 / 2) / 2;
 					that.imgStyle = {
 						width: width,
-						height: width + 45
+						height: width
 					}
 					console.log(that.imgStyle);
 				}
@@ -80,10 +90,14 @@
 
 <style lang="scss">
 	.main {
+		display: flex;
+		flex: 1;
 		flex-direction: row;
+		box-sizing: border-box;
+		background-color: #f4f8fb;
 
 		.tag-list {
-			height: 176upx;
+			width: 176upx;
 			background-color: #f4f8fb;
 
 			.tag-item {
@@ -99,27 +113,53 @@
 					color: #333333;
 				}
 			}
+
+			.tag-item-select {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 176upx;
+				height: 100upx;
+				background-color: #f4f8fb;
+
+				.item-text {
+					font-size: 30upx;
+					color: #333333;
+				}
+			}
 		}
 
 		.category-list {
+			box-sizing: border-box;
 			background-color: #f4f8fb;
+			padding: 10upx;
+			padding: 10upx;
 
 			.category-item {
+				display: inline-block;
 				width: 155upx;
 				height: 200upx;
+				background-color: white;
+				margin: 10upx 10upx 10upx 10upx;
 
 				.cate-img {
 					width: 155upx;
 					height: 155upx;
+					background-color: #777777;
 				}
 
-				.item-text {
+				.item-text-back {
 					display: flex;
-					justify-self: center;
-					align-self: center;
+					justify-content: center;
+					align-items: center;
 					height: 45upx;
-					font-size: 26upx;
-					color: #777777;
+					background-color: white;
+
+
+					.item-text {
+						font-size: 26upx;
+						color: #777777;
+					}
 				}
 			}
 		}
