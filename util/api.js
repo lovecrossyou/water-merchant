@@ -64,6 +64,9 @@ const api = {
 	
 	// 创建店铺
 	createShop: data => request.post("/merchant/createShop", data, 'POST'),
+	
+	// 店铺商品列表
+	productList: data => request.post("/merchant/shopProductList", data, 'POST'),
 
 	//地址搜索
 	searchNearby:data=> request.get('/v1/pois?type=search&keyword='+data.keywords),
