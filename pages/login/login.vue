@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view class="forgetPassword">
-			<view class="forgetPasswordText">忘记密码？</view>
+			<view class="forgetPasswordText" @click="forgetpassword">忘记密码？</view>
 		</view>
 		<button class="loginBtn">登录</button>
 		<view class="loginAgreement">
@@ -25,7 +25,20 @@
 	</view>
 </template>
 
-<script></script>
+<script>
+	export default{
+		data(){
+			
+		},
+		methods:{
+			forgetpassword(){
+				uni.navigateTo({
+					url:"forgetPassword"
+				})
+			}
+		}
+		}
+</script>
 
 <style lang="less">
 	.loginMain {
@@ -69,7 +82,6 @@
 					font-weight: 500;
 					color: rgba(51, 51, 51, 1);
 					line-height: 88upx;
-					padding-top: 20upx;
 					padding-left: 30upx;
 				}
 			}
@@ -100,7 +112,6 @@
 						font-weight: 500;
 						color: rgba(51, 51, 51, 1);
 						line-height: 88upx;
-						padding-top: 20upx;
 						padding-left: 30upx;
 					}
 				}

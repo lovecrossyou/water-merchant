@@ -18,6 +18,12 @@
 			}
 		},
 		{
+			"path": "pages/login/forgetPassword",
+			"style": {
+				"navigationBarTitleText": "忘记密码"
+			}
+		},
+		{
 			"path": "pages/product/product",
 			"style": {
 				"navigationBarTitleText": "商品"
@@ -31,6 +37,12 @@
 			"path": "pages/me/me",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/me/account/account",
+			"style": {
+				"navigationBarTitleText": "钱包"
 			}
 		},
 		{
@@ -58,8 +70,7 @@
 				"navigationBarTitleText": "添加商品"
 			}
 		}
-
-	],
+    ],
 	"tabBar": {
 		"color": "#7B7F84",
 		"selectedColor": "#FF5255",

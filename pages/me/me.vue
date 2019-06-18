@@ -10,7 +10,7 @@
 			<image src="http://qnimage.xiteng.com/right_icon@2x.png" class="next_icon"></image>
 		</view>
 		
-		<view class="margin_bottom">
+		<view class="margin_bottom" @click="goAccount">
 			<optionItem itemImg="http://qnimage.xiteng.com/center_icon_%20refund@2x.png" mainText="钱包"></optionItem>
 		</view>
 		<view class="margin_bottom">
@@ -34,7 +34,13 @@ export default {
 	data() {
 		return {};
 	},
-	methods: {},
+	methods: {
+		goAccount(){
+			uni.navigateTo({
+				url:"./account/account"
+			})
+		}
+	},
 	components:{
 		optionItem
 	}
