@@ -78,26 +78,26 @@
 		"list": [{
 				"pagePath": "pages/index/index",
 				"text": "店铺",
-				"iconPath": "static/tab/home_normal.png",
-				"selectedIconPath": "static/tab/home.png"
+				"iconPath": "static/tab/iconfont-dianpu@2x.png",
+				"selectedIconPath": "static/tab/iconfont-dianpu_l@2x.png"
 			},
 			{
 				"pagePath": "pages/order/order",
 				"text": "进货",
-				"iconPath": "static/tab/cart_normal.png",
-				"selectedIconPath": "static/tab/cart.png"
+				"iconPath": "static/tab/me_icon _cart@2x.png",
+				"selectedIconPath": "static/tab/me_icon _cart_l@2x.png"
 			},
 			{
 				"pagePath": "pages/distribution/distribution",
 				"text": "分销",
-				"iconPath": "static/tab/order_normal.png",
-				"selectedIconPath": "static/tab/order.png"
+				"iconPath": "static/tab/tab_icon_shopping cart@2x.png",
+				"selectedIconPath": "static/tab/tab_icon_shopping cart_l@2x.png"
 			},
 			{
 				"pagePath": "pages/me/me",
 				"text": "我",
-				"iconPath": "static/tab/me_normal.png",
-				"selectedIconPath": "static/tab/me.png"
+				"iconPath": "static/tab/tab_icon_me@2x.png",
+				"selectedIconPath": "static/tab/tab_icon_me_l@2x.png"
 			}
 		]
 	},
