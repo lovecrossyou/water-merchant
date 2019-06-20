@@ -3,17 +3,17 @@
 		<view class="inputWrapper">
 			<view class="phoneNumberWrapper">
 				<view class="phoneNumberText">手机号</view>
-				<input class="phoneNumberInput" />
+				<input class="phoneNumberInput" v-model="phonenumber" type="number"/>
 			</view>
 			<view class="passwordWrapper">
 				<view class="passwordText">密&#12288码</view>
-				<input class="passwordInput" />
+				<input class="passwordInput" v-model="password" type="number" password=true/>
 			</view>
 		</view>
 		<view class="forgetPassword">
 			<view class="forgetPasswordText" @click="forgetpassword">忘记密码？</view>
 		</view>
-		<button class="loginBtn">登录</button>
+		<button class="loginBtn" @click="login">登录</button>
 		<view class="loginAgreement">
 			<view class="agreementLeft">登录即为同意</view>
 			<view class="agreementRight">《汇贝软件许可及服务协议》</view>
@@ -26,15 +26,35 @@
 </template>
 
 <script>
+	import api from "@/util/api.js"
 	export default{
 		data(){
-			
+			return{
+				phonenumber:'',
+				password:''
+			}
 		},
 		methods:{
 			forgetpassword(){
 				uni.navigateTo({
 					url:"forgetPassword"
 				})
+			},
+			async login(){
+				var isphonenumber = /^1[3-9]+\d{9}$/;
+				if(isphonenumber.test(this.phonenumber)){
+					console.log("111111111111111")
+					var logindata = await api.login({
+						phoneNum:this.phonenumber,
+						password:this.password
+					})
+				}
+				else{
+					uni.showToast({
+						title:"请输入正确的手机号",
+						duration:1000
+					})
+				}
 			}
 		}
 		}
