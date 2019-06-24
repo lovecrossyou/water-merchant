@@ -48,7 +48,6 @@
 						password:this.password
 					};
 					api.login(loginParam).then((result)=>{
-						console.log("111111111111")
 						uni.showToast({
 							title:"登录成功",
 							duration:1000
@@ -57,7 +56,6 @@
 							url:"../index/index"
 						})
 					}).catch((error)=>{
-						console.log("22222222222")
 						uni.showToast({
 							title:"账号或密码错误",
 							duration:1000
