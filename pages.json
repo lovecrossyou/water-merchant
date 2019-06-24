@@ -46,6 +46,12 @@
 			}
 		},
 		{
+			"path": "pages/me/account/waterticketSales",
+			"style": {
+				"navigationBarTitleText": "水票销售"
+			}
+		},
+		{
 			"path": "pages/address/searchAddress",
 			"style": {
 				"navigationBarTitleText": "搜索地址"

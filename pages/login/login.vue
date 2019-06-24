@@ -20,7 +20,7 @@
 		</view>
 		<view class="openshop">
 			<view class="openShopText">还不是汇贝商家 ？</view>
-			<view class="openShopBtn">立即开店</view>
+			<view class="openShopBtn" @click="goregistration">立即开店</view>
 		</view>
 	</view>
 </template>
@@ -41,6 +41,11 @@
 					url:"forgetPassword"
 				})
 			},
+			goregistration(){
+				uni.navigateTo({
+					url:"../registration/registration"
+				})
+			},
 			async login(){
 				var isphonenumber = /^1[3-9]+\d{9}$/;
 				if(isphonenumber.test(this.phonenumber)){
@@ -49,16 +54,14 @@
 						password:this.password
 					};
 					api.login(loginParam).then(result=>{
-						
-						console.log('result ', result);
 						//保存token信息
 						servcie.addToken(result)
 						uni.showToast({
 							title:"登录成功"
 						})
-						uni.navigateTo({
+						uni.switchTab({
 							url:"../index/index"
-						});
+						})
 					}).catch((error)=>{
 						uni.showToast({
 							title:"账号或密码错误"
