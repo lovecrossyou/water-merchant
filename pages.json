@@ -72,7 +72,9 @@
 		}
         ,{
             "path" : "pages/registration/registration",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText":"入驻"
+			}
         }
     ],
 	"tabBar": {

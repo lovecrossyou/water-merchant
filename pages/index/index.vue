@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<button class="title">入驻</button>
+		<button class="title" @click="goPage('registration')">入驻</button>
 		
 		<button class="title">全部商品</button>
 		
@@ -17,6 +17,7 @@
 		
 		
 		<button class="title">销售业绩</button>
+		<button class="title" @click="goPage('login')">登陆</button>
 	</view>
 </template>
 
@@ -31,7 +32,11 @@
 
 		},
 		methods: {
-
+			goPage(page){
+				uni.navigateTo({
+					url:`/pages/${page}/${page}`
+				})
+			}
 		}
 	}
 </script>
