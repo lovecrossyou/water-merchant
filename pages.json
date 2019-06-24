@@ -70,6 +70,10 @@
 				"navigationBarTitleText": "添加商品"
 			}
 		}
+        ,{
+            "path" : "pages/registration/registration",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 		"color": "#7B7F84",
