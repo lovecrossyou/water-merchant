@@ -21,6 +21,8 @@ const api = {
 	postAddAddress: (params) => request.post("client/keplerPay/queryResult", params),
 
 	// 分类列表
+	getTagList: ()=> request.get("/merchant/productTagList"),
+	getCategoryList: () => request.get("/merchant/categoryList"),
 	categoryList: restaurant_id => request.get("/merchant/getcategory/"+restaurant_id),
 	getCategory: ()=>request.get('/merchant/v2/restaurant/category'),
 	addCategory: data => request.post("/merchant/addcategory", data, 'POST'),

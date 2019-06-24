@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	import api from "@/util/api.js"
 	export default {
 		data() {
 			return {
@@ -66,24 +67,38 @@
 			}
 		},
 		methods: {
+			getImageStyle() {
+				let that = this;
+				uni.getSystemInfo({
+					success: function(rect) {
+						console.log(rect.windowWidth);
+						let windouW = rect.windowWidth;
+						let width = (windouW - 236 / 2) / 2;
+						that.imgStyle = {
+							width: width,
+							height: width
+						}
+						console.log(that.imgStyle);
+					}
+				})
+			},
+			getTagList() {
+				api.getTagList({}).then((result)=>{
+					console.log(result);
+				})
+			},
+			getCategoryList() {
+				api.getCategory({}).then((result) => {
+					console.log(result);
+				})
+			},
 			chooseTag(tagId) {
 				this.tagId = tagId;
 			}
 		},
 		onReady() {
-			let that = this;
-			uni.getSystemInfo({
-				success: function(rect) {
-					console.log(rect.windowWidth);
-					let windouW = rect.windowWidth;
-					let width = (windouW - 236 / 2) / 2;
-					that.imgStyle = {
-						width: width,
-						height: width
-					}
-					console.log(that.imgStyle);
-				}
-			})
+			this.getImageStyle();
+			this.getCategoryList();
 		},
 	}
 </script>
@@ -94,11 +109,11 @@
 		flex: 1;
 		flex-direction: row;
 		box-sizing: border-box;
-		background-color: #f4f8fb;
+		background-color: #eeeeee;
 
 		.tag-list {
 			width: 176upx;
-			background-color: #f4f8fb;
+			background-color: #eeeeee;
 
 			.tag-item {
 				display: flex;
@@ -120,7 +135,7 @@
 				align-items: center;
 				width: 176upx;
 				height: 100upx;
-				background-color: #f4f8fb;
+				background-color: #eeeeee;
 
 				.item-text {
 					font-size: 30upx;
@@ -131,7 +146,7 @@
 
 		.category-list {
 			box-sizing: border-box;
-			background-color: #f4f8fb;
+			background-color: #eeeeee;
 			padding: 10upx;
 			padding: 10upx;
 

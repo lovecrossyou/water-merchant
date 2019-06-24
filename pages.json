@@ -41,6 +41,14 @@
 				"navigationBarTextStyle": "black"
 			}
 		}
+		,{
+			"path": "pages/product/tag-list",
+			"style": {
+				"navigationBarTitleText": "标签",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7a7e83",
