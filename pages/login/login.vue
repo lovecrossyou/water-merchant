@@ -47,37 +47,22 @@
 						phoneNum:this.phonenumber,
 						password:this.password
 					};
-					await api.login(loginParam).then((result)=>{
-						console.log(result)
+					api.login(loginParam).then((result)=>{
+						console.log("111111111111")
 						uni.showToast({
 							title:"登录成功",
 							duration:1000
 						})
+						uni.navigateTo({
+							url:"../index/index"
+						})
 					}).catch((error)=>{
-						console.log(error)
+						console.log("22222222222")
 						uni.showToast({
 							title:"账号或密码错误",
 							duration:1000
 						})
 					})
-					// var logindata = await api.login({
-					// 	phoneNum:this.phonenumber,
-					// 	password:this.password
-					// })
-					return;
-					if(logindata.access_token){
-						uni.showToast({
-							title:"登录成功",
-							duration:1000
-						})
-					} 
-					else{
-						console.log("11111111111111111111111")
-						uni.showToast({
-							title:"账号或密码错误",
-							duration:1000
-						})
-					}
 				}
 				else{
 					uni.showToast({
