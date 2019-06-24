@@ -1,9 +1,22 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view>
-			<text class="title">{{title}}</text>
-		</view>
+		<button class="title">入驻</button>
+		
+		<button class="title">全部商品</button>
+		
+		<button class="title">店铺管理</button>
+		
+		<button class="title">商品管理</button>
+		
+		
+		<button class="title">促销管理</button>
+		
+		<button class="title">市场推广</button>
+		
+		<button class="title">客户管理</button>
+		
+		
+		<button class="title">销售业绩</button>
 	</view>
 </template>
 
@@ -26,7 +39,7 @@
 <style>
 	.content {
 		text-align: center;
-		height: 400upx;
+		width: 100%;
 	}
 
 	.logo {
@@ -37,6 +50,12 @@
 
 	.title {
 		font-size: 36upx;
-		color: #8f8f94;
+		color: #fff;
+		height: 80upx;
+		line-height: 80upx;
+		text-align: center;
+		margin: 10upx ;
+		background: #007AFF;
+		
 	}
 </style>
