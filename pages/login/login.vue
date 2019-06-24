@@ -43,23 +43,24 @@
 			async login(){
 				var isphonenumber = /^1[3-9]+\d{9}$/;
 				if(isphonenumber.test(this.phonenumber)){
-					var logindata = await api.login({
+					let loginParam = {
 						phoneNum:this.phonenumber,
 						password:this.password
-					})
-					console.log(logindata)
-					if(logindata.access_token){
+					};
+					api.login(loginParam).then((result)=>{
 						uni.showToast({
 							title:"登录成功",
 							duration:1000
 						})
-					} 
-					else{
+						uni.navigateTo({
+							url:"../index/index"
+						})
+					}).catch((error)=>{
 						uni.showToast({
 							title:"账号或密码错误",
 							duration:1000
 						})
-					}
+					})
 				}
 				else{
 					uni.showToast({
