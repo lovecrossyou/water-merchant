@@ -3,19 +3,19 @@
 		<view class="top-content">
 			<view class="city-button">
 				北京
-				<image v-bind:src="icon" class="city-icon"></image>
+				<image v-bind:src="downArrowIcon" class="city-icon"></image>
 			</view>
 			<view class="search-content">
-				<image v-bind:src="icon" class="search-icon"></image>
+				<image v-bind:src="searchIcon" class="search-icon"></image>
 				搜索分销商品
 			</view>
 			<view class="category-button">
-				<image v-bind:src="icon" class="category-icon"></image>
+				<image v-bind:src="classifyIcon" class="category-icon"></image>
 				分类
 			</view>
 		</view>
 
-		<image v-bind:src="icon" class="tips-icon" mode="scaleToFill"></image>
+		<image v-bind:src="ruleIcon" class="tips-icon" mode="scaleToFill"></image>
 
 		<view class="distribution-shop-size">分销店铺：254家</view>
 		<view class="statistics-content">
@@ -39,21 +39,21 @@
 			<view class="order-line"></view>
 			<view class="order-item">
 				<view class="order-item-text">佣金</view>
-				<image v-bind:src="icon" class="order-icon"></image>
+				<image v-bind:src="orderIcon" class="order-icon"></image>
 			</view>
 			<view class="order-line"></view>
 			<view class="order-item"><view class="order-item-text">销量</view></view>
 			<view class="order-line"></view>
 			<view class="order-item">
 				<view class="order-item-text">价格</view>
-				<image v-bind:src="icon" class="order-icon"></image>
+				<image v-bind:src="orderIcon" class="order-icon"></image>
 			</view>
 			<view class="order-line order-line-plus"></view>
-			<view class="order-item"><image v-bind:src="icon" class="scan-icon"></image></view>
+			<view class="order-item"><image v-bind:src="changeViewIcon" class="scan-icon"></image></view>
 		</view>
 		<scroll-view scroll-y class="product-list">
-			<view v-for="(product, index) in productList" :key="index" class="product-item">
-				<image v-bind:src="icon" class="product-icon"></image>
+			<view v-for="(product, index) in productList" :key="index" class="product-item" @click="enterDetail">
+				<image v-bind:src="productIcon" class="product-icon"></image>
 				<view class="product-desc">
 					<view class="product-name">喜腾山泉 天然饮用水 18L 买10送1</view>
 					<view class="product-price-content">
@@ -74,9 +74,22 @@
 export default {
 	data() {
 		return {
-			icon: '../../static/logo.png',
+			changeViewIcon: '../../static/distribution/change_view_icon.png',
+			classifyIcon: '../../static/distribution/classify_icon.png',
+			downArrowIcon: '../../static/distribution/down_arrow_icon.png',
+			orderIcon: '../../static/distribution/order_icon.png',
+			productIcon: '../../static/distribution/product_icon.png',
+			searchIcon: '../../static/distribution/search_icon.png',
+			ruleIcon: '../../static/distribution/rule_icon.png',
 			productList: [0, 1, 2, 3, 4, 5, 6, 7]
 		};
+	},
+	methods:{
+		enterDetail(){
+			uni.navigateTo({
+				url:'./productDetails'
+			})
+		}
 	}
 };
 </script>
