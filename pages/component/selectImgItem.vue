@@ -5,7 +5,7 @@
 			<view v-else class="no_sign">*</view>
 			<view class="category_tile">{{title}}</view>
 		</view>
-		<view class="right_info">
+		<view class="right_info" @click="chooseImage">
 			<image v-bind:src="defaltIcon" class="defalt_icon"></image>
 			<image v-bind:src="rightIcon" class="right_icon"></image>
 		</view>
@@ -27,6 +27,21 @@
 				rightIcon:'../../static/common/icon_right.png',
 				defaltIcon:'../../static/common/defalt_icon.png'
 			}
+		},
+		methods:{
+			chooseImage: function() {
+				var that = this;
+				uni.chooseImage({
+					count: 6, //默认9
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					success: function(res) {
+						if (res.tempFilePaths.length !== 0) {
+							console.log('选择图片------'+res.tempFilePaths);
+							//that.uploadImage(res.tempFilePaths)
+						}
+					}
+				});
+			},
 		}
 	}
 </script>

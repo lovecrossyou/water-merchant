@@ -38,7 +38,7 @@
 				<image src="http://qnimage.xiteng.com/center_icon_%20refund@2x.png" class="operation_icon"></image>
 				<view class="operation_text">标签管理</view>
 			</view>
-			<view class="operation_item">
+			<view class="operation_item"  @click="addProduct">
 				<image src="http://qnimage.xiteng.com/center_icon_%20refund@2x.png" class="operation_icon"></image>
 				<view class="operation_text">添加商品</view>
 			</view>
@@ -123,6 +123,11 @@ export default {
 		// 	this.storeProductList = res;
 		// 	console.log(this.storeProductList);
 		// }
+		addProduct(){
+			uni.navigateTo({
+				url: 'addAndEditProduct'
+			});
+		}
 	},
 	onShow() {
 		// this.productList();

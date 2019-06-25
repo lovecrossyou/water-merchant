@@ -1,5 +1,5 @@
 <template>
-	<view class="category_info">
+	<view class="category_info" @click="select">
 		<view class="category_info_front">
 			<view v-if="sign==true" class="sign">*</view>
 			<view v-else class="no_sign">*</view>
@@ -18,12 +18,18 @@
 			  default: false
 		    },//标记
 			title:String,
-			placeholder:String 
+			placeholder:String ,
+			click:Function
 		},
 		data(){
 			return{
 				rightIcon:'../../static/common/icon_right.png'
 			}
+		},
+		methods:{
+			 select(){
+				 this.$emit("click");
+			 }
 		}
 	}
 </script>

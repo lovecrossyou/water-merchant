@@ -6,7 +6,7 @@
 		
 		<button class="title">店铺管理</button>
 		
-		<button class="title">商品管理</button>
+		<button class="title" @click="productMgt">商品管理</button>
 		
 		
 		<button class="title">促销管理</button>
@@ -31,7 +31,11 @@
 
 		},
 		methods: {
-
+            productMgt(){
+				uni.navigateTo({
+					url: '../product/product'
+				});
+			}
 		}
 	}
 </script>

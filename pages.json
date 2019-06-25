@@ -73,7 +73,17 @@
         ,{
             "path" : "pages/registration/registration",
             "style" : {}
-        }
+        }, {
+			"path": "pages/product/shopList",
+			"style": {
+				"navigationBarTitleText": "选择店铺"
+			}
+		}, {
+			"path": "pages/product/labelList",
+			"style": {
+				"navigationBarTitleText": "标签"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7B7F84",
