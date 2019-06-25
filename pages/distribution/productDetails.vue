@@ -81,7 +81,7 @@
 							<block v-for="(item, i) in commentUser.imageUrlList" :key="i"><image :src="item"></image></block>
 						</view>
 						<view class="periods">
-							<view>期数: {{ commentUser.qishu }}</view>
+							<view> {{ commentUser.qishu }}</view>
 							<view class="periods_commit">
 								<view class="periods_like">
 									<image :src="btn_like"></image>
@@ -110,19 +110,19 @@
 				<image class="top" :src="btn_message" open-type="contact"></image>
 				<view class="name">客服</view>
 			</button>
-			<view v-bind:class="{ left_message: true, left_messageb: isBg }" @click="collectProduct(productDetail.discountGameId)">
+			<!-- <view v-bind:class="{ left_message: true, left_messageb: isBg }" @click="collectProduct(productDetail.discountGameId)">
 				<image v-if="isBg" class="top" :src="btn_collection_red"></image>
 				<image v-else class="top" :src="btn_collection"></image>
 				<view class="name">关注</view>
-			</view>
+			</view> -->
 			<view class="right_buy" @click="confirmOrder(true)">
-				<view class="top">￥{{ '2222' }}</view>
-				<view class="big">全价购买</view>
+				<!-- <view class="top">￥{{ '2222' }}</view> -->
+				<view class="big">添加到店铺</view>
 			</view>
 			<form class="right_buy bgr" @submit="formSubmit" report-submit="true">
 				<!-- <view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view> -->
-				<button class="top contact-button" form-type="submit">￥{{ '5555' }}</button>
-				<button class="contact-button" form-type="submit">一折抢购</button>
+				<!-- <button class="top contact-button" form-type="submit">￥{{ '5555' }}</button> -->
+				<button class="contact-button" form-type="submit">立即分享</button>
 			</form>
 		</view>
 	</view>
