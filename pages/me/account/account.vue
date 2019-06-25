@@ -22,7 +22,7 @@
 			<view class="text">账单明细</view>
 			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
 		</view>
-		<view class="balance">
+		<view class="balance" @click="checkBankCardList()">
 			<image class="img" src="../../../static/account/icon.jpg"></image>
 			<view class="text">提现</view>
 			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
@@ -31,11 +31,44 @@
 </template>
 
 <script>
-	export default{
+	import api from "@/util/api.js"
+	export default {
 		methods: {
 			gowaterticketSales() {
 				uni.navigateTo({
-					url:"waterticketSales"
+					url: "waterticketSales"
+				})
+			},
+			checkBankCardList() {
+				let that = this;
+				api.getUserBankCardList({}).then((result) => {
+					console.log(result);
+					if (result.length > 0) {
+						this.turnToWithdraw();
+					} else {
+						uni.showModal({
+							title: '提示',
+							content: '您还没有绑定银行卡，是否去绑定？',
+							success: function(res) {
+								if (res.confirm) {
+									console.log('用户点击确定');
+									that.turnToAddBankCardDetail();
+								} else if (res.cancel) {
+									console.log('用户点击取消');
+								}
+							}
+						});
+					}
+				})
+			},
+			turnToWithdraw() {
+				uni.navigateTo({
+					url: "./withdraw"
+				})
+			},
+			turnToAddBankCardDetail() {
+				uni.navigateTo({
+					url: "./addCardDetail"
 				})
 			}
 		},
@@ -43,77 +76,77 @@
 </script>
 
 <style lang="less">
-	.accountMain{
+	.accountMain {
 		width: 100%;
 		height: 100%;
 		position: fixed;
 		background: #eeeeee;
-		
-		.accountWrapper{
+
+		.accountWrapper {
 			display: flex;
 			align-items: center;
 			width: 100%;
 			height: 272upx;
 			background: #7C7D82;
 			text-align: center;
-			
-			.leftWrapper{
+
+			.leftWrapper {
 				width: 50%;
-				
-				.left_icon{
+
+				.left_icon {
 					width: 63upx;
 					height: 63upx;
 				}
-				
-				.left_text{
-					font-size:25upx;
-					font-family:PingFang-SC-Medium;
-					font-weight:500;
-					color:#FFFFFF;
-					line-height:25upx;
+
+				.left_text {
+					font-size: 25upx;
+					font-family: PingFang-SC-Medium;
+					font-weight: 500;
+					color: #FFFFFF;
+					line-height: 25upx;
 					margin-top: 15upx;
 				}
-				
-				.left_price{
-					font-size:42upx;
-					font-family:PingFang-SC-Medium;
-					font-weight:500;
-					color:#FFFFFF;
-					line-height:42upx;
+
+				.left_price {
+					font-size: 42upx;
+					font-family: PingFang-SC-Medium;
+					font-weight: 500;
+					color: #FFFFFF;
+					line-height: 42upx;
 					margin-top: 10upx;
 				}
-				
+
 			}
-			
-			.rightWrapper{
+
+			.rightWrapper {
 				width: 50%;
-				
-				.right_icon{
+
+				.right_icon {
 					width: 63upx;
 					height: 63upx;
 				}
-				
-				.right_text{
-					font-size:25upx;
-					font-family:PingFang-SC-Medium;
-					font-weight:500;
-					color:#FFFFFF;
-					line-height:25upx;
+
+				.right_text {
+					font-size: 25upx;
+					font-family: PingFang-SC-Medium;
+					font-weight: 500;
+					color: #FFFFFF;
+					line-height: 25upx;
 					margin-top: 15upx;
 				}
-				
-				.right_price{
-					font-size:42upx;
-					font-family:PingFang-SC-Medium;
-					font-weight:500;
-					color:#FFFFFF;
-					line-height:42upx;
+
+				.right_price {
+					font-size: 42upx;
+					font-family: PingFang-SC-Medium;
+					font-weight: 500;
+					color: #FFFFFF;
+					line-height: 42upx;
 					margin-top: 10upx;
 				}
 			}
 		}
-		
-		.waterticketSales{
+
+		.waterticketSales {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -121,32 +154,32 @@
 			height: 104upx;
 			margin-top: 24upx;
 			background: #FFFFFF;
-			
-			.img{
+
+			.img {
 				width: 38upx;
 				height: 32upx;
 				margin-left: 31upx;
 			}
-			
-			.text{
+
+			.text {
 				display: flex;
 				flex: 1;
-				font-size:33upx;
-				font-family:PingFang-SC-Medium;
-				font-weight:500;
-				color:rgba(51,51,51,1);
-				line-height:33upx;
+				font-size: 33upx;
+				font-family: PingFang-SC-Medium;
+				font-weight: 500;
+				color: rgba(51, 51, 51, 1);
+				line-height: 33upx;
 				margin-left: 24upx;
 			}
-			
-			.right_arrow{
+
+			.right_arrow {
 				width: 19upx;
 				height: 31upx;
 				margin-right: 23upx;
 			}
 		}
-		
-		.accountBill{
+
+		.accountBill {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -154,58 +187,58 @@
 			height: 104upx;
 			margin-top: 24upx;
 			background: #FFFFFF;
-			
-			.img{
+
+			.img {
 				width: 38upx;
 				height: 32upx;
 				margin-left: 31upx;
 			}
-			
-			.text{
+
+			.text {
 				display: flex;
 				flex: 1;
-				font-size:33upx;
-				font-family:PingFang-SC-Medium;
-				font-weight:500;
-				color:rgba(51,51,51,1);
-				line-height:33upx;
+				font-size: 33upx;
+				font-family: PingFang-SC-Medium;
+				font-weight: 500;
+				color: rgba(51, 51, 51, 1);
+				line-height: 33upx;
 				margin-left: 24upx;
 			}
-			
-			.right_arrow{
+
+			.right_arrow {
 				width: 19upx;
 				height: 31upx;
 				margin-right: 23upx;
 			}
 		}
-		
-		.balance{
+
+		.balance {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			width: 100%;
 			height: 104upx;
 			background: #FFFFFF;
-			border-top: 1upx solid rgba(232,232,232,1);
-			
-			.img{
+			border-top: 1upx solid rgba(232, 232, 232, 1);
+
+			.img {
 				width: 38upx;
 				height: 32upx;
 				margin-left: 31upx;
 			}
-			
-			.text{
+
+			.text {
 				display: flex;
 				flex: 1;
-				font-size:33upx;
-				font-family:PingFang-SC-Medium;
-				font-weight:500;
-				color:rgba(51,51,51,1);
-				line-height:33upx;
+				font-size: 33upx;
+				font-family: PingFang-SC-Medium;
+				font-weight: 500;
+				color: rgba(51, 51, 51, 1);
+				line-height: 33upx;
 				margin-left: 24upx;
 			}
-			
-			.right_arrow{
+
+			.right_arrow {
 				width: 19upx;
 				height: 31upx;
 				margin-right: 23upx;

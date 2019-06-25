@@ -129,11 +129,6 @@
 		}
         ,{
             "path" : "pages/registration/registration",
-<<<<<<< HEAD
-            "style" : {}
-        }
-
-=======
             "style" : {
 				"navigationBarTitleText":"入驻"
 			}
@@ -154,7 +149,6 @@
 				"navigationBarTitleText": "规格"
 			}
 		}
->>>>>>> 99b46eb773f7d5fe429b9f6056e1294e8b5926ce
     ],
 	"tabBar": {
 		"color": "#7B7F84",

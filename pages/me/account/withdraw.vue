@@ -24,6 +24,17 @@
 </template>
 
 <script>
+	import api from "@/util/api.js"
+	export default {
+		methods: {
+			getFistBankCard() {
+				api.getUserBankCardList({}).then((result)=>{
+					console.log(result);
+					
+				})
+			}
+		}
+	}
 </script>
 
 <style lang="scss">

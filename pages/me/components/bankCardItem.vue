@@ -20,12 +20,7 @@
 
 <style scoped>
 	.item-back {
-		/* display: flex; */
-		/* flex-direction: row; */
-		/* height: 260upx; */
-		/* background-color: #3F63AC; */
 		padding: 0upx 30upx 30upx 30upx;
-		/* padding-bottom: 30upx; */
 	}
 
 	.item {
@@ -33,8 +28,6 @@
 		flex-direction: row;
 		height: 260upx;
 		background-color: #3F63AC;
-		/* margin: 0upx 30upx 0upx 30upx; */
-		/* padding-bottom: 30upx; */
 		border: solid 0upx #ffffff;
 		border-radius: 14upx;
 	}

@@ -12,10 +12,16 @@
 </template>
 
 <script>
+	import api from "@/util/api.js"
 	import bankCardItem from '../components/bankCardItem.vue'
 	export default {
 		components: {
 			bankCardItem
+		},
+		methods: {
+			getBankCardList() {
+				
+			}
 		}
 	}
 </script>

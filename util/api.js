@@ -26,6 +26,10 @@ const api = {
 	categoryList: restaurant_id => request.get("/merchant/getcategory/"+restaurant_id),
 	getCategory: ()=>request.get('/merchant/v2/restaurant/category'),
 	addCategory: data => request.post("/merchant/addcategory", data, 'POST'),
+	
+	//银行卡相关
+	getBankCardList: ()=> request.post("/bankCard/getBankList"),
+	getUserBankCardList: ()=> request.post("/bankCard/userBankCardList"),
 
 	// 添加商品
 	createProduct: data => request.post("/merchant/addfood", data, 'POST'),

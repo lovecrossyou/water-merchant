@@ -12,7 +12,7 @@
 		methods: {
 			turnToAddCardDetail() {
 				uni.navigateTo({
-					url: './bankCardList',
+					url: './addCardDetail',
 				})
 			}
 		}
