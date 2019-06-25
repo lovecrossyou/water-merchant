@@ -65,19 +65,11 @@
 				"navigationBarTextStyle": "black"
 			}
 		}, {
-			"path": "pages/product/category-list",
-			"style": {
-				"navigationBarTitleText": "分类",
-				"navigationBarBackgroundColor": "#ffffff",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
 			"path": "pages/product/addAndEditProduct",
 			"style": {
 				"navigationBarTitleText": "添加商品"
 			}
 		}
-<<<<<<< HEAD
         ,{
 			"path": "pages/product/category-list",
 			"style": {
@@ -93,13 +85,47 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
+		},{
+			"path": "pages/me/account/balance",
+			"style": {
+				"navigationBarTitleText": "提现",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},{
+			"path": "pages/me/account/addBankCard",
+			"style": {
+				"navigationBarTitleText": "添加银行卡",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},{
+			"path": "pages/me/account/addCardDetail",
+			"style": {
+				"navigationBarTitleText": "添加银行卡",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},{
+			"path": "pages/me/account/withdraw",
+			"style": {
+				"navigationBarTitleText": "提现",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},{
+			"path": "pages/me/account/bankCardList",
+			"style": {
+				"navigationBarTitleText": "银行卡",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
-=======
         ,{
             "path" : "pages/registration/registration",
             "style" : {}
         }
->>>>>>> 46a74b86108de5df554a49ac3fd18657fed65d4a
+
     ],
 	"tabBar": {
 		"color": "#7B7F84",
