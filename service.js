@@ -1,5 +1,5 @@
 // 管理账号信息
-const TOKEN_KEY = 'TOKEN_KEY';
+export const TOKEN_KEY = 'TOKEN_KEY';
 const INFO_KEY = 'INFO_KEY';
 
 const getToken = function() {

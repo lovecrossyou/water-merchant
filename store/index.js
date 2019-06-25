@@ -28,11 +28,12 @@ const store = new Vuex.Store({
 		shopInfo: {
 			"name": "",
 			"address": "",
+			"addressDetail":"",
 			"latitude": 39.92843,
 			"longitude": 116.35073,
 			"description": "",
 			"phone": '',
-			"promotion_info": "欢迎光临",
+			"promotion_info": "",
 			"float_delivery_fee": '',
 			"float_minimum_order_amount": '',
 			"startTime": "09:00",
@@ -66,40 +67,6 @@ const store = new Vuex.Store({
 		}
 	},
 	actions: {
-		async fetchShopInfo({
-			commit,
-			state
-		}) {
-			const restaurant_id = state.userInfo.restaurant_id;
-			const res = await api.shopInfo(restaurant_id);
-			commit('setShopInfo', res);
-		},
-		async sendSms({
-			commit,
-			state
-		},data){
-			await api.sendSms(data);
-		},
-		async appLogin({
-			commit,
-			state
-		}, data, cb) {
-			const res = await api.login(data);
-			if (res.status === 1) {
-				commit('login', res.data);
-				//持久化
-				servcie.addInfo(res.data)
-				uni.reLaunch({
-					url: '/pages/home/home'
-				});
-				const clientInfo = state.clientInfo;
-				if (clientInfo) {
-					await api.pushRegiste({
-						client_info:clientInfo
-					});
-				}
-			}
-		},
 		async registePush({
 			commit,
 			state

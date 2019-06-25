@@ -46,6 +46,12 @@
 			}
 		},
 		{
+			"path": "pages/me/account/waterticketSales",
+			"style": {
+				"navigationBarTitleText": "水票销售"
+			}
+		},
+		{
 			"path": "pages/address/searchAddress",
 			"style": {
 				"navigationBarTitleText": "搜索地址"
@@ -123,9 +129,32 @@
 		}
         ,{
             "path" : "pages/registration/registration",
+<<<<<<< HEAD
             "style" : {}
         }
 
+=======
+            "style" : {
+				"navigationBarTitleText":"入驻"
+			}
+        },{
+			"path": "pages/product/shopList",
+			"style": {
+				"navigationBarTitleText": "选择店铺"
+			}
+		}, {
+			"path": "pages/product/labelList",
+			"style": {
+				"navigationBarTitleText": "标签"
+			}
+		},
+		{
+			"path": "pages/product/SpecificatList",
+			"style": {
+				"navigationBarTitleText": "规格"
+			}
+		}
+>>>>>>> 99b46eb773f7d5fe429b9f6056e1294e8b5926ce
     ],
 	"tabBar": {
 		"color": "#7B7F84",
@@ -172,3 +201,4 @@
 		}]
 	}
 }
+
