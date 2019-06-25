@@ -6,7 +6,7 @@
 		
 		<button class="title">店铺管理</button>
 		
-		<button class="title">商品管理</button>
+		<button class="title" @click="goPage('product')">商品管理</button>
 		
 		
 		<button class="title">促销管理</button>
@@ -64,3 +64,4 @@
 		
 	}
 </style>
+

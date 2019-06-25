@@ -325,7 +325,7 @@
 	.username-wrapper,
 	.phone-wrapper,
 	.phone-wrapper {
-		// background: url('http://qnimage.xiteng.com/right_icon@2x.png') 100% center no-repeat;
+		 /* background: url('http://qnimage.xiteng.com/right_icon@2x.png') 100% center no-repeat; */
 		background-size: 14upx 24upx;
 		height: 88upx;
 		display: flex;

@@ -28,9 +28,9 @@
 			  <view class="marginTop2"></view>
 			 <select-item :sign=false title="服务" placeholder="2小时送货"></select-item>
 			  <view class="marginTop2"></view>
-			 <select-item :sign=false title="标签" placeholder="选择商品标签"></select-item>
+			 <select-item :sign=false title="标签" placeholder="选择商品标签" @click="selectLabel"></select-item>
 			 <view class="marginTop1"></view>
-			 <select-item :sign=false title="上架店铺"></select-item>
+			 <select-item :sign=false title="上架店铺" @click="selectShop"></select-item>
 			 <view class="add_info">
 				 <view class="add">添加</view>
 			 </view>
@@ -50,6 +50,18 @@
 		data(){
 			return{
 				rightIcon:'../../static/common/icon_right.png'
+			}
+		},
+		methods:{
+			selectShop(){
+				uni.navigateTo({
+					url: 'shopList'
+				});
+			},
+			selectLabel(){
+				uni.navigateTo({
+					url: 'labelList'
+				});
 			}
 		}
 	}
