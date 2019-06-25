@@ -7,7 +7,7 @@
 			 <view class="marginTop1"></view>
 			 <select-item :sign=true title="分类" placeholder="桶装水"></select-item>
 	         <view class="marginTop2"></view>
-	         <select-item :sign=true title="规格" placeholder="添加产品规格"></select-item>
+	         <select-item :sign=true title="规格" placeholder="添加产品规格" @click="selectSpecificat"></select-item>
 			 <view class="marginTop1"></view>
 			 <select-img-item :sign=true title="商品头像"></select-img-item>
 			 <view class="marginTop2"></view>
@@ -61,6 +61,11 @@
 			selectLabel(){
 				uni.navigateTo({
 					url: 'labelList'
+				});
+			},
+			selectSpecificat(){
+				uni.navigateTo({
+					url: 'SpecificatList'
 				});
 			}
 		}

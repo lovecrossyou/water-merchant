@@ -1,10 +1,20 @@
 <template>
 	<view class="container">
-		<view class="title">商品标签</view>
-		<view class="list">
-			<block v-for="(item, index) in labelList" :key="index">
-				<view class="item" @click="select(index)">
-					<image v-if="selectIndex==index" v-bind:src="selectIcon" class="selectIcon"></image>
+		<view class="title">规格类型</view>
+		<view class="spe_style">
+			<block v-for="(item, index) in styleList" :key="index">
+				<view class="item" @click="selectStyIndex(index)">
+					<image v-if="selectStyleIndex==index" v-bind:src="selectIcon" class="selectIcon"></image>
+					<image v-else v-bind:src="unselectIcon" class="selectIcon"></image>
+					<view class="label">{{item}}</view>
+				</view>
+			</block>		
+		</view>
+		<view class="title">规格</view>
+		<view class="spe_style">
+			<block v-for="(item, index) in specList" :key="index">
+				<view class="item" @click="selectSpecIndex(index)">
+					<image v-if="selectSpeIndex==index" v-bind:src="selectIcon" class="selectIcon"></image>
 					<image v-else v-bind:src="unselectIcon" class="selectIcon"></image>
 					<view class="label">{{item}}</view>
 				</view>
@@ -17,16 +27,21 @@
 	export default{
 		data(){
 			return {
-				labelList:["热卖","特价","热销","限时"],
+				styleList:["桶","瓶","箱",""],
+				specList:["4L","4.5L","5L","18L","18.9L",""],
 				selectIcon:"../../static/common/order_btn_selected@2x.png",
 				unselectIcon:"../../static/common/order_btn@2x.png",
-				selectIndex:-1,
+				selectStyleIndex:-1,
+				selectSpeIndex:-1,
 			}
 		},
 		methods: {
-			select(index) {
-				this.selectIndex = index;
-			}
+			selectStyIndex(index) {
+				this.selectStyleIndex = index;
+			},
+			selectSpecIndex(index) {
+				this.selectSpeIndex = index;
+			},
 		},
 	}
 </script>
@@ -41,14 +56,13 @@
 		right: 0;
 		bottom: 0;
 		.title{
-			height: 81upx;
 			font-size:32upx;
 			font-family:HiraginoSansGB-W3;
 			font-weight:normal;
 			color:rgba(51,51,51,1);
 			padding: 28upx
 		}
-		.list{
+		.spe_style{
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: center;
@@ -77,6 +91,8 @@
 					margin-right: 10upx;
 				}
 				.label{
+					width:130upx;
+					height:45upx;
 					font-size:30upx;
 					font-family:HiraginoSansGB-W3;
 					font-weight:normal;
@@ -84,10 +100,12 @@
 					border-color: #FF5255;
 					border-style: solid;
 					border-width: 1upx;
-					padding-left: 20upx;
-					padding-right: 20upx;
+					text-align: center 
 				}
 			}
+		}
+		.spe_content{
+			
 		}
 	}
 </style>
