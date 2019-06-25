@@ -12,17 +12,17 @@
 				<view class="right_price">S110.00</view>
 			</view>
 		</view>
-		<view class="f_row">
+		<view class="waterticketSales" @click="gowaterticketSales">
 			<image class="img" src="../../../static/account/icon.jpg"></image>
 			<view class="text">水票销售</view>
 			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
 		</view>
-		<view class="s_row">
+		<view class="accountBill">
 			<image class="img" src="../../../static/account/icon.jpg"></image>
 			<view class="text">账单明细</view>
 			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
 		</view>
-		<view class="t_row">
+		<view class="balance">
 			<image class="img" src="../../../static/account/icon.jpg"></image>
 			<view class="text">提现</view>
 			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
@@ -31,6 +31,15 @@
 </template>
 
 <script>
+	export default{
+		methods: {
+			gowaterticketSales() {
+				uni.navigateTo({
+					url:"waterticketSales"
+				})
+			}
+		},
+	}
 </script>
 
 <style lang="less">
@@ -104,7 +113,7 @@
 			}
 		}
 		
-		.f_row{
+		.waterticketSales{
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -137,7 +146,7 @@
 			}
 		}
 		
-		.s_row{
+		.accountBill{
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -170,7 +179,7 @@
 			}
 		}
 		
-		.t_row{
+		.balance{
 			display: flex;
 			justify-content: center;
 			align-items: center;

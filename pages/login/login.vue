@@ -20,18 +20,19 @@
 		</view>
 		<view class="openshop">
 			<view class="openShopText">还不是汇贝商家 ？</view>
-			<view class="openShopBtn">立即开店</view>
+			<view class="openShopBtn" @click="goregistration">立即开店</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js"
+	import servcie from "../../service.js"
 	export default{
 		data(){
 			return{
-				phonenumber:'',
-				password:''
+				phonenumber:'15038118651',
+				password:'654321'
 			}
 		},
 		methods:{
@@ -40,31 +41,36 @@
 					url:"forgetPassword"
 				})
 			},
+			goregistration(){
+				uni.navigateTo({
+					url:"../registration/registration"
+				})
+			},
 			async login(){
 				var isphonenumber = /^1[3-9]+\d{9}$/;
 				if(isphonenumber.test(this.phonenumber)){
-					var logindata = await api.login({
+					let loginParam = {
 						phoneNum:this.phonenumber,
 						password:this.password
+					};
+					api.login(loginParam).then(result=>{
+						//保存token信息
+						servcie.addToken(result)
+						uni.showToast({
+							title:"登录成功"
+						})
+						uni.switchTab({
+							url:"../index/index"
+						})
+					}).catch((error)=>{
+						uni.showToast({
+							title:"账号或密码错误"
+						})
 					})
-					console.log(logindata)
-					if(logindata.access_token){
-						uni.showToast({
-							title:"登录成功",
-							duration:1000
-						})
-					} 
-					else{
-						uni.showToast({
-							title:"账号或密码错误",
-							duration:1000
-						})
-					}
 				}
 				else{
 					uni.showToast({
-						title:"请输入正确的手机号",
-						duration:1000
+						title:"请输入正确的手机号"
 					})
 				}
 			}
