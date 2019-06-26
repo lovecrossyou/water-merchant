@@ -21,9 +21,15 @@ const api = {
 	postAddAddress: (params) => request.post("client/keplerPay/queryResult", params),
 
 	// 分类列表
+	getTagList: ()=> request.get("/merchant/productTagList"),
+	getCategoryList: () => request.get("/merchant/categoryList"),
 	categoryList: restaurant_id => request.get("/merchant/getcategory/"+restaurant_id),
 	getCategory: ()=>request.get('/merchant/v2/restaurant/category'),
 	addCategory: data => request.post("/merchant/addcategory", data, 'POST'),
+	
+	//银行卡相关
+	getBankCardList: ()=> request.post("/bankCard/getBankList"),
+	getUserBankCardList: ()=> request.post("/bankCard/userBankCardList"),
 
 	// 添加商品
 	createProduct: data => request.post("/merchant/addfood", data, 'POST'),
@@ -64,6 +70,9 @@ const api = {
 	
 	// 创建店铺
 	createShop: data => request.post("/merchant/createShop", data, 'POST'),
+	
+	// 店铺商品列表
+	productList: data => request.post("/merchant/shopProductList", data, 'POST'),
 
 	//地址搜索
 	searchNearby:data=> request.get('/v1/pois?type=search&keyword='+data.keywords),

@@ -3,7 +3,7 @@
 		<view class="header">
 			<view class="open_shop">
 				<view>您还没有开通店铺</view>
-				<view class="open_shop_btn">立即开店</view>
+				<view class="open_shop_btn" @click="goPage('registration')">立即开店</view>
 			</view>
 			<view class="category">
 				<view class="category_item">
@@ -21,42 +21,79 @@
 			</view>
 		</view>
 		<view class="commodity_category">
-			<view class="category_item" v-for="i in 6" key='i'>
+			<view class="category_item">
 				<img :src="jinmu" alt="">
 				<view class="col_gray">店铺管理</view>
+			</view>
+			<view class="category_item" @click="goPage('product')">
+				<img :src="jinmu" alt="">
+				<view class="col_gray">商品管理</view>
+			</view>
+			<view class="category_item">
+				<img :src="jinmu" alt="">
+				<view class="col_gray">促销管理</view>
+			</view>
+			<view class="category_item">
+				<img :src="jinmu" alt="">
+				<view class="col_gray">市场推广</view>
+			</view>
+			<view class="category_item">
+				<img :src="jinmu" alt="">
+				<view class="col_gray">客户管理</view>
+			</view>
+			<view class="category_item">
+				<img :src="jinmu" alt="">
+				<view class="col_gray">销售业绩</view>
 			</view>
 		</view>
 		<view class="sale_container">
 			<view class="sale_order">
 				<img :src="jinmu" alt="">
 				<view>销售订单</view>
-				
 			</view>
 			<view class="order_state">
-				<view class="category_item" v-for="i in 4" key='i'>
+				<view class="category_item">
 					<img :src="jinmu" alt="">
-					<view class="col_gray">店铺管理</view>
+					<view class="col_gray">待付款</view>
+				</view>
+				<view class="category_item">
+					<img :src="jinmu" alt="">
+					<view class="col_gray">待送货</view>
+				</view>
+				<view class="category_item">
+					<img :src="jinmu" alt="">
+					<view class="col_gray">待收货</view>
+				</view>
+				<view class="category_item">
+					<img :src="jinmu" alt="">
+					<view class="col_gray">评价</view>
 				</view>
 			</view>
 		</view>
 	</view>
 </template>
-
 <script>
 	export default {
-		data() {
-			return {
-				jinmu:"../../static/index/jinmu.jpg"
+			data() {
+				return {
+					jinmu:"../../static/index/jinmu.jpg",
+					
+				}
+			},
+			onLoad() {
+	
+			},
+			methods: {
+				goPage(page){
+					console.log(page)
+					uni.navigateTo({
+						url:`/pages/${page}/${page}`
+					})
+				}
 			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-
 		}
-	}
 </script>
+
 
 <style lang="less">
 	.home_warpper {
@@ -171,10 +208,6 @@
 					}
 				}
 			}
-		}
-		
-		
-		
-		
+		}	
 	}
-</style>
+</style>	
