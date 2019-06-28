@@ -2,7 +2,11 @@
 	<view class="item-back">
 		<view class="left-label-text">{{labelText}}</view>
 
+<<<<<<< HEAD
 		<!-- <textarea v-if="isInput" class="input-area" :placeholder="holdText" @input="getComemnt" />
+=======
+		<textarea v-if="item.isInput" class="input-area" placeholder=item.holdText @input="getComemnt" />
+>>>>>>> 666e01b0bd018eadd80275d3ddd9be334e7cc69d
 
 		<view v-if="isClick" class="click-area">
 			<view class="hold-text">{{holdText}}</view>
