@@ -1,12 +1,12 @@
 <template>
 	<view class="main">
 		<view class="head-sep"></view>
-		
+
 		<view class="item-back">
 			<view class="left-label-text">持 卡 人：</view>
 			<!-- <textarea class="input-area" placeholder="请填写持卡人姓名" v-model="addCardParam.cardHolderName"/> -->
-			<textarea class="input-area" placeholder="请填写持卡人姓名" @input="(e) => {addCardParam.cardHolderName=e.target.value}"/>
-		</view>
+			<textarea class="input-area" placeholder="请填写持卡人姓名" @input="(e) => {addCardParam.cardHolderName=e.target.value}" />
+			</view>
 		
 		<view class="item-back">
 			<view class="left-label-text">卡    号：</view>
@@ -45,18 +45,39 @@
 			<view class="btn-text" @click="checkAddCardParam()">完 成</view>
 		</view>
 		
+		<vue-pickers :show="showBankPiker" 
+		:columns="pikerColumn"
+	    :defaultData="defaultData"
+		:selectData="pickData"
+		@cancel="close"
+		@confirm="confirmFn"></vue-pickers>
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js"
-	import addCardItem from '../components/addCardItem.vue'
+	import vuePickers from 'vue-pickers'
 	export default {
 		components: {
-			addCardItem
+			vuePickers
 		},
 		data() {
 			return {
+				showBankPiker: false,
+				pikerColumn: 1,
+				defaultData: [{		
+					text: 1999,
+					value: 1999,		
+				}],
+				pikerData: {
+					data1: [{		
+					text: 1999,
+					value: 1999,		
+				},{		
+					text: 1999,
+					value: 1999,		
+				}]
+				},
 				bankNameType: '',
 				addCardParam: {
 					cardHolderName: '',
@@ -70,6 +91,9 @@
 			}
 		},
 		methods: {
+			pikerClose(){
+				this.showBankPiker=false;
+			},
 			getAddCardCheckCode() {
 				api.getAddCardCheckCode({}).then((result)=>{
 					
