@@ -148,13 +148,13 @@
 			"style": {
 				"navigationBarTitleText": "规格"
 			}
-		},
-		{
-			"path": "pages/me/components/detailList",
-			"style": {
-				"navigationBarTitleText": "规格"
-			}
 		}
+// 		,{
+// 			"path": "pages/me/components/detailList",
+// 			"style": {
+// 				"navigationBarTitleText": "规格"
+// 			}
+// 		}
     ],
 	"tabBar": {
 		"color": "#7B7F84",

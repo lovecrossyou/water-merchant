@@ -30,7 +30,7 @@ const api = {
 	//银行卡相关
 	getAddCardCheckCode: ()=> request.post("/checkCode/addBankCard"),
 	addBankCardToBackground: ()=> request.post("/bankCard/addBankCard"),
-	getBankCardList: ()=> request.post("/bankCard/getBankList"),
+	getBankList: ()=> request.post("/bankCard/getBankList"),
 	getUserBankCardList: ()=> request.post("/bankCard/userBankCardList"),
 
 	// 添加商品
