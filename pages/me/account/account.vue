@@ -68,7 +68,8 @@
 			},
 			turnToAddBankCardDetail() {
 				uni.navigateTo({
-					url: "./addCardDetail"
+					// url: "./addCardDetail"
+					url: "./bankCardList"
 				})
 			}
 		},

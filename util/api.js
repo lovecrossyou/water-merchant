@@ -20,14 +20,16 @@ const api = {
 	getUser: (params) => request.post("client/keplerPay/queryResult", params),
 	postAddAddress: (params) => request.post("client/keplerPay/queryResult", params),
 
-	// 分类列表
-	getTagList: ()=> request.get("/merchant/productTagList"),
+	// 分类&标签
+	getTagList: ()=> request.post("/merchant/productTagList"),
 	getCategoryList: () => request.get("/merchant/categoryList"),
 	categoryList: restaurant_id => request.get("/merchant/getcategory/"+restaurant_id),
 	getCategory: ()=>request.get('/merchant/v2/restaurant/category'),
 	addCategory: data => request.post("/merchant/addcategory", data, 'POST'),
 	
 	//银行卡相关
+	getAddCardCheckCode: ()=> request.post("/checkCode/addBankCard"),
+	addBankCardToBackground: ()=> request.post("/bankCard/addBankCard"),
 	getBankCardList: ()=> request.post("/bankCard/getBankList"),
 	getUserBankCardList: ()=> request.post("/bankCard/userBankCardList"),
 

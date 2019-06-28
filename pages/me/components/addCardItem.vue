@@ -1,28 +1,39 @@
 <template>
 	<view class="item-back">
-		<view class="left-label-text">{{item.labelText}}</view>
+		<view class="left-label-text">{{labelText}}</view>
 
-		<textarea v-if="item.isInput" class="input-area" placeholder={{item.holdText}} @input="getComemnt" />
+		<!-- <textarea v-if="isInput" class="input-area" :placeholder="holdText" @input="getComemnt" />
 
-		<view v-if="item.isClick" class="click-area">
-			<view class="hold-text">{{item.holdText}}</view>
+		<view v-if="isClick" class="click-area">
+			<view class="hold-text">{{holdText}}</view>
 		</view>
 		
-		<image v-if="item.arrowShow" class="right-arrow"></image>
+		<image v-if="arrowShow" class="right-arrow"></image>
 		
 		<view class="code-btn-back">
-			<view v-if="item.vertifyCode" class="vertify-code-btn">
+			<view v-if="vertifyCode" class="vertify-code-btn">
 				<view class="vertify-code-text">获取验证码</view>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
 	export default {
 		props: {
+			labelText: '',
+			holdText: 'xxxxxx',
+			isInput:false,
+			isClick:false,
+			arrowShow:false,
+			vertifyCode:false,
 			vertifyCodeText: '获取验证码',
 			item: {}
+		},
+		methods: {
+			getInputContent(event) {
+				
+			}
 		}
 	}
 </script>
