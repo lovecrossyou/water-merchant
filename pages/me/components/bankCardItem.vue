@@ -6,7 +6,7 @@
 			<view class="item-content">
 				<view class="bank-name-type">
 					<view class="bank-name">{{bankCard.bankName}}</view>
-					<view class="card-type">{{bankCard.bankCardType}}</view>
+					<view class="card-type">{{bankCard.bankCardKind}}</view>
 				</view>
 				<view class="card-No">*** **** **** {{bankCard.lastBankCardNum}}</view>
 			</view>

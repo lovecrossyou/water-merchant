@@ -29,9 +29,10 @@ const api = {
 	
 	//银行卡相关
 	getAddCardCheckCode: ()=> request.post("/checkCode/addBankCard"),
-	addBankCardToBackground: ()=> request.post("/bankCard/addBankCard"),
+	addBankCardToBackground: (params)=> request.post("/bankCard/addBankCard", params),
 	getBankList: ()=> request.post("/bankCard/getBankList"),
 	getUserBankCardList: ()=> request.post("/bankCard/userBankCardList"),
+	rmbWithdraw: (params)=> request.post("/bankCard/withdraw", params),
 
 	// 添加商品
 	createProduct: data => request.post("/merchant/addfood", data, 'POST'),

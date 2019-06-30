@@ -1,9 +1,9 @@
 <template>
 	<view class="main">
 
-		<view class="card-choose">
-			<image class="bank-icon"></image>
-			<view class="bank-name-No">交通银行(2445)</view>
+		<view class="card-choose" @click="turnToBankCardList()">
+			<image class="bank-icon" :src="firstCard.bankIcon"></image>
+			<view class="bank-name-No">{{firstCard.bankName}}({{firstCard.lastBankCardNum}})</view>
 			<image class="right-arrow"></image>
 		</view>
 
@@ -26,13 +26,34 @@
 <script>
 	import api from "@/util/api.js"
 	export default {
+		data() {
+			return {
+				firstCard: {
+					bankName: '',
+					bankIcon: '',
+					lastBankCardNum: ''
+				},
+				withdrawParam: {
+					rmbMount: 0,
+					payPassword: '',
+				}
+			}
+		},
 		methods: {
 			getFistBankCard() {
 				api.getUserBankCardList({}).then((result)=>{
 					console.log(result);
-					
+					this.firstCard = result[0];
+				})
+			},
+			turnToBankCardList() {
+				uni.navigateTo({
+					url: "./bankCardList"
 				})
 			}
+		},
+		onReady() {
+			this.getFistBankCard();
 		}
 	}
 </script>
@@ -52,14 +73,11 @@
 			height: 120upx;
 			margin-top: 30upx;
 			background-color: #ffffff;
-			// border-top: solid 1upx #DDDDDD;
-			// border-bottom: solid 1upx #DDDDDD;
 
 			.bank-icon {
 				width: 80upx;
 				height: 80upx;
 				margin-left: 30upx;
-				background-color: skyblue;
 			}
 
 			.bank-name-No {
