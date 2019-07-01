@@ -43,8 +43,8 @@
 			},
 			goregistration(){
 				uni.navigateTo({
-					url:"/pages/registration/registration"
-				})
+					url:"/pages/merchantInfoapply/merchantInfoapply"
+				});
 			},
 			async login(){
 				var isphonenumber = /^1[3-9]+\d{9}$/;

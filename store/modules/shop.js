@@ -12,8 +12,8 @@ const state = {
 		pageSize: "20"
 	},
 	currentOrder:null,
-	shopStatus:{
-		status:'pass_status'
+	status:{
+		merchantStatus:'pass_status'
 	}
 }
 
@@ -28,7 +28,7 @@ const mutations = {
 		state.currentOrder = data;
 	},
 	saveStatus(state, data) {
-		state.shopStatus = data;
+		state.status = data;
 	}
 }
 
@@ -62,7 +62,7 @@ const actions = {
 		dispatch
 	}){
 		const res = await shopapi.status();
-		commit('saveStatus',status);
+		commit('saveStatus',res);
 	}
 }
 

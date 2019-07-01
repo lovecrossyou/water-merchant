@@ -155,6 +155,12 @@
 // 				"navigationBarTitleText": "规格"
 // 			}
 // 		}
+        ,{
+            "path" : "pages/merchantInfoapply/merchantInfoapply",
+            "style" : {
+				"navigationBarTitleText":"店主信息"
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#7B7F84",
