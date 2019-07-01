@@ -18,7 +18,9 @@
 			<optionItem itemImg="http://qnimage.xiteng.com/center_icon_%20refund@2x.png" mainText="进货订单"></optionItem>
 		</view>
 		<view class="margin_bottom">
-			<optionItem itemImg="http://qnimage.xiteng.com/center_icon_%20refund@2x.png" mainText="邀请开店" textHint="奖励：0元"></optionItem>
+			<view @click="goInvite">
+				<optionItem itemImg="http://qnimage.xiteng.com/center_icon_%20refund@2x.png" mainText="邀请开店" textHint="奖励：0元"></optionItem>
+			</view>
 			<optionItem itemImg="http://qnimage.xiteng.com/center_icon_%20refund@2x.png" mainText="加V认证"></optionItem>
 		</view>
 		<optionItem itemImg="http://qnimage.xiteng.com/center_icon_%20refund@2x.png" mainText="设置"></optionItem>
@@ -38,6 +40,11 @@ export default {
 		goAccount(){
 			uni.navigateTo({
 				url:"./account/account"
+			})
+		},
+		goInvite(){
+			uni.navigateTo({
+				url:"./invite/invite"
 			})
 		}
 	},
