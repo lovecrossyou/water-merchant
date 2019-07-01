@@ -1,14 +1,14 @@
 <template>
 	<view class="item-back">
-		<view class="item">
-			<image class="bank-icon"></image>
+		<view class="item" :style="{'background-color':bankCard.bgColor}">
+			<image class="bank-icon" :src="bankCard.bankIcon"></image>
 
 			<view class="item-content">
 				<view class="bank-name-type">
-					<view class="bank-name">交通银行</view>
-					<view class="card-type">储蓄卡</view>
+					<view class="bank-name">{{bankCard.bankName}}</view>
+					<view class="card-type">{{bankCard.bankCardKind}}</view>
 				</view>
-				<view class="card-No">*** **** **** 5646</view>
+				<view class="card-No">*** **** **** {{bankCard.lastBankCardNum}}</view>
 			</view>
 		</view>
 
@@ -16,6 +16,11 @@
 </template>
 
 <script>
+	export default {
+		props: {
+			bankCard: {},
+		}
+	}
 </script>
 
 <style scoped>
