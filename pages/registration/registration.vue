@@ -8,31 +8,31 @@
 					<view class="left_text">
 						店铺名称
 					</view>
-					<input type="text"  placeholder="请输入水站名称" />
+					<input type="text" v-model="formData.shopName" placeholder="请输入店铺名称" />
 				</view>
 				<view class="input_cont" @click="searchAddress">
 					<view class="left_text">所在地区</view>
-					<view class="center_text">{{shopInfo.address}}</view>
-					<image src="../../static/shop/shouhuodizhi@2x.png" mode="" class="address_icon"></image>
+					<view class="center_text">{{formData.createAddressModel.mappingAddress}}</view>
+					<image src="../../static/shop/shouhuodizhi@2x.png" class="address_icon"></image>
 				</view>
 
 				<view class="input_cont">
 					<view class="left_text">
 						详细地址
 					</view>
-					<input type="text"  placeholder="请输入详细地址" />
+					<input type="text" v-model="formData.createAddressModel.appendAddress" placeholder="请输入详细地址" />
 				</view>
 
 				<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
 					<view class="left_title">店铺头像</view>
 					<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
-					<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
+					<image v-else src="../../static/shop/addImg@2x.png" class="add_img"></image>
 					<!-- <view class="right_explain">一张真实的门店照可提升水站 形象</view> -->
 				</view>
 
 				<view class="uploading_img_item" @click="upLoadImagePath" style="border: none;">
 					<view class="left_title">店铺图片</view>
-					<image v-if="shopInfo.image_path.length!=0" :src="shopInfo.image_path" mode="" class="add_img"></image>
+					<image v-if="shopInfo.image_path.length!=0" :src="formData.shopIconUrl" mode="" class="add_img"></image>
 					<image v-else src="../../static/shop/addImg@2x.png" mode="" class="add_img"></image>
 				</view>
 
@@ -42,21 +42,21 @@
 					<view class="left_text">
 						客服电话
 					</view>
-					<input type="text"   placeholder="请输入客服电话" />
+					<input type="text" placeholder="请输入客服电话" />
 				</view>
 
 
 				<!-- 营业时间 -->
 				<div class="username-wrapper">
 					<div class="title88 left_text">开始营业时间</div>
-					<picker mode="time" :value="formData.startOpenTime" start="00:00" end="24:00" @change="startOpenTimeChange">
-						<view class="shop-addr">{{formData.startOpenTime}}</view>
+					<picker mode="time" :value="startOpenTime" start="00:00" end="24:00" @change="startOpenTimeChange">
+						<view class="shop-addr">{{startOpenTime}}</view>
 					</picker>
 				</div>
 				<div class="username-wrapper">
 					<div class="title88 left_text">结束营业时间</div>
-					<picker mode="time" :value="formData.endOpenTime" start="00:00" end="24:00" @change="endOpenTimeChange">
-						<view class="shop-addr">{{formData.endOpenTime}}</view>
+					<picker mode="time" :value="endOpenTime" start="00:00" end="24:00" @change="endOpenTimeChange">
+						<view class="shop-addr">{{endOpenTime}}</view>
 					</picker>
 				</div>
 
@@ -72,7 +72,7 @@
 					<view class="left_text">
 						快递费用
 					</view>
-					<input type="number"  placeholder="0.00" />
+					<input type="number" placeholder="0.00" />
 				</view>
 
 				<view class="input_cont">
@@ -81,7 +81,7 @@
 					</view>
 				</view>
 				<view class="textarea-wrapper">
-					<textarea v-model="summary" placeholder="填写详细的商家介绍，提升销售业绩。" />
+					<textarea v-model="formData.presentation" placeholder="填写详细的商家介绍，提升销售业绩。" />
 					</view>
 				
 			</view>
@@ -116,20 +116,32 @@
 				addressDetail: '',
 				time: '12:01',
 				index: 0,
+				startOpenTime:'9:00',
+				endOpenTime:'18:00',
 				formData: {
-					"name": "",
-					"shopType": "convenience_store",
-					"imageUrl": "",
-					"presentation": "",
-					"shopDetailImage": [],
-					"locationInfo": {
-						"longitude": '',
-						"latitude": '',
-						"addressName": "请选择地址"
+					"createAddressModel": {
+						"adCode": "",
+						"appendAddress": "",
+						"cityCode": "",
+						"cityName": "北京",
+						"latitude": 0,
+						"longtitude": 0,
+						"mappingAddress": "",
+						"pCode": "100000",
+						"pName": "北京"
 					},
-					"telephone": "",
-					startOpenTime: '09:00',
-					endOpenTime: '21:00',
+				   "deliverDistance": 0,
+				   "deliverTime": "",
+				   "freight": "",
+				   "presentation": "",
+				   "serviceTel": [
+						""
+					],
+				   "shopIconUrl": "",
+				   "shopImageUrl": [
+						""
+				    ],
+					"shopName": ""
 				},
 			};
 		},
@@ -188,6 +200,9 @@
 
 			// 更新水站 
 			async shopUpdate() {
+				
+				console.log('formData ',this.formData)
+				return;
 				const params = this.shopInfo;
 				let res;
 				if (params.id) {
@@ -288,11 +303,11 @@
 
 	}
 	
-	.textarea{
+	textarea{
 		width: 100%;
 		height: 265upx;
 		background: #FFFFFF;
-			font-size: 24upx;
+		font-size: 24upx;
 	}
 
 	.time-wrapper {
@@ -330,6 +345,7 @@
 		height: 88upx;
 		display: flex;
 		flex-direction: row;
+		padding-left: 5upx;
 
 	}
 
