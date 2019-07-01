@@ -5,13 +5,15 @@
 
 			<view class="item-back">
 				<view class="left-label-text">持 卡 人：</view>
-				<textarea class="input-area" placeholder="请填写持卡人姓名" v-model="addCardParam.cardHolderName" />
+				<input type="text" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.cardHolderName"/>
+				<!-- <textarea class="input-area" placeholder="请填写持卡人姓名" v-model="addCardParam.cardHolderName" /> -->
 				<!-- <textarea class="input-area" placeholder="请填写持卡人姓名" @input="(e) => {addCardParam.cardHolderName=e.target.value}" /> -->
 				</view>
 			
 			<view class="item-back">
 				<view class="left-label-text">卡    号：</view>
-				<textarea class="input-area" placeholder="请填写银行卡卡号" v-model="addCardParam.bankCardNumber"/>
+				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.bankCardNumber"/>
+				<!-- <textarea class="input-area" placeholder="请填写银行卡卡号" v-model="addCardParam.bankCardNumber"/> -->
 			</view>
 			
 			<view class="item-back">
@@ -24,17 +26,20 @@
 			
 			<view class="item-back">
 				<view class="left-label-text">开户支行：</view>
-				<textarea class="input-area" placeholder="请填写开户支行名称" v-model="addCardParam.depositBank"/>
+				<input type="text" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.depositBank"/>
+				<!-- <textarea class="input-area" placeholder="请填写开户支行名称" v-model="addCardParam.depositBank"/> -->
 			</view>
 			
 			<view class="item-back">
 				<view class="left-label-text">手 机 号：</view>
-				<textarea class="input-area" placeholder="请填写银行预留手机号" v-model="addCardParam.phoneNum"/>
+				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.phoneNum"/>
+				<!-- <textarea class="input-area" placeholder="请填写银行预留手机号" v-model="addCardParam.phoneNum"/> -->
 			</view>
 			
 			<view class="item-back">
-				<view class="left-label-text">验 证 码：</view>
-				<textarea class="input-area" placeholder="请填写验证码" v-model="addCardParam.checkCode"/>
+				<view class="left-label-text">验 证 码：</view>				
+				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.checkCode"/>
+				<!-- <textarea class="input-area" placeholder="请填写验证码" v-model="addCardParam.checkCode"/> -->
 				<view class="checkcode-btn-back" @click="getAddCardCheckCode()">
 					<view class="checkcode-btn">
 						<view class="checkcode-text">获取验证码</view>

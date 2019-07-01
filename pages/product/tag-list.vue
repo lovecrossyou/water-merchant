@@ -24,7 +24,7 @@
 	export default {
 		data() {
 			return {
-				tagArr: ["推荐", "热卖", "特价", "新品"],
+				tagArr: ["推荐", "热卖", "特价", "新品", "+"],
 				tagStyle: {
 					width: '375upx',
 					height: '80upx',

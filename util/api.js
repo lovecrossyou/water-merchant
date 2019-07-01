@@ -32,7 +32,8 @@ const api = {
 	addBankCardToBackground: (params)=> request.post("/bankCard/addBankCard", params),
 	getBankList: ()=> request.post("/bankCard/getBankList"),
 	getUserBankCardList: ()=> request.post("/bankCard/userBankCardList"),
-	rmbWithdraw: (params)=> request.post("/bankCard/withdraw", params),
+	rmbWithdraw: (params)=> request.post("/account/withDraw", params),
+	getAccountInfo: ()=> request.post("/account/merchantAccount"),
 
 	// 添加商品
 	createProduct: data => request.post("/merchant/addfood", data, 'POST'),
