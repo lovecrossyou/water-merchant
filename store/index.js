@@ -6,7 +6,9 @@ import shop from './modules/shop.js'
 import api from '../util/api.js'
 
 import servcie from "../service.js"
-
+import {
+	TOKEN_KEY
+} from "../service"
 
 Vue.use(Vuex)
 
@@ -44,7 +46,7 @@ const store = new Vuex.Store({
 			"activities": [],
 			"category": "请选择"
 		},
-		clientInfo: null
+		clientInfo: null,
 	},
 	mutations: {
 		login(state, userInfo) {
@@ -67,13 +69,18 @@ const store = new Vuex.Store({
 		}
 	},
 	actions: {
-		async registePush({
+		async checkLogin({
 			commit,
 			state
-		}, data) {
-			const clientInfo = state.clientInfo;
-			if (clientInfo) {
-				await api.pushRegiste(clientInfo);
+		}, cb) {
+			let token = uni.getStorageSync(TOKEN_KEY);
+			if(!token){
+				uni.reLaunch()({
+					url:"/pages/login/login"
+				})
+			}
+			else{
+				cb && cb();
 			}
 		}
 	}

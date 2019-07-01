@@ -4,14 +4,9 @@ import {
 	TOKEN_KEY
 } from "../service"
 const request = new Fly()
-// export const baseURL = 'http://47.94.169.143:8004'
 export const baseURL = 'http://huipay.com/huibeiwater'
-// export const baseURL = 'http://47.94.169.143:8004'
-// export const baseURL = 'http://192.168.199.101:8004' //家里
-// export const baseURL = 'http://192.168.1.235:7001' //公司
 
-// export const baseURL = 'https://api.kuaimayoupin.com'
-request.config.baseURL = baseURL
+request.config.baseURL = baseURL;
 
 const errorPrompt = (err) => {
 	console.log('errorPrompt ', JSON.stringify(err));

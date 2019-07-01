@@ -1,5 +1,5 @@
-import api from '../../util/api.js'
-
+import api from '@/util/api.js'
+import shopapi from "@/util/shop.js"
 const state = {
 	selectAddress: {
 		name: ''
@@ -11,7 +11,10 @@ const state = {
 		page: "1",
 		pageSize: "20"
 	},
-	currentOrder:null
+	currentOrder:null,
+	shopStatus:{
+		status:'pass_status'
+	}
 }
 
 const mutations = {
@@ -23,6 +26,9 @@ const mutations = {
 	},
 	setOrder(state, data) {
 		state.currentOrder = data;
+	},
+	saveStatus(state, data) {
+		state.shopStatus = data;
 	}
 }
 
@@ -49,6 +55,14 @@ const actions = {
 				title:"删除成功"
 			})
 		}
+	},
+	async shopStatus({
+		state,
+		commit,
+		dispatch
+	}){
+		const res = await shopapi.status();
+		commit('saveStatus',status);
 	}
 }
 

@@ -73,6 +73,8 @@
 	</view>
 </template>
 <script>
+	import {mapActions} from "vuex";
+	
 	export default {
 			data() {
 				return {
@@ -81,9 +83,14 @@
 				}
 			},
 			onLoad() {
-	
+				let that = this;
+				this.checkLogin(()=>{
+					that.shopStatus();
+				});
 			},
 			methods: {
+				...mapActions(['checkLogin']),
+				...mapActions('shop',['shopStatus']),
 				goPage(page){
 					console.log(page)
 					uni.navigateTo({
