@@ -75,9 +75,9 @@ const store = new Vuex.Store({
 		}, cb) {
 			let token = uni.getStorageSync(TOKEN_KEY);
 			if(!token){
-				uni.reLaunch()({
+				uni.reLaunch({
 					url:"/pages/login/login"
-				})
+				});
 			}
 			else{
 				cb && cb();

@@ -38,12 +38,12 @@
 		methods:{
 			forgetpassword(){
 				uni.navigateTo({
-					url:"forgetPassword"
+					url:"/pages/login/forgetPassword"
 				})
 			},
 			goregistration(){
 				uni.navigateTo({
-					url:"../registration/registration"
+					url:"/pages/registration/registration"
 				})
 			},
 			async login(){

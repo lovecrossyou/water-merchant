@@ -9,7 +9,6 @@ export const baseURL = 'http://huipay.com/huibeiwater'
 request.config.baseURL = baseURL;
 
 const errorPrompt = (err) => {
-	console.log('errorPrompt ', JSON.stringify(err));
 	uni.showToast({
 		title: err.message || 'fetch data error.',
 		icon: 'none'
