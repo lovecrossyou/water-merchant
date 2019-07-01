@@ -70,28 +70,19 @@
 					<view class="user_icon"><image :src="commentUser.userIcoin"></image></view>
 					<view class="product-comment-item-message">
 						<view class="product_comment_user_name">
-							<view>{{ commentUser.userName }}</view>
-							<image :src="icon_man"></image>
+							<view class="user_name_left">
+								<view>{{ commentUser.userName }}</view>
+								<view class="user_star_content">
+									<image :src="commentUser.star >= star ? starLight : starGray" v-for="(star, index1) in [1, 2, 3, 4, 5]" :key="index1"></image>
+								</view>
+							</view>
+
+							<view class="add_time">{{ commentUser.time }}</view>
 						</view>
-						<view class="add_time">
-							<span class="add_time_left">{{ commentUser.time }}</span>
-						</view>
+
 						<view class="comment-content">{{ commentUser.content }}</view>
 						<view class="comment-img">
 							<block v-for="(item, i) in commentUser.imageUrlList" :key="i"><image :src="item"></image></block>
-						</view>
-						<view class="periods">
-							<view> {{ commentUser.qishu }}</view>
-							<view class="periods_commit">
-								<view class="periods_like">
-									<image :src="btn_like"></image>
-									<view>999</view>
-								</view>
-								<view>
-									<image :src="btn_message"></image>
-									<view>999</view>
-								</view>
-							</view>
 						</view>
 					</view>
 				</view>
@@ -101,7 +92,7 @@
 		<view class="winning_periods">
 			<view class="particulars_item"><view class="designation">商品详情</view></view>
 			<view class="detail_imgurllist">
-				<block v-for="(item, i) in [1, 2, 3, 4, 5]" :key="i"><image :src="item" mode="widthFix"></image></block>
+				<block v-for="(item, i) in banners" :key="i"><image :src="item" mode="widthFix"></image></block>
 			</view>
 		</view>
 		<!-- 底部菜单 -->
@@ -110,18 +101,13 @@
 				<image class="top" :src="btn_message" open-type="contact"></image>
 				<view class="name">客服</view>
 			</button>
-			<!-- <view v-bind:class="{ left_message: true, left_messageb: isBg }" @click="collectProduct(productDetail.discountGameId)">
-				<image v-if="isBg" class="top" :src="btn_collection_red"></image>
-				<image v-else class="top" :src="btn_collection"></image>
-				<view class="name">关注</view>
-			</view> -->
+			
 			<view class="right_buy" @click="confirmOrder(true)">
-				<!-- <view class="top">￥{{ '2222' }}</view> -->
+				
 				<view class="big">添加到店铺</view>
 			</view>
 			<form class="right_buy bgr" @submit="formSubmit" report-submit="true">
-				<!-- <view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view> -->
-				<!-- <button class="top contact-button" form-type="submit">￥{{ '5555' }}</button> -->
+				
 				<button class="contact-button" form-type="submit">立即分享</button>
 			</form>
 		</view>
@@ -230,8 +216,22 @@ export default {
 			commentModelList: [
 				{
 					userIcoin: '../../static/details/btn_like.png',
-					userName: '123'
+					userName: '123',
+					time: '2019-01-01',
+					content: '用币兑换太划算了，送货也及时，快递师傅也很辛苦！很划算，下次还会光顾！',
+					imageUrlList: ['../../static/details/test_1.png', '../../static/details/test_2.png', '../../static/details/test_2.png'],
+					star: 4
+				},
+				{
+					userIcoin: '../../static/details/btn_like.png',
+					userName: '465',
+					time: '2019-01-01',
+					content: '赢的币已经换了两个了，特别好，送货及时，快递师傅也很辛很划算，下次还会继续光顾！',
+					//imageUrlList: ['../../static/details/btn_like.png', '../../static/details/btn_like.png', '../../static/details/btn_like.png'],
+					star: 4
 				}
+
+				
 			],
 
 			moneyDetail: '水站送水时将回收同一品牌空桶，无同一品牌空桶的，水站将另收取水桶押金。退押金时凭空桶及押金条与水站直接办理，与本平台无关。',
@@ -250,7 +250,8 @@ export default {
 			icon_woman: '../../static/details/icon_woman.png',
 			nav_icon_back: '../../static/details/nav_icon_back.png',
 			icon_vip: '../../static/details/icon_vip.png',
-
+			starLight: '../../static/details/star_light.png',
+			starGray: '../../static/details/star_gray.png',
 			btn_collection: '../../static/details/btn_collection.png',
 			btn_collection_red: '../../static/details/btn_collection_red.png',
 			isBg: false,
@@ -499,12 +500,14 @@ export default {
 		}
 
 		.product-comment {
+			display: flex;
+			flex-direction: column;
 			.product-comment-item {
 				display: flex;
 				font-size: 28upx;
 				padding: 30upx 30upx 0;
 				box-sizing: border-box;
-
+				border-bottom: 1upx solid #e3e3e3;
 				.user_icon {
 					width: 70upx;
 					height: 70upx;
@@ -518,29 +521,31 @@ export default {
 
 				.product-comment-item-message {
 					padding-bottom: 32upx;
-					border-bottom: 1upx solid #e3e3e3;
-
+					flex: 1;
 					.product_comment_user_name {
 						display: flex;
 						align-items: center;
 
+						.user_name_left {
+							display: flex;
+							flex: 1;
+							flex-direction: column;
+
+							.user_star_content {
+								display: flex;
+							}
+						}
+
+						.add_time {
+							font-size: 24upx;
+							font-family: PingFang-SC-Regular;
+							font-weight: 400;
+							color: rgba(153, 153, 153, 1);
+						}
 						image {
 							width: 26upx;
 							height: 26upx;
-							margin-left: 10upx;
-						}
-					}
-
-					.add_time {
-						font-size: 24upx;
-						font-family: PingFang-SC-Regular;
-						font-weight: 400;
-						color: rgba(153, 153, 153, 1);
-						margin-top: 10upx;
-						margin-bottom: 22upx;
-
-						.add_time_left {
-							padding-right: 22upx;
+							//margin-left: 10upx;
 						}
 					}
 
@@ -556,35 +561,6 @@ export default {
 							height: 148upx;
 							border-radius: 4upx;
 							margin-right: 10upx;
-						}
-					}
-				}
-
-				.periods {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					font-size: 24upx;
-					font-family: PingFangSC-Regular;
-					font-weight: 400;
-					color: rgba(153, 153, 153, 1);
-
-					.periods_commit {
-						display: flex;
-
-						view {
-							display: flex;
-							align-items: center;
-
-							image {
-								width: 30upx;
-								height: 30upx;
-								margin-right: 10upx;
-							}
-						}
-
-						.periods_like {
-							margin-right: 34upx;
 						}
 					}
 				}
@@ -653,7 +629,7 @@ export default {
 			color: rgba(51, 51, 51, 1);
 
 			.name {
-				font-size: 18upx;
+				font-size: 22;
 			}
 
 			image {
@@ -677,20 +653,20 @@ export default {
 		}
 
 		.right_buy {
-			flex: 3;
-			background: #f4a360;
-			font-size: 26upx;
+			flex: 2;
+			background: #FFBA26;
+			font-size: 34upx;
 			font-family: PingFangSC-Regular;
 			font-weight: 400;
 			color: rgba(255, 255, 255, 1);
 
 			.big {
-				font-size: 28upx;
+				font-size: 34upx;
 			}
 		}
 
 		.bgr {
-			background: #cc2636;
+			background: #FF5255;
 			.top {
 				text-align: center;
 			}
@@ -698,7 +674,7 @@ export default {
 				background: none;
 				border: none;
 				color: #fff;
-				font-size: 24rpx;
+				font-size: 34upx;
 			}
 
 			.contact-button::after {
