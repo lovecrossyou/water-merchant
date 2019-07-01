@@ -4,12 +4,12 @@
 			<view class="leftWrapper">
 				<image class="left_icon" src="../../../static/account/icon.jpg"></image>
 				<view class="left_text">资金余额</view>
-				<view class="left_price">￥{{rmbMount/100}}</view>
+				<view class="left_price">￥ {{rmbMount}}</view>
 			</view>
 			<view class="rightWrapper">
 				<image class="right_icon" src="../../../static/account/icon.jpg"></image>
 				<view class="right_text">喜币账户</view>
-				<view class="right_price">S{{xtbMount/100}}</view>
+				<view class="right_price">S {{xtbMount}}</view>
 			</view>
 		</view>
 		<view class="waterticketSales" @click="gowaterticketSales">
@@ -35,8 +35,8 @@
 	export default {
 		data() {
 			return {
-				rmbMount: 0,
-				xtbMount: 0,
+				rmbMount: '',
+				xtbMount: '',
 			}
 		},
 		methods: {
@@ -47,8 +47,9 @@
 			},
 			getUserAccount() {
 				api.getAccountInfo({}).then((result)=> {
-					this.rmbMount = result.rmbMount===0 ? 0.00 : result.rmbMount;
+					this.rmbMount = result.rmbMount===0 ? '0.00' : result.rmbMount/100;
 					this.xtbMount = result.xtbMount;
+					console.log(this.rmbMount);
 				})
 			},
 			checkBankCardList() {
