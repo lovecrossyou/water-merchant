@@ -98,7 +98,7 @@
 			},
 			turnToPayPassword: function() {
 				uni.navigateTo({
-					url:'./payPassword?pswSet=' + true + '&pswChange=' + false + '&pswConfirm=' + false,
+					url:'/pages/me/account/payPassword?pswSet=' + 1 + '&pswChange=' + 0 + '&pswConfirm=' + 0,
 				})
 			}
 		},

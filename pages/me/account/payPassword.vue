@@ -103,12 +103,6 @@
 			this.pswChange = option.pswChange;
 			this.pswSet = option.pswSet;
 			this.pswConfirm = option.pswConfirm;
-			console.log(option.pswChange+'/'+!option.pswChange);
-			console.log(option.pswSet+'/'+!option.pswSet);
-			console.log(option.pswConfirm+'/'+!option.pswConfirm);
-			console.log('change'+(this.pswChange&&!this.pswSet&&!this.pswConfirm));
-			console.log('set'+(!this.pswChange&&this.pswSet&&!this.pswConfirm));
-			console.log('confirm'+(!this.pswChange&&!this.pswSet&&this.pswConfirm));
 		}
 	}
 </script>
