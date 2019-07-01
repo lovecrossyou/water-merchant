@@ -1,38 +1,99 @@
 <template>
 	<view class="main">
 
-		<view class="card-choose">
-			<image class="bank-icon"></image>
-			<view class="bank-name-No">交通银行(2445)</view>
+		<view class="card-choose" @click="turnToBankCardList()">
+			<image class="bank-icon" :src="firstCard.bankIcon"></image>
+			<view class="bank-name-No">{{firstCard.bankName}}({{firstCard.lastBankCardNum}})</view>
 			<image class="right-arrow"></image>
 		</view>
 
 		<view class="withdraw-amount">
 			<view class="label-text">提现数额</view>
-			<textarea class="amount-input" placeholder="请填写提现数额" @input="getComemnt" />
-			</view>
-		
+			<input class="amount-input" type="digit" placeholder="请填写提现数额" placeholder-style="color:#999999" v-model="withdrawParam.rmbMount" @blur="getWithdrawAmount">
+		</view>
+
 		<view class="balance-attention">
-			<view class="balance">余额100.14元</view>
-			<view class="withdraw-all">全部提现</view>
+			<view class="balance">余额{{rmbMount}}元，</view>
+			<view class="withdraw-all" @click="withdrawAll()">全部提现</view>
+		</view>
+
+		<view class="action-btn">
+			<view class="btn-text" @click="withdrawDidClicked">提 现</view>
 		</view>
 		
-		<view class="action-btn">
-			<view class="btn-text">提 现</view>
-		</view>
+		<Modal v-show="true"></Modal>
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js"
+	import Modal from "../components/Modal.vue"
 	export default {
+		components: {
+			Modal,
+		},
+		data() {
+			return {
+				rmbMount: 0,
+				showPswModal: false,
+				firstCard: {
+					bankName: '',
+					bankIcon: '',
+					lastBankCardNum: ''
+				},
+				withdrawParam: {
+					rmbMount: '',
+					payPassword: '',
+				}
+			}
+		},
 		methods: {
 			getFistBankCard() {
-				api.getUserBankCardList({}).then((result)=>{
-					console.log(result);
-					
+				api.getUserBankCardList({}).then((result) => {
+					this.firstCard = result[0];
 				})
+			},
+			getRmbAmount() {
+				api.getAccountInfo({}).then((result) => {
+					this.rmbMount = result.rmbMount;
+					console.log(this.rmbMount);
+				})
+			},
+			turnToBankCardList() {
+				uni.navigateTo({
+					url: "./bankCardList"
+				})
+			},
+			getWithdrawAmount: function(event) {
+				if (event.target.value > this.rmbMount) {
+					uni.showToast({
+						icon: "none",
+						title: "超过可提现余额"
+					})
+					this.withdrawParam.rmbMount = this.rmbMount;
+					console.log(this.withdrawParam.rmbMount);
+				} else {
+					this.withdrawParam.rmbMount = event.target.value;
+				}
+
+			},
+			withdrawAll() {
+				if (this.rmbMount === 0) {
+					uni.showToast({
+						icon: "none",
+						title: "无可提现余额"
+					})
+				}
+				this.withdrawParam.rmbMount = this.rmbMount;
+			},
+			withdrawDidClicked:function () {
+				console.log('11111');
+				this.showPswModal = true;
 			}
+		},
+		onReady() {
+			this.getRmbAmount();
+			this.getFistBankCard();
 		}
 	}
 </script>
@@ -52,14 +113,11 @@
 			height: 120upx;
 			margin-top: 30upx;
 			background-color: #ffffff;
-			// border-top: solid 1upx #DDDDDD;
-			// border-bottom: solid 1upx #DDDDDD;
 
 			.bank-icon {
 				width: 80upx;
 				height: 80upx;
 				margin-left: 30upx;
-				background-color: skyblue;
 			}
 
 			.bank-name-No {
@@ -95,14 +153,14 @@
 			}
 
 			.amount-input {
-				display: flex; 
+				display: flex;
 				flex: 1;
 				height: 36upx;
 				margin-left: 30upx;
 				font-size: 30upx;
 				font-family: PingFangSC-Regular;
 				font-weight: 400;
-				color: rgba(153, 153, 153, 1);
+				color: #333333;
 				line-height: 36upx;
 			}
 		}

@@ -20,10 +20,11 @@
 </template>
 
 <script>
+	import api from "@/util/api.js"
 	export default {
 		data() {
 			return {
-				tagArr: ["推荐", "热卖", "特价", "新品"],
+				tagArr: ["推荐", "热卖", "特价", "新品", "+"],
 				tagStyle: {
 					width: '375upx',
 					height: '80upx',
@@ -46,15 +47,26 @@
 					}
 				})
 			},
+			getTagList() {
+				api.getTagList({}).then((result)=> {
+					console.log(result)
+				})
+			}
 		},
 		onReady() {
 			this.getTagStyle();
+			this.getTagList();
 		}
 	}
 </script>
 
 <style lang="scss">
 	.main {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background-color: #eeeeee;
+		
 		.tag-head {
 			display: flex;
 			align-items: flex-end;
@@ -81,6 +93,7 @@
 					align-items: center;
 					width: 375upx;
 					height: 80upx;
+					background-color: #ffffff;
 					border-bottom: solid 1upx #eeeeee;
 					border-left: solid 0.5upx #eeeeee;
 					border-right: solid 0.5upx #eeeeee;
