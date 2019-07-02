@@ -49,7 +49,6 @@
 				api.getAccountInfo({}).then((result)=> {
 					this.rmbMount = result.rmbMount===0 ? '0.00' : result.rmbMount/100;
 					this.xtbMount = result.xtbMount;
-					console.log(this.rmbMount);
 				})
 			},
 			checkBankCardList() {

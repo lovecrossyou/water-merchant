@@ -6,7 +6,6 @@
 			<view class="item-back">
 				<view class="left-label-text">持 卡 人：</view>
 				<input type="text" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.cardHolderName"/>
-				<!-- <textarea class="input-area" placeholder="请填写持卡人姓名" v-model="addCardParam.cardHolderName" /> -->
 				<!-- <textarea class="input-area" placeholder="请填写持卡人姓名" @input="(e) => {addCardParam.cardHolderName=e.target.value}" /> -->
 				</view>
 			
@@ -52,14 +51,19 @@
 			</view>
 		</view>
 		
-		<bankPicker 
-			:show="showBankPiker"
-			:bankList="bankList"
-			:typeList="typeList"
-			@pickerOpen="pickerOpen" 
-			@pickerClose="pickerClose" 
-			@valueChange="valueChange"
-			@bankCertain="bankCertain"></bankPicker>
+		<block v-if="showBankPiker">
+			<view class="picker-modal" @click="pickerClose()">
+				<bankPicker 
+					:show="showBankPiker"
+					:bankList="bankList"
+					:typeList="typeList"
+					@pickerOpen="pickerOpen" 
+					@pickerClose="pickerClose" 
+					@valueChange="valueChange"
+					@bankCertain="bankCertain"></bankPicker>
+			</view>
+		</block>
+		
 	</view>
 </template>
 
@@ -198,7 +202,7 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		justify-content: space-between;
+		/* justify-content: space-between; */
 		width: 100%;
 		height: 100%;
 		position: absolute;
@@ -302,5 +306,21 @@
 	.btn-text {
 		color: #ffffff;
 		font-size: 36upx;
+	}
+	
+	.picker-modal {
+		z-index: 10;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		justify-content: flex-end;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.5);
 	}
 </style>

@@ -133,6 +133,14 @@
 				"navigationBarTextStyle": "black"
 			}
 		}
+		,{
+			"path": "pages/me/account/payPassword",
+			"style": {
+				"navigationBarTitleText": "提现密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
         ,{
             "path" : "pages/registration/registration",
             "style" : {

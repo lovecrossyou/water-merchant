@@ -18,19 +18,23 @@
 		</view>
 
 		<view class="action-btn">
-			<view class="btn-text" @click="withdrawDidClicked">提 现</view>
+			<view class="btn-text" @click="showPasswordModal">下一步</view>
 		</view>
 		
-		<Modal v-show="true"></Modal>
+		<passwordModal 
+		:show="showPswModal"
+		@close="closePasswordModal"
+		@passwordForget="turnToPayPassword"></passwordModal>
+		
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js"
-	import Modal from "../components/Modal.vue"
+	import passwordModal from "../components/passwordModal.vue"
 	export default {
 		components: {
-			Modal,
+			passwordModal,
 		},
 		data() {
 			return {
@@ -86,9 +90,16 @@
 				}
 				this.withdrawParam.rmbMount = this.rmbMount;
 			},
-			withdrawDidClicked:function () {
-				console.log('11111');
+			showPasswordModal: function() {
 				this.showPswModal = true;
+			},
+			closePasswordModal: function() {
+				this.showPswModal = false;
+			},
+			turnToPayPassword: function() {
+				uni.navigateTo({
+					url:'/pages/me/account/payPassword?pswSet=' + 1 + '&pswChange=' + 0 + '&pswConfirm=' + 0,
+				})
 			}
 		},
 		onReady() {
