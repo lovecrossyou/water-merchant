@@ -10,11 +10,13 @@ request.config.baseURL = baseURL;
 
 const errorPrompt = (err) => {
 	console.log('errorPrompt ## ', err);
-	if(err.status === 500){
+	if (err.status === 500) {
 		uni.showToast({
-		title: err.response.data.message || 'fetch data error.',
-		icon: 'none'
-	})}
+			title: err.response.data.message || 'fetch data error.',
+			icon: 'none',
+			position:"bottom"
+		})
+	}
 }
 
 request.interceptors.request.use((request) => {

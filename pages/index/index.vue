@@ -1,10 +1,21 @@
 <template>
 	<view class="home_warpper">
 		<view class="header">
-			<view class="open_shop">
-				<view>您还没有开通店铺</view>
+			
+			<view v-if="status.merchantStatus=== ''" class="open_shop">
+				<view>店铺信息获取中</view>
 				<view class="open_shop_btn" @click="goPage('registration')">立即开店</view>
 			</view>
+			<view v-else-if="status.merchantStatus=== 'pass_status'" class="open_shop">
+				<view>店铺信息展示</view>
+			</view>
+			<view v-else-if="status.merchantStatus=== 'waiting_for_add_shop_info'" class="open_shop">
+				<view>待完善信息</view>
+			</view>
+			<view v-else="status.merchantStatus=== 'waiting_for_add_shop_info'" class="open_shop">
+				<view>店铺审核中</view>
+			</view>
+			
 			<view class="category">
 				<view class="category_item">
 					<view class="col_red">0</view>
@@ -81,7 +92,7 @@
 	</view>
 </template>
 <script>
-	import {mapActions} from "vuex";
+	import {mapActions,mapState} from "vuex";
 	
 	export default {
 			data() {
@@ -120,6 +131,9 @@
 						url:`/pages/${page}/${page}`
 					})
 				}
+			},
+			computed:{
+				...mapState('shop',['status'])
 			}
 		}
 </script>

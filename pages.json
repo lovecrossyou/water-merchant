@@ -40,6 +40,12 @@
 			}
 		},
 		{
+			"path": "pages/me/invite/invite",
+			"style": {
+				"navigationBarTitleText": "邀请"
+			}
+		},
+		{
 			"path": "pages/me/account/account",
 			"style": {
 				"navigationBarTitleText": "钱包"
@@ -149,18 +155,18 @@
 				"navigationBarTitleText": "规格"
 			}
 		}
-// 		,{
-// 			"path": "pages/me/components/detailList",
-// 			"style": {
-// 				"navigationBarTitleText": "规格"
-// 			}
-// 		}
         ,{
             "path" : "pages/merchantInfoapply/merchantInfoapply",
             "style" : {
 				"navigationBarTitleText":"店主信息"
 			}
         }
+		,{
+			"path": "pages/me/components/detailList",
+			"style": {
+				"navigationBarTitleText": "规格"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7B7F84",

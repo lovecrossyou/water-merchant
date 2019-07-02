@@ -13,7 +13,7 @@ const state = {
 	},
 	currentOrder:null,
 	status:{
-		merchantStatus:'pass_status'
+		merchantStatus:''
 	}
 }
 
