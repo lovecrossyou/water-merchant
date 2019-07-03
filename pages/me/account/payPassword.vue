@@ -2,18 +2,18 @@
 	<view class="main">
 		<block v-if="pswChange&&!pswSet&&!pswConfirm">
 			<view class="psw-back">
-				<view class="attention-text">请输入提现密码</view>
+				<view class="attention-text">请输入支付密码</view>
 
-				<input type="number" class="password-input" maxlength="6" :focus="true" v-model="pswSetStr"/>
+				<input type="number" class="password-input" maxlength="6" :focus="changeFocus" v-model="pswOld" @input="setInput"/>
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
-						<view class="password-item">
-							<view class="password-hide-text" v-if="pswSetStr.length>index">*</view>
+						<view class="password-item" @click="focusChangeInput">
+							<view class="password-hide-text" v-if="pswOld.length>index">*</view>
 						</view>
 					</block>
 				</view>
 
-				<view class="action-btn" @click="turnToPswConfirm">
+				<view class="action-btn" @click="turnToPswSet">
 					<view class="action-btn-text">下一步</view>
 				</view>
 			</view>
@@ -21,9 +21,9 @@
 
 		<block v-else-if="pswSet&&!pswChange&&!pswConfirm">
 			<view class="psw-back">
-				<view class="attention-text">请设置新的提现密码</view>
+				<view class="attention-text">请设置新的支付密码</view>
 
-				<input type="number" class="password-input" maxlength="6" :focus="true" v-model="pswSetStr" />
+				<input type="number" class="password-input" maxlength="6" :focus="setFocus" v-model="pswSetStr" @input="setInput"/>
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
 						<view class="password-item" @click="focusSetInput">
@@ -40,9 +40,9 @@
 
 		<block v-else-if="pswConfirm&&!pswChange&&!pswSet">
 			<view class="psw-back">
-				<view class="attention-text">请再次确认提现密码</view>
+				<view class="attention-text">请再次确认支付密码</view>
 
-				<input type="number" class="password-input" maxlength="6" :focus="true" v-model="pswConfirmStr" />
+				<input type="number" class="password-input" maxlength="6" :focus="confirmFocus" v-model="pswConfirmStr" @input="setInput"/>
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
 						<view class="password-item" @click="focusConfirmInput">
@@ -61,48 +61,98 @@
 
 <script>
 	export default {
-		props: {
-			checkCode: "",
-			oldPayPassword: "",
-			payPassword: "",
-			phoneNum: "",
-
-		},
 		data() {
 			return {
-				setInputFocus: false,
-				confirmInputFocus: true,
+				isPswChange: 0,
 				
-				pswSet: false,
 				pswChange: false,
+				pswSet: false,
 				pswConfirm: false,
 				
 				pswHolder: '012345',
 				
+				changeFocus: false,
+				setFocus: false,
+				confirmFocus: false,
+				
 				pswOld: '',
 				pswSetStr: '',
-				pswConfirmStr: ''
+				pswConfirmStr: '',
+				
+				checkCode: '',
+				oldPayPassword: '',
+				payPassword: '',
+				phoneNum: '',
 			}
 		},
 		methods: {
+			focusChangeInput: function() {
+				console.log('11111');
+				this.changeFocus = true;
+			},
 			focusSetInput: function() {
-				this.setInputFocus = true;
+				console.log('11111');
+				this.setFocus = true;
 			},
 			focusConfirmInput: function() {
-				this.confirmInputFocus = true;
+				console.log('11111');
+				this.confirmFocus = true;
 			},
-			confirmInput: function(e) {
-				console.log(e.target.value);
+			setInput: function(event) {
+				console.log(event.target.value);
+			},
+			turnToPswSet: function() {
+				this.pswChange = false;
+				this.pswSet = true;
+				this.pswConfirm = false;
 			},
 			turnToPswConfirm: function() {
+				this.pswChange = false;
+				this.pswSet = false;
 				this.pswConfirm = true;
+			},
+			passwordComplete: function() {
+				if (this.pswSetStr!==this.pswConfirmStr) {
+					uni.showToast({
+						icon: "none",
+						title: "请确认两次输入密码一致"
+					})
+					return;
+				}
+				let params = {
+					phoneNum: this.phoneNum,
+					checkCode: this.checkCode,
+					oldPayPassword: this.oldPayPassword,
+					payPassword: this.payPassword,
+					
+				}
+				if (this.isPswChange) {
+					this.changePayPassword(params);
+				} else {
+					this.resetPayPassword(params);
+				}
+			},
+			changePayPassword: function(params) {
+				api.changePayPassword(params).then((result)=>{
+					
+				})
+			},
+			resetPayPassword: function(params) {
+				api.resetPayPassword(params).then((result)=>{
+					
+				})
 			}
 		},
 		onLoad: function(option) {
 			console.log(option);
-			this.pswChange = option.pswChange;
-			this.pswSet = option.pswSet;
-			this.pswConfirm = option.pswConfirm;
+			
+			this.isPswChange = parseInt(option.isPswChange);
+			this.pswChange = this.isPswChange===1?true:false;
+			this.pswSet = this.isPswChange===0?true:false;
+			this.phoneNum = option.phoneNum;
+			this.checkCode = option.checkCode;
+			console.log(this.isPswChange);
+			console.log(this.pswChange+'/'+this.pswSet+'/'+this.pswConfirm);
 		}
 	}
 </script>
@@ -115,6 +165,7 @@
 
 		.psw-back {
 			display: flex;
+			flex: 1;
 			flex-direction: column;
 			align-items: center;
 			width: 100%;

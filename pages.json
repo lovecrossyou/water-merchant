@@ -136,7 +136,23 @@
 		,{
 			"path": "pages/me/account/payPassword",
 			"style": {
-				"navigationBarTitleText": "提现密码",
+				"navigationBarTitleText": "支付密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
+		,{
+			"path": "pages/me/account/passwordSecurity",
+			"style": {
+				"navigationBarTitleText": "密码设置",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
+		,{
+			"path": "pages/me/account/pswCheckcode",
+			"style": {
+				"navigationBarTitleText": "忘记支付密码",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
