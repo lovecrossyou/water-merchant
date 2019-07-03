@@ -8,13 +8,13 @@
 			<view v-else-if="status.merchantStatus=== 'pass_status'" class="open_shop">
 				<view class="store_detail">
 					<view class="head_portrait">
-						<img :src="jinmu" alt="">
+						<img :src="shopInfo.imageUrl" alt="">
 						<view>
-							<view class="store_name">喜腾山泉旗舰店</view>
-							<view class="store_number">商户号：7006520</view>
+							<view class="store_name">{{shopInfo.name}}</view>
+							<view class="store_number">商户号：{{shopInfo.shopNumber}}</view>
 						</view>
 					</view>
-					<view class="enter_store">
+					<view class="enter_store" @click="goPage('registration')">
 						<view>进入店铺</view>
 						<img :src="icon_right" alt="">
 					</view>
@@ -132,10 +132,11 @@
 				let that = this;
 				this.checkLogin(()=>{
 					that.shopStatus();
+					that.fetchShopInfo();
 				});
 			},
 			methods: {
-				...mapActions(['checkLogin']),
+				...mapActions(['checkLogin','fetchShopInfo']),
 				...mapActions('shop',['shopStatus']),
 				goPage(page){
 					console.log(page)
@@ -145,6 +146,7 @@
 				}
 			},
 			computed:{
+				...mapState(['shopInfo']),
 				...mapState('shop',['status'])
 			}
 		}
