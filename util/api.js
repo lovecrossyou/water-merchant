@@ -25,7 +25,6 @@ const api = {
 	// 分类&标签
 	getTagList: () => request.post("/merchant/productTagList"),
 	getCategoryList: () => request.get("/merchant/categoryList"),
-<<<<<<< HEAD
 	categoryList: restaurant_id => request.get("/merchant/getcategory/"+restaurant_id),
 	getCategory: ()=>request.get('/merchant/v2/restaurant/category'),
 	addCategory: data => request.post("/merchant/addcategory", data, 'POST'),
@@ -42,19 +41,6 @@ const api = {
 	setPayPassword: (params)=> request.post("/payPassword/setPayPassword",params),
 	changePayPassword: (params)=> request.post("/payPassword/changePayPassword",params),
 	resetPayPassword: (params)=> request.post("/payPassword/resetPayPassword",params),
-=======
-	categoryList: restaurant_id => request.get("/merchant/getcategory/" + restaurant_id),
-	getCategory: () => request.get('/merchant/v2/restaurant/category'),
-	addCategory: data => request.post("/merchant/addcategory", data, 'POST'),
-
-	//银行卡相关
-	getAddCardCheckCode: () => request.post("/checkCode/addBankCard"),
-	addBankCardToBackground: (params) => request.post("/bankCard/addBankCard", params),
-	getBankList: () => request.post("/bankCard/getBankList"),
-	getUserBankCardList: () => request.post("/bankCard/userBankCardList"),
-	rmbWithdraw: (params) => request.post("/account/withDraw", params),
-	getAccountInfo: () => request.post("/account/merchantAccount"),
->>>>>>> d7e179247e5093ea274b20cf0121ae13fa7afb05
 
 	// 添加商品
 	createProduct: data => request.post("/merchant/addfood", data, 'POST'),
