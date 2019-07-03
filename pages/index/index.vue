@@ -129,7 +129,7 @@
 					console.log(page)
 					uni.navigateTo({
 						url:`/pages/${page}/${page}`
-					})
+					});
 				}
 			},
 			computed:{
