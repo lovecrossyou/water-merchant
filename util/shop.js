@@ -12,6 +12,7 @@ const shop = {
 	changePassword:data=> request.post("/merchantUserMe/changePassword",data,'POST'),
 	
 	sendCheckCodeOfChangePassword:data=> request.post("/checkCode/changePassword",data,'POST'),
+    shopDetail: data => request.post("/shopManage/shopDetail", data, 'POST')
 }
 
 export default shop

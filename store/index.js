@@ -5,6 +5,7 @@ import employe from './modules/employe.js'
 import shop from './modules/shop.js'
 import distribution from './modules/distribution.js'
 import api from '../util/api.js'
+import shopapi from '../util/shop.js'
 
 import servcie from "../service.js"
 import {
@@ -32,7 +33,7 @@ const store = new Vuex.Store({
 		shopInfo: {
 			"name": "",
 			"address": "",
-			"addressDetail":"",
+			"addressDetail": "",
 			"latitude": 39.92843,
 			"longitude": 116.35073,
 			"description": "",
@@ -76,14 +77,21 @@ const store = new Vuex.Store({
 			state
 		}, cb) {
 			let token = uni.getStorageSync(TOKEN_KEY);
-			if(!token){
+			if (!token) {
 				uni.reLaunch({
-					url:"/pages/login/login"
+					url: "/pages/login/login"
 				});
-			}
-			else{
+			} else {
 				cb && cb();
 			}
+		},
+
+		async fetchShopInfo({
+			commit,
+			state
+		}) {
+			const res = await shopapi.shopDetail();
+			state.shopInfo = res;
 		}
 	}
 })

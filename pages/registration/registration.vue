@@ -2,7 +2,6 @@
 	<view class="apply_wrapper">
 		<!-- 基本信息 -->
 		<view class="basic_msg">
-
 			<view style="width: 100%;padding:0 30upx;box-sizing: border-box;">
 				<view class="input_cont">
 					<view class="left_text">

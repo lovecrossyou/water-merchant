@@ -12,7 +12,6 @@
 			<view class="item-back">
 				<view class="left-label-text">卡    号：</view>
 				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.bankCardNumber"/>
-				<!-- <textarea class="input-area" placeholder="请填写银行卡卡号" v-model="addCardParam.bankCardNumber"/> -->
 			</view>
 			
 			<view class="item-back">
@@ -20,25 +19,23 @@
 				<view class="click-area">
 					<view class="hold-text" :class="[bankNameType==='请选择银行'?'hold-text':'select-text']" @click="pickerOpen()">{{bankNameType}}</view>
 				</view>
-				<image class="right-arrow"></image>
+				<image class="right-arrow" 
+				       src="http://qnimage.xiteng.com/right_icon@2x.png"></image>
 			</view>
 			
 			<view class="item-back">
 				<view class="left-label-text">开户支行：</view>
 				<input type="text" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.depositBank"/>
-				<!-- <textarea class="input-area" placeholder="请填写开户支行名称" v-model="addCardParam.depositBank"/> -->
 			</view>
 			
 			<view class="item-back">
 				<view class="left-label-text">手 机 号：</view>
 				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.phoneNum"/>
-				<!-- <textarea class="input-area" placeholder="请填写银行预留手机号" v-model="addCardParam.phoneNum"/> -->
 			</view>
 			
 			<view class="item-back">
 				<view class="left-label-text">验 证 码：</view>				
 				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.checkCode"/>
-				<!-- <textarea class="input-area" placeholder="请填写验证码" v-model="addCardParam.checkCode"/> -->
 				<view class="checkcode-btn-back" @click="getAddCardCheckCode()">
 					<view class="checkcode-btn">
 						<view class="checkcode-text">获取验证码</view>
