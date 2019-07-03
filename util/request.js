@@ -9,10 +9,14 @@ export const baseURL = 'http://huipay.com/huibeiwater'
 request.config.baseURL = baseURL;
 
 const errorPrompt = (err) => {
-	uni.showToast({
-		title: err.message || 'fetch data error.',
-		icon: 'none'
-	})
+	console.log('errorPrompt ## ', err);
+	if (err.status === 500) {
+		uni.showToast({
+			title: err.response.data.message || 'fetch data error.',
+			icon: 'none',
+			position:"bottom"
+		})
+	}
 }
 
 request.interceptors.request.use((request) => {

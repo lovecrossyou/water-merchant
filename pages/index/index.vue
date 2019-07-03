@@ -1,10 +1,32 @@
 <template>
 	<view class="home_warpper">
 		<view class="header">
-			<view class="open_shop">
-				<view>您还没有开通店铺</view>
+			<view v-if="status.merchantStatus=== ''" class="open_shop">
+				<view>店铺信息获取中</view>
 				<view class="open_shop_btn" @click="goPage('registration')">立即开店</view>
 			</view>
+			<view v-else-if="status.merchantStatus=== 'pass_status'" class="open_shop">
+				<view class="store_detail">
+					<view class="head_portrait">
+						<img :src="shopInfo.imageUrl" alt="">
+						<view>
+							<view class="store_name">{{shopInfo.name}}</view>
+							<view class="store_number">商户号：{{shopInfo.shopNumber}}</view>
+						</view>
+					</view>
+					<view class="enter_store" @click="goPage('registration')">
+						<view>进入店铺</view>
+						<img :src="icon_right" alt="">
+					</view>
+				</view>
+			</view>
+			<view v-else-if="status.merchantStatus=== 'waiting_for_add_shop_info'" class="open_shop">
+				<view>待完善信息</view>
+			</view>
+			<view v-else="status.merchantStatus=== 'waiting_for_add_shop_info'" class="open_shop">
+				<view>店铺正在等待审核中...</view>
+			</view>
+			
 			<view class="category">
 				<view class="category_item">
 					<view class="col_red">0</view>
@@ -81,7 +103,7 @@
 	</view>
 </template>
 <script>
-	import {mapActions} from "vuex";
+	import {mapActions,mapState} from "vuex";
 	
 	export default {
 			data() {
@@ -97,6 +119,7 @@
 					
 					shop_icon_order:"../../static/index/shop_icon_order.png",
 					shop_icon_right:"../../static/index/shop_icon_right.png",
+					icon_right:"../../static/index/icon_right.png",
 					
 					shop_order_btn_pending_payment:"../../static/index/shop_order_btn_pending_payment.png",
 					shop_order_btn_delivery_pending:"../../static/index/shop_order_btn_delivery_pending.png",
@@ -109,17 +132,22 @@
 				let that = this;
 				this.checkLogin(()=>{
 					that.shopStatus();
+					that.fetchShopInfo();
 				});
 			},
 			methods: {
-				...mapActions(['checkLogin']),
+				...mapActions(['checkLogin','fetchShopInfo']),
 				...mapActions('shop',['shopStatus']),
 				goPage(page){
 					console.log(page)
 					uni.navigateTo({
 						url:`/pages/${page}/${page}`
-					})
+					});
 				}
+			},
+			computed:{
+				...mapState(['shopInfo']),
+				...mapState('shop',['status'])
 			}
 		}
 </script>
@@ -144,6 +172,40 @@
 			width: 100%;
 			background:#FFFFFF;
 			margin-bottom:20upx;
+			.store_detail{
+				width:100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-left:36upx;
+				padding-right:24upx;
+				box-sizing: border-box;
+				.head_portrait{
+					display: flex;
+					img{
+						width:88upx;
+						height:86upx;
+						margin-right:20upx;
+					}
+					.store_name{
+						font-size:32upx;
+					}
+					.store_number{
+						font-size:26upx;
+						color:#F4E1E1;
+					}
+				}
+				.enter_store{
+					font-size:28upx;
+					display: flex;
+					align-items: center;
+					img{
+						width:18upx;
+						height:30upx;
+						margin-left:16upx;
+					}
+				}
+			}
 			.open_shop {
 				display: flex;
 				flex-direction: column;

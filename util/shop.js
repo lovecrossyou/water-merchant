@@ -4,8 +4,15 @@ import {baseURL} from './request.js'
 
 
 const shop = { 
-	status: () => request.post("/merchantAdmin/status", {}, 'POST'),
-	create: data => request.post("/merchantAdmin/shopInfo", data, 'POST')
+	status: () => request.post("/merchantAdmin/merchantStatus", {}, 'POST'),
+	create: data => request.post("/merchantAdmin/shopInfo", data, 'POST'),
+	checkcode:data=> request.post("/checkCode/merchantUser/register",data,'POST'),
+	createUser:data=> request.post("/merchantAdmin/createUser",data,'POST'),
+	
+	changePassword:data=> request.post("/merchantUserMe/changePassword",data,'POST'),
+	
+	sendCheckCodeOfChangePassword:data=> request.post("/checkCode/changePassword",data,'POST'),
+    shopDetail: data => request.post("/shopManage/shopDetail", data, 'POST')
 }
 
 export default shop

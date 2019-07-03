@@ -46,6 +46,18 @@
 			}
 		},
 		{
+			"path": "pages/me/invite/invitatoryReward",
+			"style": {
+				"navigationBarTitleText": "邀请的奖励"
+			}
+		},
+		{
+			"path": "pages/me/invite/invitatoryUser",
+			"style": {
+				"navigationBarTitleText": "邀请的店铺"
+			}
+		},
+		{
 			"path": "pages/me/account/account",
 			"style": {
 				"navigationBarTitleText": "钱包"
@@ -179,6 +191,12 @@
 				"navigationBarTitleText": "规格"
 			}
 		}
+        ,{
+            "path" : "pages/merchantInfoapply/merchantInfoapply",
+            "style" : {
+				"navigationBarTitleText":"店主信息"
+			}
+        }
 		,{
 			"path": "pages/me/components/detailList",
 			"style": {
