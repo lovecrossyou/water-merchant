@@ -201,6 +201,11 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
+		}, {
+			"path": "pages/me/components/share",
+			"style": {
+				"navigationBarTitleText": "分享"
+			}
 		}
 	],
 	"tabBar": {

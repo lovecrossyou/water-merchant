@@ -52,7 +52,8 @@
 					{usericon:'../../../static/account/icon.jpg',shopname:'朱元璋',time:'1天前',reward:'2.99'}
 				],
 				list:[],
-				isonclick:true
+				isonclick:true,
+				showdrawer:false
 			}
 		},
 		methods: {
