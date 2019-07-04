@@ -10,6 +10,11 @@
 			"style": {
 				"navigationBarTitleText": "立即开店"
 			}
+		},{
+			"path": "pages/replenishStock/replenishStock",
+			"style": {
+				"navigationBarTitleText": "进货"
+			}
 		},
 		{
 			"path": "pages/login/login",
@@ -219,7 +224,7 @@
 				"selectedIconPath": "static/tab/iconfont-dianpu_l@2x.png"
 			},
 			{
-				"pagePath": "pages/order/order",
+				"pagePath": "pages/replenishStock/replenishStock",
 				"text": "进货",
 				"iconPath": "static/tab/me_icon _cart@2x.png",
 				"selectedIconPath": "static/tab/me_icon _cart_l@2x.png"

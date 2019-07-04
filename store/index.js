@@ -4,6 +4,7 @@ import product from './modules/product.js'
 import employe from './modules/employe.js'
 import shop from './modules/shop.js'
 import distribution from './modules/distribution.js'
+import replenishStock from './modules/replenishStock.js'
 import api from '../util/api.js'
 import shopapi from '../util/shop.js'
 
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
 		product,
 		employe,
 		shop,
-		distribution
+		distribution,
+		replenishStock
 	},
 	state: {
 		/**
