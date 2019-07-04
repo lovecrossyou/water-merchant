@@ -72,7 +72,7 @@
 			</view>
 		</view>
 		<view class="sale_container">
-			<view class="sale_order">
+			<view class="sale_order" @click="enterOrderList(0)">
 				<view class="sale_order_left">
 					<img :src="shop_icon_order" alt="">
 					<view>销售订单</view>
@@ -82,19 +82,19 @@
 				</view>
 			</view>
 			<view class="order_state">
-				<view class="category_item">
+				<view class="category_item" @click="enterOrderList(1)">
 					<img :src="shop_order_btn_pending_payment" alt="">
 					<view class="col_gray">待付款</view>
 				</view>
-				<view class="category_item">
+				<view class="category_item" @click="enterOrderList(2)">
 					<img :src="shop_order_btn_delivery_pending" alt="">
 					<view class="col_gray">待送货</view>
 				</view>
-				<view class="category_item">
+				<view class="category_item" @click="enterOrderList(3)">
 					<img :src="shop_order_btn_recieve" alt="">
 					<view class="col_gray">待收货</view>
 				</view>
-				<view class="category_item">
+				<view class="category_item" @click="enterOrderList(4)">
 					<img :src="shop_order_btn_evaluate" alt="">
 					<view class="col_gray">评价</view>
 				</view>
@@ -142,6 +142,11 @@
 					console.log(page)
 					uni.navigateTo({
 						url:`/pages/${page}/${page}`
+					});
+				},
+				enterOrderList(orderStatus){
+					uni.navigateTo({
+						url:'../order/orderList'
 					});
 				}
 			},
