@@ -1,43 +1,57 @@
 <template>
 	<view class="main">
 
-		<view class="card-choose" @click="turnToBankCardList()">
-			<image class="bank-icon" :src="firstCard.bankIcon"></image>
-			<view class="bank-name-No">{{firstCard.bankName}}({{firstCard.lastBankCardNum}})</view>
-			<image class="right-arrow"></image>
-		</view>
+		<block v-if="pageLoadingDone==='loading'">
+			<PageLoading></PageLoading>
+		</block>
 
-		<view class="withdraw-amount">
-			<view class="label-text">提现数额</view>
-			<input class="amount-input" type="digit" placeholder="请填写提现数额" placeholder-style="color:#999999" v-model="withdrawParam.rmbMount" @blur="getWithdrawAmount">
-		</view>
+		<block v-else-if="pageLoadingDone==='error'">
+			<PageError @reload="reload"></PageError>
+		</block>
 
-		<view class="balance-attention">
-			<view class="balance">余额{{rmbMount}}元，</view>
-			<view class="withdraw-all" @click="withdrawAll()">全部提现</view>
-		</view>
+		<block v-else-if="pageLoadingDone==='done'">
+			<view class="card-choose" @click="turnToBankCardList()">
+				<image class="bank-icon" :src="firstCard.bankIcon"></image>
+				<view class="bank-name-No">{{firstCard.bankName}}({{firstCard.lastBankCardNum}})</view>
+				<image class="right-arrow" src="http://qnimage.xiteng.com/right_icon@2x.png"></image>
+			</view>
 
-		<view class="action-btn">
-			<view class="btn-text" @click="showPasswordModal">下一步</view>
-		</view>
-		
-		<passwordModal 
-		:show="showPswModal"
-		@close="closePasswordModal"
-		@passwordForget="turnToPayPassword"></passwordModal>
-		
+			<view class="withdraw-amount">
+				<view class="label-text">提现数额</view>
+				<input class="amount-input" type="digit" placeholder="请填写提现数额" placeholder-style="color:#999999" v-model="withdrawParam.rmbMount"
+				 @blur="getWithdrawAmount">
+			</view>
+
+			<view class="balance-attention">
+				<view class="balance">余额{{rmbMount}}元，</view>
+				<view class="withdraw-all" @click="withdrawAll()">全部提现</view>
+			</view>
+
+			<view class="action-btn">
+				<view class="btn-text" @click="checkHasPayPassword">下一步</view>
+			</view>
+
+			<passwordModal :show="showPswModal" @close="closePasswordModal" @passwordForget="turnToPswCheckcode"></passwordModal>
+		</block>
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js"
+	import PageLoading from "../../component/PageLoading.vue"
+	import PageError from "../../component/PageError.vue"
 	import passwordModal from "../components/passwordModal.vue"
 	export default {
 		components: {
+			PageLoading,
+			PageError,
 			passwordModal,
 		},
 		data() {
 			return {
+				pageLoadingDone: 'error',
+				bankcardLoad: false,
+				userAmountLoad: false,
 				rmbMount: 0,
 				showPswModal: false,
 				firstCard: {
@@ -52,15 +66,28 @@
 			}
 		},
 		methods: {
+			reload: function() {
+				this.pageLoadingDone = 'loading';
+				this.getRmbAmount();
+				this.getFistBankCard();
+			},
 			getFistBankCard() {
 				api.getUserBankCardList({}).then((result) => {
 					this.firstCard = result[0];
+					this.bankcardLoad = true
+					// this.pageLoadingDone = this.bankcardLoad && this.userAmountLoad ? "done" : "loading"
+				}).catch((error) => {
+					this.pageLoadingDone = 'error';
 				})
 			},
 			getRmbAmount() {
 				api.getAccountInfo({}).then((result) => {
 					this.rmbMount = result.rmbMount;
+					this.userAmountLoad = true;
+					// this.pageLoadingDone = this.bankcardLoad && this.userAmountLoad ? "done" : "loading"
 					console.log(this.rmbMount);
+				}).catch((error) => {
+					this.pageLoadingDone = 'error';
 				})
 			},
 			turnToBankCardList() {
@@ -96,9 +123,36 @@
 			closePasswordModal: function() {
 				this.showPswModal = false;
 			},
-			turnToPayPassword: function() {
+			checkHasPayPassword: function() {
+				let that = this;
+				api.checkHasPayPassword({}).then((result) => {
+					console.log(result);
+					if (result) {
+						this.showPasswordModal();
+					} else {
+						uni.showModal({
+							title: '提示',
+							content: '您还没有设置支付密码，是否去设置？',
+							success: function(res) {
+								if (res.confirm) {
+									console.log('用户点击确定');
+									that.turnToPswSet();
+								} else if (res.cancel) {
+									console.log('用户点击取消');
+								}
+							}
+						});
+					}
+				})
+			},
+			turnToPswCheckcode: function() {
 				uni.navigateTo({
-					url:'/pages/me/account/payPassword?pswSet=' + 1 + '&pswChange=' + 0 + '&pswConfirm=' + 0,
+					url: "/pages/me/account/pswCheckcode"
+				})
+			},
+			turnToPswSet: function() {
+				uni.navigateTo({
+					url: '/pages/me/account/payPassword?isPswChange=' + 0,
 				})
 			}
 		},

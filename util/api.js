@@ -28,17 +28,22 @@ const api = {
 	// 分类&标签
 	getTagList: () => request.post("/merchant/productTagList"),
 	getCategoryList: () => request.get("/merchant/categoryList"),
-	categoryList: restaurant_id => request.get("/merchant/getcategory/" + restaurant_id),
-	getCategory: () => request.get('/merchant/v2/restaurant/category'),
+	categoryList: restaurant_id => request.get("/merchant/getcategory/"+restaurant_id),
+	getCategory: ()=>request.get('/merchant/v2/restaurant/category'),
 	addCategory: data => request.post("/merchant/addcategory", data, 'POST'),
-
+	
 	//银行卡相关
-	getAddCardCheckCode: () => request.post("/checkCode/addBankCard"),
-	addBankCardToBackground: (params) => request.post("/bankCard/addBankCard", params),
-	getBankList: () => request.post("/bankCard/getBankList"),
-	getUserBankCardList: () => request.post("/bankCard/userBankCardList"),
-	rmbWithdraw: (params) => request.post("/account/withDraw", params),
-	getAccountInfo: () => request.post("/account/merchantAccount"),
+	getAddCardCheckCode: (params)=> request.post("/checkCode/addBankCard",params),
+	addBankCardToBackground: (params)=> request.post("/bankCard/addBankCard", params),
+	getBankList: ()=> request.post("/bankCard/getBankList"),
+	getUserBankCardList: ()=> request.post("/bankCard/userBankCardList"),
+	rmbWithdraw: (params)=> request.post("/account/withDraw", params),
+	getAccountInfo: ()=> request.post("/account/merchantAccount"),
+	getPayPswResetCheckCode: (params)=> request.post("/checkCode/changePassword",params),
+	checkHasPayPassword: ()=> request.post("/payPassword/checkHasPayPassword"),
+	setPayPassword: (params)=> request.post("/payPassword/setPayPassword",params),
+	changePayPassword: (params)=> request.post("/payPassword/changePayPassword",params),
+	resetPayPassword: (params)=> request.post("/payPassword/resetPayPassword",params),
 
 	// 添加商品
 	createProduct: data => request.post("/merchant/addfood", data, 'POST'),

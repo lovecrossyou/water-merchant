@@ -27,6 +27,17 @@
 			<view class="text">提现</view>
 			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
 		</view>
+		
+		<view class="accountBill" @click="turnToBankCardList">
+			<image class="img" src="../../../static/account/icon.jpg"></image>
+			<view class="text">银行卡</view>
+			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
+		</view>
+		<view class="balance" @click="turnToPasswordSecurity">
+			<image class="img" src="../../../static/account/icon.jpg"></image>
+			<view class="text">密码设置</view>
+			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
+		</view>
 	</view>
 </template>
 
@@ -75,13 +86,22 @@
 			},
 			turnToWithdraw() {
 				uni.navigateTo({
-					url: "./withdraw"
+					url: "/pages/me/account/withdraw"
 				})
 			},
 			turnToAddBankCardDetail() {
 				uni.navigateTo({
-					// url: "./addCardDetail"
-					url: "./bankCardList"
+					url: "/pages/me/account/bankCardList"
+				})
+			},
+			turnToBankCardList: function() {
+				uni.navigateTo({
+					url: "/pages/me/account/bankCardList"
+				})
+			},
+			turnToPasswordSecurity: function() {
+				uni.navigateTo({
+					url: "/pages/me/account/passwordSecurity"
 				})
 			}
 		},

@@ -86,7 +86,7 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/distribution/productDetails",
 			"style": {
 				"navigationBarTitleText": "商品详情",
@@ -98,72 +98,82 @@
 			"style": {
 				"navigationBarTitleText": "添加商品"
 			}
-		}
-        ,{
+		}, {
 			"path": "pages/product/category-list",
 			"style": {
 				"navigationBarTitleText": "分类",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		}
-		,{
+		}, {
 			"path": "pages/product/tag-list",
 			"style": {
 				"navigationBarTitleText": "标签",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/account/balance",
 			"style": {
 				"navigationBarTitleText": "提现",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/account/addBankCard",
 			"style": {
 				"navigationBarTitleText": "添加银行卡",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/account/addCardDetail",
 			"style": {
 				"navigationBarTitleText": "添加银行卡",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/account/withdraw",
 			"style": {
 				"navigationBarTitleText": "提现",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/account/bankCardList",
 			"style": {
 				"navigationBarTitleText": "银行卡",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		}
-		,{
+		}, {
 			"path": "pages/me/account/payPassword",
 			"style": {
-				"navigationBarTitleText": "提现密码",
+				"navigationBarTitleText": "支付密码",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		}
-        ,{
-            "path" : "pages/registration/registration",
-            "style" : {
-				"navigationBarTitleText":"入驻"
+		}, {
+			"path": "pages/me/account/passwordSecurity",
+			"style": {
+				"navigationBarTitleText": "密码设置",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
-        },{
+		}, {
+			"path": "pages/me/account/pswCheckcode",
+			"style": {
+				"navigationBarTitleText": "忘记支付密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/registration/registration",
+			"style": {
+				"navigationBarTitleText": "入驻"
+			}
+		}, {
 			"path": "pages/product/shopList",
 			"style": {
 				"navigationBarTitleText": "选择店铺"
@@ -179,20 +189,25 @@
 			"style": {
 				"navigationBarTitleText": "规格"
 			}
-		}
-        ,{
-            "path" : "pages/merchantInfoapply/merchantInfoapply",
-            "style" : {
-				"navigationBarTitleText":"店主信息"
+		}, {
+			"path": "pages/merchantInfoapply/merchantInfoapply",
+			"style": {
+				"navigationBarTitleText": "店主信息"
 			}
-        }
-		,{
+		}, {
 			"path": "pages/me/components/detailList",
 			"style": {
 				"navigationBarTitleText": "规格"
 			}
+		}, {
+			"path": "pages/order/orderList",
+			"style": {
+				"navigationBarTitleText": "销售订单",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
-    ],
+	],
 	"tabBar": {
 		"color": "#7B7F84",
 		"selectedColor": "#FF5255",
@@ -238,4 +253,3 @@
 		}]
 	}
 }
-
