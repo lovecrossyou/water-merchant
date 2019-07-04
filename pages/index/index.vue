@@ -146,7 +146,7 @@
 				},
 				enterOrderList(orderStatus){
 					uni.navigateTo({
-						url:'../order/orderList'
+						url:'../order/orderList?orderStatus='+orderStatus
 					});
 				}
 			},

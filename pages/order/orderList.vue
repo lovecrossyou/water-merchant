@@ -3,7 +3,7 @@
 		<view class="order-item" v-for="(order, index) in orderList" :key="index">
 			<view class="time-content">
 				<view class="time">下单时间：2017-7-21 09:32</view>
-				<view class="time status">待付款</view>
+				<view class="time status">{{order.orderState}}</view>
 			</view>
 			<view class="product-content" v-for="(product, index2) in order.productList" :key="index2">
 				<image :src="productIcon" class="product-image"></image>
@@ -31,16 +31,70 @@
 export default {
 	data() {
 		return {
-			orderList: [
-				{ productList: [1], orderStatus: 'cancel' },
-				{ productList: [1, 2], orderStatus: 'wait' },
-				{ productList: [1], orderStatus: 'cancel' },
-				{ productList: [1, 2, 3],orderStatus:'complete' },
-				{ productList: [1],orderStatus:'cancel' }
-			],
+			orderList: [],
 			productIcon: '../../static/distribution/product_icon.png',
 			completeIcon: '../../static/order/complete.png'
 		};
+	},
+	onLoad(opts) {
+		switch (opts.orderStatus) {
+			//全部订单
+			case '0':
+				{
+					this.orderList = [
+						{ productList: [1], orderStatus: 'cancel', orderState: '已取消' },
+						{ productList: [1, 2], orderStatus: 'wait', orderState: '待送货' },
+						{ productList: [1], orderStatus: 'cancel', orderState: '待付款' },
+						{ productList: [1, 2, 3], orderStatus: 'complete', orderState: '已完成' },
+						{ productList: [1], orderStatus: 'cancel', orderState: '待收货' }
+					];
+				}
+				break;
+			//待付款
+			case '1':
+				{
+					this.orderList = [
+						{ productList: [1], orderStatus: 'cancel', orderState: '待付款' },
+						{ productList: [1, 2], orderStatus: 'cancel', orderState: '待付款' },
+						{ productList: [1], orderStatus: 'cancel', orderState: '待付款' },
+						{ productList: [1, 2, 3], orderStatus: 'cancel', orderState: '待付款' }
+					];
+				}
+				break;
+			//待送货
+			case '2':
+				{
+					this.orderList = [
+						{ productList: [1, 2], orderStatus: 'wait', orderState: '待送货' },
+						{ productList: [1], orderStatus: 'wait', orderState: '待送货' },
+						{ productList: [1], orderStatus: 'wait', orderState: '待送货' },
+						{ productList: [1, 2, 3], orderStatus: 'wait', orderState: '待送货' }
+					];
+				}
+				break;
+			//待收货
+			case '3':
+				{
+					this.orderList = [
+						{ productList: [1], orderStatus: 'cancel', orderState: '待收货' },
+						{ productList: [1, 2], orderStatus: 'cancel', orderState: '待收货' },
+						{ productList: [1], orderStatus: 'cancel', orderState: '待收货' },
+						{ productList: [1, 3, 3], orderStatus: 'cancel', orderState: '待收货' }
+					];
+				}
+				break;
+			//评价
+			case '4':
+				{
+					this.orderList = [
+						{ productList: [1, 2, 3], orderStatus: 'complete', orderState: '已完成' },
+						{ productList: [1], orderStatus: 'complete', orderState: '已完成' },
+						{ productList: [1, 2, 3], orderStatus: 'complete', orderState: '已完成' },
+						{ productList: [1, 2], orderStatus: 'complete', orderState: '已完成' }
+					];
+				}
+				break;
+		}
 	}
 };
 </script>
