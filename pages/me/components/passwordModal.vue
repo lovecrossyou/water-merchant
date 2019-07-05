@@ -12,10 +12,9 @@
 
 			<view class="amount-back">
 				<view class="amout-label">提现</view>
-				<view class="amount">¥100.00</view>
+				<view class="amount">¥{{rmbBalance}}</view>
 			</view>
 
-			<input type="number" class="password-input" maxlength="6" :focus="inputFocus" v-model="passwordStr" />
 			<view class="password-input-back">
 				<block v-for="(i,index) in passwordHolder" :key="index">
 					<view class="password-item">
@@ -23,11 +22,14 @@
 					</view>
 				</block>
 			</view>
-			
-			<view class="passwordForget-btn">
-				<view class="pswdForget-btn-text" @click="passwordForget">忘记密码？</view></view>
+			<input type="number" class="password-input" maxlength="6" focus :cursor="passwordStr.length-1" v-model="passwordStr" @input="pswInput"/>
 
-			<view class="withdraw-btn">
+
+			<view class="passwordForget-btn">
+				<view class="pswdForget-btn-text" @click="passwordForget">忘记密码？</view>
+			</view>
+
+			<view class="withdraw-btn" @click="withdrawApplication">
 				<view class="withdraw-btn-text">提 现</view>
 			</view>
 		</view>
@@ -38,27 +40,35 @@
 	export default {
 		props: {
 			show: false,
+			rmbBalance: 0,
 		},
 		data() {
 			return {
 				passwordHolder: '012345',
 				passwordStr: '',
-				inputFocus: false,
 			}
 		},
 		methods: {
 			close: function() {
 				this.$emit('close');
 			},
+			pswInput: function(event) {
+				console.log(event.target.value);
+			},
 			passwordForget: function() {
 				// this.close();
 				this.$emit('passwordForget');
 			},
-			focusPasswordInput: function() {
-				this.inputFocus = true
-			},
 			withdrawApplication: function() {
 				console.log(this.passwordStr);
+				if (this.passwordStr.length !== 6) {
+					uni.showToast({
+						icon: "none",
+						title: "请正确输入密码"
+					})
+					return;
+				}
+				this.$emit('@withdraw', this.passwordStr);
 			}
 		}
 	}
@@ -152,20 +162,20 @@
 	}
 
 	.password-input {
+		z-index: 10;
 		width: 480upx;
 		height: 80upx;
-		margin-top: 30upx;
+		margin-top: -80upx;
 		margin-left: 30upx;
-		color: rgba(255,255,255,0);
+		color: rgba(255, 255, 255, 0);
 	}
 
 	.password-input-back {
-		z-index: 10;
 		display: flex;
 		flex-direction: row;
 		width: 480upx;
 		height: 80upx;
-		margin-top: -80upx;
+		margin-top: 30upx;
 		margin-left: 30upx;
 		border-left: solid 1upx #E5E5E5;
 		border-top: solid 1upx #E5E5E5;
@@ -185,14 +195,14 @@
 		color: #333333;
 		font-size: 30upx;
 	}
-	
+
 	.passwordForget-btn {
 		display: flex;
 		justify-content: flex-end;
 		margin-top: 10upx;
 		margin-right: 10upx;
 	}
-	
+
 	.pswdForget-btn-text {
 		line-height: 35upx;
 		font-size: 28upx;

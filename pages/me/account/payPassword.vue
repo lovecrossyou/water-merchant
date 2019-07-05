@@ -4,14 +4,15 @@
 			<view class="psw-back">
 				<view class="attention-text">请输入支付密码</view>
 
-				<input type="number" class="password-input" maxlength="6" :focus="changeFocus" v-model="pswOld" @input="setInput"/>
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
 						<view class="password-item" @click="focusChangeInput">
-							<view class="password-hide-text" v-if="pswOld.length>index">*</view>
+							<view class="password-hide-text" v-if="oldPayPassword.length>index">*</view>
 						</view>
 					</block>
 				</view>
+				<input type="number" class="password-input" maxlength="6" focus :cursor="oldPayPassword.length-1" v-model="oldPayPassword" @input="setInput" />
+
 
 				<view class="action-btn" @click="turnToPswSet">
 					<view class="action-btn-text">下一步</view>
@@ -23,7 +24,6 @@
 			<view class="psw-back">
 				<view class="attention-text">请设置新的支付密码</view>
 
-				<input type="number" class="password-input" maxlength="6" :focus="setFocus" v-model="pswSetStr" @input="setInput"/>
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
 						<view class="password-item" @click="focusSetInput">
@@ -31,6 +31,8 @@
 						</view>
 					</block>
 				</view>
+				<input type="number" class="password-input" maxlength="6" focus :cursor="pswSetStr.length-1" v-model="pswSetStr"
+				 @input="setInput" />
 
 				<view class="action-btn" @click="turnToPswConfirm">
 					<view class="action-btn-text">下一步</view>
@@ -42,7 +44,6 @@
 			<view class="psw-back">
 				<view class="attention-text">请再次确认支付密码</view>
 
-				<input type="number" class="password-input" maxlength="6" :focus="confirmFocus" v-model="pswConfirmStr" @input="setInput"/>
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
 						<view class="password-item" @click="focusConfirmInput">
@@ -50,8 +51,11 @@
 						</view>
 					</block>
 				</view>
+				<input type="number" class="password-input" maxlength="6" focus :curosr="pswConfirmStr.length-1" v-model="pswConfirmStr"
+				 @input="setInput" />
 
-				<view class="action-btn">
+
+				<view class="action-btn" @click="passwordComplete">
 					<view class="action-btn-text">完 成</view>
 				</view>
 			</view>
@@ -60,25 +64,23 @@
 </template>
 
 <script>
+	import api from "@/util/api.js"
 	export default {
 		data() {
 			return {
 				isPswChange: 0,
-				
+				isFirstSet: 0,
+
 				pswChange: false,
 				pswSet: false,
 				pswConfirm: false,
-				
+
 				pswHolder: '012345',
-				
-				changeFocus: false,
-				setFocus: false,
-				confirmFocus: false,
-				
+
 				pswOld: '',
 				pswSetStr: '',
 				pswConfirmStr: '',
-				
+
 				checkCode: '',
 				oldPayPassword: '',
 				payPassword: '',
@@ -86,18 +88,6 @@
 			}
 		},
 		methods: {
-			focusChangeInput: function() {
-				console.log('11111');
-				this.changeFocus = true;
-			},
-			focusSetInput: function() {
-				console.log('11111');
-				this.setFocus = true;
-			},
-			focusConfirmInput: function() {
-				console.log('11111');
-				this.confirmFocus = true;
-			},
 			setInput: function(event) {
 				console.log(event.target.value);
 			},
@@ -112,7 +102,7 @@
 				this.pswConfirm = true;
 			},
 			passwordComplete: function() {
-				if (this.pswSetStr!==this.pswConfirmStr) {
+				if (this.pswSetStr !== this.pswConfirmStr) {
 					uni.showToast({
 						icon: "none",
 						title: "请确认两次输入密码一致"
@@ -123,36 +113,47 @@
 					phoneNum: this.phoneNum,
 					checkCode: this.checkCode,
 					oldPayPassword: this.oldPayPassword,
-					payPassword: this.payPassword,
-					
+					payPassword: this.pswConfirmStr,
 				}
-				if (this.isPswChange) {
-					this.changePayPassword(params);
+				console.log(params);
+				// return;
+				if (this.isFirstSet) {
+					this.firstSetPayPassword(params);
 				} else {
-					this.resetPayPassword(params);
+					if (this.isPswChange) {
+						this.changePayPassword(params);
+					} else {
+						this.resetPayPassword(params);
+					}
 				}
 			},
+			firstSetPayPassword: function(params) {
+				api.setPayPassword(params).then((result) => {
+					console.log(result);
+				})
+			},
 			changePayPassword: function(params) {
-				api.changePayPassword(params).then((result)=>{
-					
+				api.changePayPassword(params).then((result) => {
+					console.log(result);
 				})
 			},
 			resetPayPassword: function(params) {
-				api.resetPayPassword(params).then((result)=>{
-					
+				api.resetPayPassword(params).then((result) => {
+					console.log(result);
 				})
 			}
 		},
 		onLoad: function(option) {
 			console.log(option);
-			
+
 			this.isPswChange = parseInt(option.isPswChange);
-			this.pswChange = this.isPswChange===1?true:false;
-			this.pswSet = this.isPswChange===0?true:false;
-			this.phoneNum = option.phoneNum;
-			this.checkCode = option.checkCode;
+			this.isFirstSet = parseInt(option.isFirstSet);
+			this.pswChange = this.isPswChange === 1 ? true : false;
+			this.pswSet = this.isPswChange === 0 ? true : false;
+			this.phoneNum = option.phoneNum===undefined ? '' : option.phoneNum;
+			this.checkCode = option.checkCode===undefined ? '' : option.checkCode;
 			console.log(this.isPswChange);
-			console.log(this.pswChange+'/'+this.pswSet+'/'+this.pswConfirm);
+			console.log(this.pswChange + '/' + this.pswSet + '/' + this.pswConfirm);
 		}
 	}
 </script>
@@ -180,19 +181,19 @@
 			}
 
 			.password-input {
+				z-index: 10;
 				width: 600upx;
 				height: 90upx;
-				margin-top: 100upx;
+				margin-top: -90upx;
 				color: rgba(255, 255, 255, 0);
 			}
 
 			.password-item-back {
-				z-index: 10;
 				display: flex;
 				flex-direction: row;
 				height: 90upx;
 				color: rgba(255, 255, 255, 0);
-				margin-top: -90upx;
+				margin-top: 100upx;
 				background-color: #ffffff;
 				border-top: solid 1upx #E5E5E5;
 				border-left: solid 1upx #E5E5E5;
@@ -215,11 +216,13 @@
 
 			.action-btn {
 				display: flex;
+				align-self: stretch;
 				justify-content: center;
 				align-items: center;
 				height: 80upx;
 				margin: 80upx 30upx 0upx 30upx;
 				background-color: #FF5255;
+				
 				border: solid 1upx #FF5255;
 				border-radius: 3upx;
 

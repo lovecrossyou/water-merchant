@@ -18,20 +18,25 @@
 
 			<view class="withdraw-amount">
 				<view class="label-text">提现数额</view>
-				<input class="amount-input" type="digit" placeholder="请填写提现数额" placeholder-style="color:#999999" v-model="withdrawParam.rmbMount"
+				<input class="amount-input" type="digit" placeholder="请填写提现数额" placeholder-style="color:#999999" v-model="rmbMount"
 				 @blur="getWithdrawAmount">
 			</view>
 
 			<view class="balance-attention">
-				<view class="balance">余额{{rmbMount}}元，</view>
+				<view class="balance">余额{{rmbBalance}}元，</view>
 				<view class="withdraw-all" @click="withdrawAll()">全部提现</view>
 			</view>
 
-			<view class="action-btn">
+			<view class="action-btn-none" :class="actionAble?'action-btn-able':'action-btn-none'">
 				<view class="btn-text" @click="checkHasPayPassword">下一步</view>
 			</view>
 
-			<passwordModal :show="showPswModal" @close="closePasswordModal" @passwordForget="turnToPswCheckcode"></passwordModal>
+			<passwordModal 
+			:show="showPswModal" 
+			:rmbBalance="rmbBalance"
+			@close="closePasswordModal" 
+			@passwordForget="turnToPswCheckcode"
+			@withdraw="withdrawLaunch"></passwordModal>
 		</block>
 	</view>
 </template>
@@ -49,20 +54,20 @@
 		},
 		data() {
 			return {
-				pageLoadingDone: 'error',
+				pageLoadingDone: 'loading',
 				bankcardLoad: false,
 				userAmountLoad: false,
-				rmbMount: 0,
+				
 				showPswModal: false,
+				actionAble: false,
+				
+				rmbMount: '',
+				rmbBalance: 0.00,
 				firstCard: {
 					bankName: '',
 					bankIcon: '',
 					lastBankCardNum: ''
 				},
-				withdrawParam: {
-					rmbMount: '',
-					payPassword: '',
-				}
 			}
 		},
 		methods: {
@@ -71,51 +76,67 @@
 				this.getRmbAmount();
 				this.getFistBankCard();
 			},
-			getFistBankCard() {
+			getFistBankCard: function() {
 				api.getUserBankCardList({}).then((result) => {
 					this.firstCard = result[0];
 					this.bankcardLoad = true
-					// this.pageLoadingDone = this.bankcardLoad && this.userAmountLoad ? "done" : "loading"
+					this.pageLoadingDone = this.bankcardLoad && this.userAmountLoad ? "done" : "loading"
 				}).catch((error) => {
 					this.pageLoadingDone = 'error';
 				})
 			},
-			getRmbAmount() {
+			withdrawLaunch: function(password) {
+				let params = {
+					payPassword: password,
+					rmbMount: this.rmbMount
+				}
+				this.closePasswordModal();
+				console.log(params);
+				return
+				api.rmbWithdraw(params).then((result)=> {
+					
+				}).catch((error)=> {
+					
+				})
+			},
+			getRmbAmount: function() {
 				api.getAccountInfo({}).then((result) => {
-					this.rmbMount = result.rmbMount;
+					console.log(result);
+					this.rmbBalance = parseFloat(result.rmbMount/100);
+					console.log(this.rmbBalance);
 					this.userAmountLoad = true;
-					// this.pageLoadingDone = this.bankcardLoad && this.userAmountLoad ? "done" : "loading"
-					console.log(this.rmbMount);
+					this.pageLoadingDone = this.bankcardLoad && this.userAmountLoad ? "done" : "loading"
+					
 				}).catch((error) => {
 					this.pageLoadingDone = 'error';
-				})
-			},
-			turnToBankCardList() {
-				uni.navigateTo({
-					url: "./bankCardList"
 				})
 			},
 			getWithdrawAmount: function(event) {
-				if (event.target.value > this.rmbMount) {
+				if (event.target.value.length===0) {
+					this.actionAble = false;
+				} else {
+					this.actionAble = true;
+				}
+				if (event.target.value > this.rmbBalance) {
 					uni.showToast({
 						icon: "none",
 						title: "超过可提现余额"
 					})
-					this.withdrawParam.rmbMount = this.rmbMount;
-					console.log(this.withdrawParam.rmbMount);
+					this.rmbMount = this.rmbBalance;
+					console.log(this.rmbMount);
 				} else {
-					this.withdrawParam.rmbMount = event.target.value;
+					this.rmbMount = event.target.value;
 				}
 
 			},
 			withdrawAll() {
-				if (this.rmbMount === 0) {
+				if (this.rmbBalance===0 || this.rmbBalance==="0") {
 					uni.showToast({
 						icon: "none",
 						title: "无可提现余额"
 					})
 				}
-				this.withdrawParam.rmbMount = this.rmbMount;
+				this.rmbMount = this.rmbBalance;
 			},
 			showPasswordModal: function() {
 				this.showPswModal = true;
@@ -124,9 +145,21 @@
 				this.showPswModal = false;
 			},
 			checkHasPayPassword: function() {
+// 				if (this.rmbMount.length===0) {
+// 					uni.showToast({
+// 						icon: "none",
+// 						title: "请填写提现余额"
+// 					})
+// 					return;
+// 				}  if (this.rmbMount==="0"||this.rmbMount===0) {
+// 					uni.showToast({
+// 						icon: "none",
+// 						title: "提现余额必须大于0"
+// 					})
+// 					return;
+// 				}
 				let that = this;
 				api.checkHasPayPassword({}).then((result) => {
-					console.log(result);
 					if (result) {
 						this.showPasswordModal();
 					} else {
@@ -135,14 +168,17 @@
 							content: '您还没有设置支付密码，是否去设置？',
 							success: function(res) {
 								if (res.confirm) {
-									console.log('用户点击确定');
-									that.turnToPswSet();
+									that.turnToPswFirstSet();
 								} else if (res.cancel) {
-									console.log('用户点击取消');
 								}
 							}
 						});
 					}
+				})
+			},
+			turnToBankCardList: function() {
+				uni.navigateTo({
+					url: "/pages/me/account/bankCardList"
 				})
 			},
 			turnToPswCheckcode: function() {
@@ -150,9 +186,9 @@
 					url: "/pages/me/account/pswCheckcode"
 				})
 			},
-			turnToPswSet: function() {
+			turnToPswFirstSet: function() {
 				uni.navigateTo({
-					url: '/pages/me/account/payPassword?isPswChange=' + 0,
+					url: '/pages/me/account/payPassword?isPswChange=' + 0 +'&isFirstSet' + 1,
 				})
 			}
 		},
@@ -251,20 +287,33 @@
 			}
 		}
 
-		.action-btn {
+		.action-btn-none {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 80upx;
+			margin: 80upx 30upx 0upx 30upx;
+			// background-color: #FF5255;
+			background-color: #999999;
+			border: solid 0upx #FF5255;
+			border-radius: 3upx;
+		}
+		
+		.action-btn-able {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			height: 80upx;
 			margin: 80upx 30upx 0upx 30upx;
 			background-color: #FF5255;
-			border: solid 1upx #FF5255;
+			// background-color: #999999;
+			border: solid 0upx #FF5255;
 			border-radius: 3upx;
-
-			.btn-text {
-				color: #ffffff;
-				font-size: 36upx;
-			}
+		}
+		
+		.btn-text {
+			color: #ffffff;
+			font-size: 36upx;
 		}
 	}
 </style>
