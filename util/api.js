@@ -21,6 +21,9 @@ const api = {
 	getAddress: (params) => request.post("client/keplerPay/queryResult", params),
 	getUser: (params) => request.post("client/keplerPay/queryResult", params),
 	postAddAddress: (params) => request.post("client/keplerPay/queryResult", params),
+	
+	//进货
+	oldproductList: params => request.post('/shop/shoppingcart/oldproductList',params),
 
 	// 分类&标签
 	getTagList: () => request.post("/merchant/productTagList"),
