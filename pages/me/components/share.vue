@@ -1,6 +1,6 @@
 <template>
-	<view class="main">
-		<view class="share" >
+	<view class="main" @click="closeDrawer">
+		<view class="share">
 			<view class="shareWay">
 				<view class="weiXin">
 					<image class="weiXinIcon" src="../../../static/invite/btn_weixin.png"></image>
@@ -19,7 +19,7 @@
 					<view class="weiBoText">微博</view>
 				</view>
 			</view>
-			<view class="cancel">取消</view>
+			<view class="cancel" @click="closeDrawer">取消</view>
 		</view>
 	</view>
 </template>
@@ -27,9 +27,14 @@
 <script>
 	export default{
 		props:{
-			showdrawer:true,
-			sharetext:'111111111111111'
-		}
+			showdrawer:false,
+			sharetext:'11111111111111'
+		},
+		methods: {
+			closeDrawer(){
+				this.$emit('closedrawer',false);
+			}
+		},
 	}
 </script>
 
@@ -39,6 +44,7 @@
 		height: 100%;
 		position: fixed;
 		background: rgba(0,0,0,0.4);
+		z-index: 1;
 		
 		.share{
 			position: fixed;

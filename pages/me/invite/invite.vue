@@ -1,5 +1,6 @@
 <template>
 	<view class="inviteMain">
+		<share v-if="show" :showdrawer="show" v-on:closedrawer='closeDrawer($event)'></share>
 		<view class="myReward" @click="goInvitatoryReward">
 			<view class="leftWrapper">
 				<image class="rewardIcon" src="../../../static/invite/icon_reward.png"></image>
@@ -20,18 +21,23 @@
 			<view class="allUser" v-if="invitatoryuserlist.length>0" @click="goInvitatoryUser">查看全部＞</view>
 			<view class="alertText" v-else>还没有好友开店，快去邀请吧～</view>
 		</view>
-		<view class="inviteBtn">
+		<view class="inviteBtn" @click="openDrawer">
 			<view class="inviteBtnText">邀请开店</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import share from '../components/share.vue'
 	export default{
+		components: {
+			share
+		},
 		data(){
 			return{
 				// invitatoryuserlist:[]
-				invitatoryuserlist:["../../../static/account/icon.jpg","../../../static/account/icon.jpg","../../../static/account/icon.jpg","../../../static/account/icon.jpg","../../../static/account/icon.jpg","../../../static/account/icon.jpg"]
+				invitatoryuserlist:["../../../static/account/icon.jpg","../../../static/account/icon.jpg","../../../static/account/icon.jpg","../../../static/account/icon.jpg","../../../static/account/icon.jpg","../../../static/account/icon.jpg"],
+				show:false
 			}
 		},
 		methods:{
@@ -44,6 +50,12 @@
 				uni.navigateTo({
 					url: 'invitatoryUser'
 				})
+			},
+			openDrawer(){
+				this.show=true;
+			},
+			closeDrawer(e){
+				this.show=e;
 			}
 		}
 	}
