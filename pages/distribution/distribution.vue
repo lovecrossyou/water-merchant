@@ -59,7 +59,7 @@
 			<view class="order-line"></view>
 			<view class="order-item" @click="changOrderIndex(1)">
 				<view class="order-item-text" :style="{ color: orderIndex === 1 ? 'rgba(255,82,85,1)' : 'rgba(51,51,51,1)' }">佣金</view>
-				<image v-bind:src="orderIndex === 1 ? (orderIndexUp ? orderIconAsc : orderIconDesc ): orderIcon" class="order-icon"></image>
+				<image v-bind:src="orderIndex === 1 ? (orderIndexUp ? orderIconAsc : orderIconDesc) : orderIcon" class="order-icon"></image>
 			</view>
 			<view class="order-line"></view>
 			<view class="order-item" @click="changOrderIndex(2)">
@@ -68,7 +68,7 @@
 			<view class="order-line"></view>
 			<view class="order-item" @click="changOrderIndex(3)">
 				<view class="order-item-text" :style="{ color: orderIndex === 3 ? 'rgba(255,82,85,1)' : 'rgba(51,51,51,1)' }">价格</view>
-				<image v-bind:src="orderIndex === 3 ? (orderIndexUp ? orderIconAsc : orderIconDesc ): orderIcon" class="order-icon"></image>
+				<image v-bind:src="orderIndex === 3 ? (orderIndexUp ? orderIconAsc : orderIconDesc) : orderIcon" class="order-icon"></image>
 			</view>
 			<view class="order-line order-line-plus"></view>
 			<view class="order-item"><image v-bind:src="changeViewIcon" class="scan-icon"></image></view>
@@ -80,7 +80,10 @@
 					<view class="product-desc">
 						<view class="product-name">{{ product.name + '   ' + product.volume }}</view>
 						<view class="product-price-content">
-							<view class="product-price">￥{{ product.currentPrice / 100 }}</view>
+							<view class="product-price">
+								￥
+								<priceText :price="product.currentPrice / 100"></priceText>
+							</view>
 							<view class="product-commission">佣金:￥2.00</view>
 						</view>
 						<view class="product-button-content">
@@ -96,6 +99,7 @@
 
 <script>
 import { mapActions, mapState, mapMutations, mapGetters } from 'vuex';
+import priceText from '../component/priceText.vue';
 export default {
 	data() {
 		return {
@@ -110,9 +114,11 @@ export default {
 			ruleIcon: '../../static/distribution/rule_icon.png',
 			//productList: [0, 1, 2, 3, 4, 5, 6, 7],
 			orderIndex: 0,
-			orderIndexUp:true,
-			
+			orderIndexUp: true
 		};
+	},
+	components: {
+		priceText
 	},
 	computed: {
 		...mapState({
@@ -151,7 +157,7 @@ export default {
 								categoryType: 'price',
 								sortType: this.orderIndexUp ? 'asc' : 'desc'
 							});
-						}else{
+						} else {
 							this.orderIndexUp = true;
 							this.getDistributionList({
 								categoryType: 'price',
@@ -172,14 +178,13 @@ export default {
 					break;
 				case 3:
 					{
-						
 						if (this.orderIndex === 3) {
 							this.orderIndexUp = !this.orderIndexUp;
 							this.getDistributionList({
 								categoryType: 'price',
 								sortType: this.orderIndexUp ? 'asc' : 'desc'
 							});
-						}else{
+						} else {
 							this.orderIndexUp = true;
 							this.getDistributionList({
 								categoryType: 'price',
@@ -389,6 +394,7 @@ export default {
 						align-items: center;
 
 						.product-price {
+							display: flex;
 							font-size: 34upx;
 							font-family: PingFang-SC-Medium;
 							font-weight: 500;

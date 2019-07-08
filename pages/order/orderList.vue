@@ -2,24 +2,28 @@
 	<view class="page-content">
 		<view class="order-item" v-for="(order, index) in orderList" :key="index">
 			<view class="time-content">
-				<view class="time">下单时间：2017-7-21 09:32</view>
-				<view class="time status">{{order.orderState}}</view>
+				<view class="time">下单时间：{{order.createTime}}</view>
+				<view class="time status">{{order.status}}</view>
 			</view>
-			<view class="product-content" v-for="(product, index2) in order.productList" :key="index2">
-				<image :src="productIcon" class="product-image"></image>
+			<view class="product-content" v-for="(product, index2) in order.productItemModels" :key="index2">
+				<image :src="product.imageUrl" class="product-image"></image>
 				<view class="product-info">
-					<view class="name">乐百氏 矿泉水</view>
-					<view class="size">18.9L</view>
-					<view class="singlePrice">￥23.00 ×1</view>
+					<view class="name">{{product.name}}</view>
+					<view class="size">{{product.volume}}</view>
+					<view class="singlePrice">￥ 
+					<priceText :price="(product.currentPrice / 100)"></priceText>
+					×{{product.selectCount}}</view>
 				</view>
-				<image :src="completeIcon" class="status-image" v-if="order.orderStatus === 'complete' && index2 === 0"></image>
+				<image :src="completeIcon" class="status-image" v-if="order.status === '已完成' && index2 === 0"></image>
 			</view>
 
 			<view class="total-price-content">
-				<view class="count">共1件商品，合计：</view>
-				<view class="total-price">￥23.00</view>
+				<view class="count">共{{order.totalCount}}件商品，合计：</view>
+				<view class="total-price">￥
+				<priceText :price="(order.totalPayRmb / 100)"></priceText>
+				</view>
 			</view>
-			<view class="bottom-content" v-if="order.orderStatus === 'wait'">
+			<view class="bottom-content" v-if="order.status === '待送货'">
 				<view class="reject-button">拒单</view>
 				<view class="reject-button confirm-button">去送货</view>
 			</view>
@@ -28,70 +32,103 @@
 </template>
 
 <script>
+	import { mapActions, mapState, mapMutations, mapGetters } from 'vuex';
+	import priceText from '../component/priceText.vue';
 export default {
 	data() {
 		return {
-			orderList: [],
+			//orderList: [],
 			productIcon: '../../static/distribution/product_icon.png',
 			completeIcon: '../../static/order/complete.png'
 		};
 	},
+	components: {
+		
+		priceText,
+		
+	},
+	computed: {
+		...mapState({
+			orderList: state => state.order.orderList
+		}),
+		...mapGetters({
+			//allFinished: 'chooseCode/allFinished',
+		})
+	},
+	methods:{
+		...mapActions({
+			getOrderList: 'order/getOrderList',
+			getOrderComment: 'order/getOrderComment',
+		}),
+	},
 	onLoad(opts) {
 		switch (opts.orderStatus) {
+			
+			
+			
+			//   wait_pay待付款    wait_delivery待送货    wait_receive待收货    total全部
+			
 			//全部订单
 			case '0':
 				{
-					this.orderList = [
+					this.getOrderList('total');
+					/* this.orderList = [
 						{ productList: [1], orderStatus: 'cancel', orderState: '已取消' },
 						{ productList: [1, 2], orderStatus: 'wait', orderState: '待送货' },
 						{ productList: [1], orderStatus: 'cancel', orderState: '待付款' },
 						{ productList: [1, 2, 3], orderStatus: 'complete', orderState: '已完成' },
 						{ productList: [1], orderStatus: 'cancel', orderState: '待收货' }
-					];
+					]; */
 				}
 				break;
 			//待付款
 			case '1':
 				{
-					this.orderList = [
+					this.getOrderList('wait_pay');
+					/* this.orderList = [
 						{ productList: [1], orderStatus: 'cancel', orderState: '待付款' },
 						{ productList: [1, 2], orderStatus: 'cancel', orderState: '待付款' },
 						{ productList: [1], orderStatus: 'cancel', orderState: '待付款' },
 						{ productList: [1, 2, 3], orderStatus: 'cancel', orderState: '待付款' }
-					];
+					]; */
 				}
 				break;
 			//待送货
 			case '2':
 				{
-					this.orderList = [
+					this.getOrderList('wait_delivery');
+					/* this.orderList = [
 						{ productList: [1, 2], orderStatus: 'wait', orderState: '待送货' },
 						{ productList: [1], orderStatus: 'wait', orderState: '待送货' },
 						{ productList: [1], orderStatus: 'wait', orderState: '待送货' },
 						{ productList: [1, 2, 3], orderStatus: 'wait', orderState: '待送货' }
-					];
+					]; */
 				}
 				break;
 			//待收货
 			case '3':
 				{
-					this.orderList = [
+					this.getOrderList('wait_receive');
+					
+					/* this.orderList = [
 						{ productList: [1], orderStatus: 'cancel', orderState: '待收货' },
 						{ productList: [1, 2], orderStatus: 'cancel', orderState: '待收货' },
 						{ productList: [1], orderStatus: 'cancel', orderState: '待收货' },
 						{ productList: [1, 3, 3], orderStatus: 'cancel', orderState: '待收货' }
-					];
+					]; */
 				}
 				break;
 			//评价
 			case '4':
 				{
-					this.orderList = [
+					this.getOrderComment();
+					
+					/* this.orderList = [
 						{ productList: [1, 2, 3], orderStatus: 'complete', orderState: '已完成' },
 						{ productList: [1], orderStatus: 'complete', orderState: '已完成' },
 						{ productList: [1, 2, 3], orderStatus: 'complete', orderState: '已完成' },
 						{ productList: [1, 2], orderStatus: 'complete', orderState: '已完成' }
-					];
+					]; */
 				}
 				break;
 		}
@@ -157,6 +194,7 @@ export default {
 					margin-bottom: 12upx;
 				}
 				.singlePrice {
+					display: flex;
 					font-size: 30upx;
 					font-family: PingFang-SC-Medium;
 					font-weight: 500;
@@ -182,6 +220,7 @@ export default {
 				color: #777777;
 			}
 			.total-price {
+				display: flex;
 				font-size: 24upx;
 				font-family: PingFang-SC-Medium;
 				font-weight: 500;

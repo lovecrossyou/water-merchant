@@ -97,6 +97,13 @@ const api = {
 	// 分销商品
 	getProductDetail: data => request.post("/merchant/shopProductInfo", data, 'POST'),
 	
+	// 订单列表
+	getOrderList: data => request.post("/merchantShopOrder/getOrderList", data, 'POST'),
+	
+	// 订单列表
+	getOrderComment: data => request.post("/merchantShopOrder/getOrderComment", data, 'POST'),
+	
+	
 	//上传
 	uploader: (file, cb) => {
 		uni.uploadFile({
