@@ -3,8 +3,8 @@
 		<view class="salesWrapper">
 			<image class="icon" src="../../../static/account/icon.jpg"></image>
 			<view class="text">水票销售</view>
-			<view class="price">￥890.00</view>
-			<view class="back_text">水票回收：¥780.00</view>
+			<view class="price">￥{{sellWaterTicketMount}}</view>
+			<view class="back_text">水票回收：¥{{unFreezeWaterTicketMount}}</view>
 		</view>
 		<block v-for="(item,index) in saleslist" :key="index">
 			<view class="waterticketSalesItem">
@@ -22,13 +22,37 @@
 </template>
 
 <script>
+import api from '../../../util/api.js'
 export default {
 	data() {
 		return {
 			saleslist: [
 				{ name: '水票销售', price: '+220.00', time: '2017-5-17  19:58', number: '10' },
-				{ name: '水票回收', price: '-220.00', time: '2017-6-17  19:58', number: '10' }]
+				{ name: '水票回收', price: '-220.00', time: '2017-6-17  19:58', number: '10' }],
+			sellWaterTicketMount:0,
+			unFreezeWaterTicketMount:0
 		};
+	},
+	methods: {
+		async getwaterticketmount(){
+			const res = await api.waterTicketRmbMount()
+			this.sellWaterTicketMount = res.sellWaterTicketMount/100;
+			this.unFreezeWaterTicketMount = res.unFreezeWaterTicketMount/100;
+		},
+		async getmerchantticketdetail(){
+			let params = {
+				recordType:'ticketRmbRecord'
+			}
+			api.merchantAccountDetail(params).then((result)=>{
+				console.log(result)
+			}).catch((error)=>{
+				
+			})
+		}
+	},
+	onLoad() {
+		this.getwaterticketmount();
+		this.getmerchantticketdetail();
 	}
 };
 </script>

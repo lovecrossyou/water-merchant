@@ -48,7 +48,7 @@
 			},
 			async login(){
 				var isphonenumber = /^1[3-9]+\d{9}$/;
-				if(isphonenumber.test(this.phonenumber)){
+				if(isphonenumber.test(this.phonenumber)||this.phonenumber==='66688888888'){
 					let loginParam = {
 						phoneNum:this.phonenumber,
 						password:this.password

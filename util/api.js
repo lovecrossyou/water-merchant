@@ -103,6 +103,11 @@ const api = {
 	// 订单列表
 	getOrderComment: data => request.post("/merchantShopOrder/getOrderComment", data, 'POST'),
 	
+	//水票销售额
+	waterTicketRmbMount: data => request.post("/account/waterTicketRmbMount", data, 'POST'),
+	
+	//销售明细
+	merchantAccountDetail: data => request.post("/account/merchantAccountDetail", data, 'POST'),
 	
 	//上传
 	uploader: (file, cb) => {
