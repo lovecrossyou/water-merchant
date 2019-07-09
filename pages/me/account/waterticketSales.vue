@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import api from '../../../util/api.js'
+import api from '@/util/api.js'
 export default {
 	data() {
 		return {
@@ -35,16 +35,18 @@ export default {
 	},
 	methods: {
 		async getwaterticketmount(){
-			const res = await api.waterTicketRmbMount()
+			const res = await api.waterTicketRmbMount();
 			this.sellWaterTicketMount = res.sellWaterTicketMount/100;
 			this.unFreezeWaterTicketMount = res.unFreezeWaterTicketMount/100;
 		},
 		async getmerchantticketdetail(){
 			let params = {
-				recordType:'ticketRmbRecord'
+				recordType:'xtb'
 			}
 			api.merchantAccountDetail(params).then((result)=>{
+				
 				console.log(result)
+				
 			}).catch((error)=>{
 				
 			})
