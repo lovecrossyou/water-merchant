@@ -83,7 +83,7 @@
 				}
 				this.closePasswordModal();
 				console.log(params);
-				return
+				uni.showLoading({});
 				api.rmbWithdraw(params).then((result)=> {
 					console.log(result);
 					uni.showToast({
@@ -91,7 +91,7 @@
 						title: "提现申请已成功提交"
 					})
 					uni.navigateTo({
-						url: '/pages/me/account/withdrawResult'
+						url: '/pages/me/account/withdrawResult?createTime='+result.createTime +'&orderNo='+result.orderNo +'&rmbMount='+result.rmbMount
 					})
 				}).catch((error)=> {
 					
@@ -152,19 +152,19 @@
 				this.showPswModal = false;
 			},
 			checkHasPayPassword: function() {
-				if (this.rmbMount.length===0) {
-					uni.showToast({
-						icon: "none",
-						title: "请填写提现余额"
-					})
-					return;
-				}  if (this.rmbMount==="0"||this.rmbMount===0) {
-					uni.showToast({
-						icon: "none",
-						title: "提现余额必须大于0"
-					})
-					return;
-				}
+// 				if (this.rmbMount.length===0) {
+// 					uni.showToast({
+// 						icon: "none",
+// 						title: "请填写提现余额"
+// 					})
+// 					return;
+// 				}  if (this.rmbMount==="0"||this.rmbMount===0) {
+// 					uni.showToast({
+// 						icon: "none",
+// 						title: "提现余额必须大于0"
+// 					})
+// 					return;
+// 				}
 				let that = this;
 				api.checkHasPayPassword({}).then((result) => {
 					if (result) {
@@ -195,7 +195,7 @@
 			},
 			turnToPswFirstSet: function() {
 				uni.navigateTo({
-					url: '/pages/me/account/payPassword?isPswChange=' + 0 +'&isFirstSet' + 1,
+					url: '/pages/me/account/payPassword?isPswChange=' + 0 +'&isFirstSet=' + 1,
 				})
 			}
 		},

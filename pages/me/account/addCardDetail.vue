@@ -1,78 +1,95 @@
 <template>
 	<view class="main">
-		<view>
-			<view class="head-sep"></view>
-
-			<view class="item-back">
-				<view class="left-label-text">持 卡 人：</view>
-				<input type="text" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.cardHolderName"/>
-				<!-- <textarea class="input-area" placeholder="请填写持卡人姓名" @input="(e) => {addCardParam.cardHolderName=e.target.value}" /> -->
+		<block v-if="pageLoadingDone==='loading'">
+			<PageLoading></PageLoading>
+		</block>
+		
+		<block v-else-if="pageLoadingDone==='error'">
+			<PageError @reload="reload"></PageError>
+		</block>
+		
+		<block v-else-if="pageLoadingDone==='done'">
+			<view>
+				<view class="head-sep"></view>
+			
+				<view class="item-back">
+					<view class="left-label-text">持 卡 人：</view>
+					<input type="text" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.cardHolderName"/>
+					<!-- <textarea class="input-area" placeholder="请填写持卡人姓名" @input="(e) => {addCardParam.cardHolderName=e.target.value}" /> -->
+					</view>
+				
+				<view class="item-back">
+					<view class="left-label-text">卡    号：</view>
+					<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.bankCardNumber"/>
 				</view>
-			
-			<view class="item-back">
-				<view class="left-label-text">卡    号：</view>
-				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.bankCardNumber"/>
-			</view>
-			
-			<view class="item-back">
-				<view class="left-label-text">银行名称：</view>
-				<view class="click-area">
-					<view class="hold-text" :class="[bankNameType==='请选择银行'?'hold-text':'select-text']" @click="pickerOpen()">{{bankNameType}}</view>
+				
+				<view class="item-back"  @click="pickerOpen()">
+					<view class="left-label-text">银行名称：</view>
+					<view class="click-area">
+						<view class="hold-text" :class="[bankNameType==='请选择银行'?'hold-text':'select-text']">{{bankNameType}}</view>
+					</view>
+					<image class="right-arrow" 
+					       src="http://qnimage.xiteng.com/right_icon@2x.png"></image>
 				</view>
-				<image class="right-arrow" 
-				       src="http://qnimage.xiteng.com/right_icon@2x.png"></image>
-			</view>
-			
-			<view class="item-back">
-				<view class="left-label-text">开户支行：</view>
-				<input type="text" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.depositBank"/>
-			</view>
-			
-			<view class="item-back">
-				<view class="left-label-text">手 机 号：</view>
-				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.phoneNum"/>
-			</view>
-			
-			<view class="item-back">
-				<view class="left-label-text">验 证 码：</view>				
-				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.checkCode"/>
-				<view class="checkcode-btn-back" @click="countDown()">
-					<view class="checkcode-btn">
-						<view class="checkcode-text">{{codeContent}}</view>
+				
+				<view class="item-back">
+					<view class="left-label-text">开户支行：</view>
+					<input type="text" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.depositBank"/>
+				</view>
+				
+				<view class="item-back">
+					<view class="left-label-text">手 机 号：</view>
+					<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.phoneNum"/>
+				</view>
+				
+				<view class="item-back">
+					<view class="left-label-text">验 证 码：</view>				
+					<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.checkCode"/>
+					<view class="checkcode-btn-back" @click="countDown()">
+						<view class="checkcode-btn">
+							<view class="checkcode-text">{{codeContent}}</view>
+						</view>
 					</view>
 				</view>
+				
+				<view class="action-btn">
+					<view class="btn-text" @click="checkAddCardParam()">完 成</view>
+				</view>
 			</view>
 			
-			<view class="action-btn">
-				<view class="btn-text" @click="checkAddCardParam()">完 成</view>
-			</view>
-		</view>
-		
-		<block v-if="showBankPiker">
-			<view class="picker-modal" @click="pickerClose()">
-				<bankPicker 
-					:show="showBankPiker"
-					:bankList="bankList"
-					:typeList="typeList"
-					@pickerOpen="pickerOpen" 
-					@pickerClose="pickerClose" 
-					@valueChange="valueChange"
-					@bankCertain="bankCertain"></bankPicker>
-			</view>
+			<block v-if="showBankPiker">
+				<view class="picker-modal" @click="pickerClose()">
+					<bankPicker 
+						:show="showBankPiker"
+						:bankList="bankList"
+						:typeList="typeList"
+						@pickerOpen="pickerOpen" 
+						@pickerClose="pickerClose" 
+						@valueChange="valueChange"
+						@bankCertain="bankCertain"></bankPicker>
+				</view>
+			</block>
 		</block>
+		
 		
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js"
+	import PageLoading from "../../component/PageLoading.vue"
+	import PageError from "../../component/PageError.vue"
 	import bankPicker from '../components/bankPicker.vue'
 	export default {
 		components: {
+			PageLoading,
+			PageError,
 			bankPicker
 		},
 		data() {
 			return {
+				pageLoadingDone: 'loading',
+				
 				showBankPiker: false,
 				bankList: [],
 				typeList: ["储蓄卡", "信用卡"],
@@ -96,6 +113,10 @@
 			}
 		},
 		methods: {
+			reload: function() {
+				this.pageLoadingDone = 'loading';
+				this.getBankList();
+			},
 			pickerClose: function() {
 				this.showBankPiker=false;
 				this.indexArr=[0, 0];
@@ -118,9 +139,13 @@
 			getBankList: function() {
 				api.getBankList({}).then((result)=> {
 					this.bankList = result;
+					this.pageLoadingDone = 'done';
+				}).catch((error)=> {
+					this.pageLoadingDone = 'error';
 				})
 			},
 			getAddCardCheckCode: function() {
+				uni.showLoading();
 				api.getAddCardCheckCode({"phoneNum": this.addCardParam.phoneNum}).then((result)=>{
 					console.log(result);
 					if (result.respMsg==="successful") {

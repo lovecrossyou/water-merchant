@@ -1,25 +1,35 @@
 <template>
 	<view class="main">
-		<view class="top-sep"></view>
 
-		<block v-if="bankCardArr.length===0">
-			<view class="empty-page">
+		<block v-if="pageLoadingDone==='loading'">
+			<PageLoading></PageLoading>
+		</block>
+
+		<block v-else-if="pageLoadingDone==='error'">
+			<PageError @reload="reload"></PageError>
+		</block>
+
+		<block v-else-if="pageLoadingDone==='done'">
+			<view class="top-sep"></view>
+			<block v-if="bankCardArr.length===0">
+				<view class="empty-page">
+					<view class="add-card-btn" @click="turnToAddCardDetail()">
+						<view class="add-text">+ 添加银行卡</view>
+					</view>
+				</view>
+			</block>
+
+			<block v-else>
+				<view class="bank-card-list">
+					<block v-for="(bankCard,index) in bankCardArr" :key="index">
+						<bankCardItem :bankCard="bankCard"></bankCardItem>
+					</block>
+				</view>
+
 				<view class="add-card-btn" @click="turnToAddCardDetail()">
 					<view class="add-text">+ 添加银行卡</view>
 				</view>
-			</view>
-		</block>
-		
-		<block v-else>
-			<view class="bank-card-list">
-				<block v-for="(bankCard,index) in bankCardArr" :key="index">
-					<bankCardItem :bankCard="bankCard"></bankCardItem>
-				</block>
-			</view>
-			
-			<view class="add-card-btn" @click="turnToAddCardDetail()">
-				<view class="add-text">+ 添加银行卡</view>
-			</view>
+			</block>
 		</block>
 		
 	</view>
@@ -28,66 +38,35 @@
 
 <script>
 	import api from "@/util/api.js"
+	import PageLoading from "../../component/PageLoading.vue"
+	import PageError from "../../component/PageError.vue"
 	import bankCardItem from '../components/bankCardItem.vue'
 	export default {
 		components: {
+			PageLoading,
+			PageError,
 			bankCardItem
 		},
 		data() {
 			return {
-				arr: [{
-					bankCardType: '储蓄卡',
-					bankIcon: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568425437,867090213&fm=26&gp=0.jpg",
-					bankName: "交通银行",
-					bgColor: '#3F63AC',
-					lastBankCardNum: '7971'
-				}, {
-					bankCardType: '储蓄卡',
-					bankIcon: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568425437,867090213&fm=26&gp=0.jpg",
-					bankName: "交通银行",
-					bgColor: '#3F63AC',
-					lastBankCardNum: '7971'
-				}, {
-					bankCardType: '储蓄卡',
-					bankIcon: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568425437,867090213&fm=26&gp=0.jpg",
-					bankName: "交通银行",
-					bgColor: '#3F63AC',
-					lastBankCardNum: '7971'
-				}, {
-					bankCardType: '储蓄卡',
-					bankIcon: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568425437,867090213&fm=26&gp=0.jpg",
-					bankName: "交通银行",
-					bgColor: '#3F63AC',
-					lastBankCardNum: '7971'
-				}, {
-					bankCardType: '储蓄卡',
-					bankIcon: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568425437,867090213&fm=26&gp=0.jpg",
-					bankName: "交通银行",
-					bgColor: '#3F63AC',
-					lastBankCardNum: '7971'
-				}, {
-					bankCardType: '储蓄卡',
-					bankIcon: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568425437,867090213&fm=26&gp=0.jpg",
-					bankName: "交通银行",
-					bgColor: '#3F63AC',
-					lastBankCardNum: '7971'
-				}, {
-					bankCardType: '储蓄卡',
-					bankIcon: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3568425437,867090213&fm=26&gp=0.jpg",
-					bankName: "交通银行",
-					bgColor: '#3F63AC',
-					lastBankCardNum: '7971'
-				}],
+				pageLoadingDone: 'loading',
 				bankCardArr: [],
 			}
 		},
 		methods: {
-			getBankCardList() {
+			reload: function() {
+				this.pageLoadingDone = 'loading';
+				this.getBankCardList();
+			},
+			getBankCardList: function() {
 				api.getUserBankCardList({}).then((result) => {
 					this.bankCardArr = result;
+					this.pageLoadingDone = 'done';
+				}).catch(() => {
+					this.pageLoadingDone = 'error';
 				})
 			},
-			turnToAddCardDetail() {
+			turnToAddCardDetail: function() {
 				uni.navigateTo({
 					url: './addCardDetail',
 				})

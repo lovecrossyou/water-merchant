@@ -88,6 +88,7 @@
 				})
 			},
 			getPayPswCheckCode: function() {
+				uni.showLoading();
 				api.getPayPswResetCheckCode({
 					phoneNum: this.phoneNum
 				}).then((result) => {

@@ -3,7 +3,8 @@
 		<view class="password-modal">
 			<view class="head-attention">
 				<view class="close-btn" @click="close">
-					<image class="close-btn-img"></image>
+					<image class="close-btn-img" 
+					       src="http://qnimage.xiteng.com/btn_close@2x.png"></image>
 				</view>
 				<view class="attention-text-back">
 					<view class="attention-text">请输入支付密码</view>
@@ -68,7 +69,8 @@
 					})
 					return;
 				}
-				this.$emit('@withdraw', this.passwordStr);
+				this.$emit('withdraw', this.passwordStr);
+				this.passwordStr = '';
 			}
 		}
 	}
@@ -123,7 +125,6 @@
 	.close-btn-img {
 		width: 23upx;
 		height: 23upx;
-		background-color: #007AFF;
 	}
 
 	.attention-text-back {

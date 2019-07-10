@@ -117,6 +117,7 @@
 				}
 				console.log(params);
 				// return;
+				uni.showLoading({});
 				if (this.isFirstSet) {
 					this.firstSetPayPassword(params);
 				} else {
@@ -130,16 +131,31 @@
 			firstSetPayPassword: function(params) {
 				api.setPayPassword(params).then((result) => {
 					console.log(result);
+					uni.showToast({
+						icon: "none",
+						title: "密码设置成功"
+					})
+					uni.navigateBack();
 				})
 			},
 			changePayPassword: function(params) {
 				api.changePayPassword(params).then((result) => {
 					console.log(result);
+					uni.showToast({
+						icon: "none",
+						title: "密码修改成功"
+					})
+					uni.navigateBack();
 				})
 			},
 			resetPayPassword: function(params) {
 				api.resetPayPassword(params).then((result) => {
 					console.log(result);
+					uni.showToast({
+						icon: "none",
+						title: "密码重置成功"
+					})
+					uni.navigateBack();
 				})
 			}
 		},
