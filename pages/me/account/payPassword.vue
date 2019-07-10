@@ -7,7 +7,7 @@
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
 						<view class="password-item" @click="focusChangeInput">
-							<view class="password-hide-text" v-if="oldPayPassword.length>index">*</view>
+							<view class="password-hide-text" v-if="oldPayPassword.length>index">●</view>
 						</view>
 					</block>
 				</view>
@@ -27,7 +27,7 @@
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
 						<view class="password-item" @click="focusSetInput">
-							<view class="password-hide-text" v-if="pswSetStr.length>index">*</view>
+							<view class="password-hide-text" v-if="pswSetStr.length>index">●</view>
 						</view>
 					</block>
 				</view>
@@ -47,7 +47,7 @@
 				<view class="password-item-back">
 					<block v-for="(i,index) in pswHolder" :key="index">
 						<view class="password-item" @click="focusConfirmInput">
-							<view class="password-hide-text" v-if="pswConfirmStr.length>index">*</view>
+							<view class="password-hide-text" v-if="pswConfirmStr.length>index">●</view>
 						</view>
 					</block>
 				</view>

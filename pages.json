@@ -141,6 +141,13 @@
 				"navigationBarTextStyle": "black"
 			}
 		}, {
+			"path": "pages/me/account/withdrawResult",
+			"style": {
+				"navigationBarTitleText": "提现详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
 			"path": "pages/me/account/bankCardList",
 			"style": {
 				"navigationBarTitleText": "银行卡",

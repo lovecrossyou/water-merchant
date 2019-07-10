@@ -76,15 +76,6 @@
 				this.getRmbAmount();
 				this.getFistBankCard();
 			},
-			getFistBankCard: function() {
-				api.getUserBankCardList({}).then((result) => {
-					this.firstCard = result[0];
-					this.bankcardLoad = true
-					this.pageLoadingDone = this.bankcardLoad && this.userAmountLoad ? "done" : "loading"
-				}).catch((error) => {
-					this.pageLoadingDone = 'error';
-				})
-			},
 			withdrawLaunch: function(password) {
 				let params = {
 					payPassword: password,
@@ -94,9 +85,25 @@
 				console.log(params);
 				return
 				api.rmbWithdraw(params).then((result)=> {
-					
+					console.log(result);
+					uni.showToast({
+						icon: "none",
+						title: "提现申请已成功提交"
+					})
+					uni.navigateTo({
+						url: '/pages/me/account/withdrawResult'
+					})
 				}).catch((error)=> {
 					
+				})
+			},
+			getFistBankCard: function() {
+				api.getUserBankCardList({}).then((result) => {
+					this.firstCard = result[0];
+					this.bankcardLoad = true
+					this.pageLoadingDone = this.bankcardLoad && this.userAmountLoad ? "done" : "loading"
+				}).catch((error) => {
+					this.pageLoadingDone = 'error';
 				})
 			},
 			getRmbAmount: function() {
@@ -129,7 +136,7 @@
 				}
 
 			},
-			withdrawAll() {
+			withdrawAll: function() {
 				if (this.rmbBalance===0 || this.rmbBalance==="0") {
 					uni.showToast({
 						icon: "none",
@@ -145,19 +152,19 @@
 				this.showPswModal = false;
 			},
 			checkHasPayPassword: function() {
-// 				if (this.rmbMount.length===0) {
-// 					uni.showToast({
-// 						icon: "none",
-// 						title: "请填写提现余额"
-// 					})
-// 					return;
-// 				}  if (this.rmbMount==="0"||this.rmbMount===0) {
-// 					uni.showToast({
-// 						icon: "none",
-// 						title: "提现余额必须大于0"
-// 					})
-// 					return;
-// 				}
+				if (this.rmbMount.length===0) {
+					uni.showToast({
+						icon: "none",
+						title: "请填写提现余额"
+					})
+					return;
+				}  if (this.rmbMount==="0"||this.rmbMount===0) {
+					uni.showToast({
+						icon: "none",
+						title: "提现余额必须大于0"
+					})
+					return;
+				}
 				let that = this;
 				api.checkHasPayPassword({}).then((result) => {
 					if (result) {

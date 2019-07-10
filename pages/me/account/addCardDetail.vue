@@ -78,6 +78,12 @@
 				typeList: ["储蓄卡", "信用卡"],
 				indexArr: [0, 0],
 				bankNameType: '请选择银行',
+				
+				timer: null,
+				codeContent: '发送验证码',
+				totalTime: 60,
+				codeAble: true,
+				
 				addCardParam: {
 					cardHolderName: '',
 					bankCardNumber: '',
@@ -90,31 +96,31 @@
 			}
 		},
 		methods: {
-			pickerClose() {
+			pickerClose: function() {
 				this.showBankPiker=false;
 				this.indexArr=[0, 0];
 			},
-			pickerOpen() {
+			pickerOpen: function() {
 				this.showBankPiker=true;
 			},
-			bankCertain() {
+			bankCertain: function() {
 				let bankName = this.bankList[this.indexArr[0]].bankName;
 				this.addCardParam.bankKindId = this.bankList[this.indexArr[0]].bankKindId;
 				this.addCardParam.bankCardKind = this.typeList[this.indexArr[1]];
 				this.bankNameType = bankName+'  '+this.addCardParam.bankCardKind;
 				this.pickerClose();
 			},
-			valueChange(e) {
+			valueChange: function(e) {
 				const valIndex = e.detail.value
 				this.indexArr = valIndex;
 				console.log(this.indexArr);
 			},
-			getBankList() {
+			getBankList: function() {
 				api.getBankList({}).then((result)=> {
 					this.bankList = result;
 				})
 			},
-			getAddCardCheckCode() {
+			getAddCardCheckCode: function() {
 				api.getAddCardCheckCode({"phoneNum": this.addCardParam.phoneNum}).then((result)=>{
 					console.log(result);
 					if (result.respMsg==="successful") {
@@ -127,12 +133,16 @@
 					console.log(error);
 				})
 			},
-			addBankCardToBackground() {
+			addBankCardToBackground: function() {
 				uni.showLoading({
 					title: "正在提交..."
 				})
 				api.addBankCardToBackground(this.addCardParam).then((result)=>{
 					console.log(result);
+					uni.showToast({
+						title:"添加银行卡成功",
+						icon:"none"
+					})
 				}).catch((error)=> {
 					uni.showToast({
 						title:"添加银行卡失败",
@@ -140,7 +150,35 @@
 					})
 				})
 			},
-			checkAddCardParam() {
+			countDown: function() {
+				if (!this.codeAble) {return};
+				if (this.addCardParam.phoneNum.length === 0) {
+					uni.showToast({
+						icon: "none",
+						title: "手机号不能为空"
+					})
+				} else if (this.addCardParam.phoneNum.length > 0 && this.addCardParam.phoneNum.length != 11) {
+					uni.showToast({
+						icon: "none",
+						title: "请输入正确的手机号"
+					})
+				} else {
+					this.timer = setInterval(() => {
+						this.codeAble = false;
+						this.totalTime--;
+						this.codeContent = this.totalTime + 's后重新发送';
+						console.log(this.totalTime)
+						if (this.totalTime < 0) { //当倒计时小于0时清除定时器
+							clearInterval(this.timer);
+							this.codeContent = '重新发送验证码'
+							this.totalTime = 60;
+							this.codeAble = true;
+						}
+					}, 1000)
+					this.getAddCardCheckCode();
+				}
+			},
+			checkAddCardParam: function() {
 				if (this.addCardParam.cardHolderName==='') {
 					uni.showToast({
 						title:"持卡人姓名不能为空！",

@@ -18,7 +18,7 @@
 			<view class="password-input-back">
 				<block v-for="(i,index) in passwordHolder" :key="index">
 					<view class="password-item">
-						<view class="password-hide-text" v-if="passwordStr.length>index">*</view>
+						<view class="password-hide-text" v-if="passwordStr.length>index">●</view>
 					</view>
 				</block>
 			</view>
