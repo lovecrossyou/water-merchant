@@ -75,6 +75,12 @@
 			}
 		},
 		{
+			"path": "pages/me/account/accountdetail",
+			"style": {
+				"navigationBarTitleText": "账单明细"
+			}
+		},
+		{
 			"path": "pages/address/searchAddress",
 			"style": {
 				"navigationBarTitleText": "搜索地址"
