@@ -77,7 +77,7 @@
 	.item-subtitle {
 		color: #999999;
 		font-size: 26upx;
-		margin-top: 8upx;
+		margin-top: 5upx;
 	}
 
 	.withdraw-detail {

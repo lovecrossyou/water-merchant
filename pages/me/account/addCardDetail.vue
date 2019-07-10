@@ -36,9 +36,9 @@
 			<view class="item-back">
 				<view class="left-label-text">验 证 码：</view>				
 				<input type="number" class="input-area" placeholder="请填写持卡人姓名" placeholder-style="color:#999999" v-model="addCardParam.checkCode"/>
-				<view class="checkcode-btn-back" @click="getAddCardCheckCode()">
+				<view class="checkcode-btn-back" @click="countDown()">
 					<view class="checkcode-btn">
-						<view class="checkcode-text">获取验证码</view>
+						<view class="checkcode-text">{{codeContent}}</view>
 					</view>
 				</view>
 			</view>
