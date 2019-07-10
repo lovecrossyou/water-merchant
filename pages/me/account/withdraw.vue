@@ -152,19 +152,19 @@
 				this.showPswModal = false;
 			},
 			checkHasPayPassword: function() {
-// 				if (this.rmbMount.length===0) {
-// 					uni.showToast({
-// 						icon: "none",
-// 						title: "请填写提现余额"
-// 					})
-// 					return;
-// 				}  if (this.rmbMount==="0"||this.rmbMount===0) {
-// 					uni.showToast({
-// 						icon: "none",
-// 						title: "提现余额必须大于0"
-// 					})
-// 					return;
-// 				}
+				if (this.rmbMount.length===0) {
+					uni.showToast({
+						icon: "none",
+						title: "请填写提现余额"
+					})
+					return;
+				}  if (this.rmbMount==="0"||this.rmbMount===0) {
+					uni.showToast({
+						icon: "none",
+						title: "提现余额必须大于0"
+					})
+					return;
+				}
 				let that = this;
 				api.checkHasPayPassword({}).then((result) => {
 					if (result) {
