@@ -17,7 +17,7 @@
 			<view class="text">水票销售</view>
 			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
 		</view>
-		<view class="accountBill">
+		<view class="accountBill" @click="goaccountdetail">
 			<image class="img" src="../../../static/account/icon.jpg"></image>
 			<view class="text">账单明细</view>
 			<image class="right_arrow" src="../../../static/common/icon_right.png"></image>
@@ -54,6 +54,11 @@
 			gowaterticketSales() {
 				uni.navigateTo({
 					url: "waterticketSales"
+				})
+			},
+			goaccountdetail(){
+				uni.navigateTo({
+					url: "accountdetail"
 				})
 			},
 			getUserAccount() {

@@ -24,10 +24,10 @@
 	export default{
 		data(){
 			return{
-				detaillist:[
-					{content:"水票销售",time:"2017-5-17  19:58",recordType:'income',deltaMount:100,ticketDeltaCount:5},
-					{'content':"提现",time:"2017-5-17  19:58",recordType:'outcome',deltaMount:100}]
 			}
+		},
+		props:{
+			detaillist:[]
 		}
 	}
 </script>
@@ -35,6 +35,8 @@
 <style lang="scss">
 	.main{
 		width: 100%;
+		background: white;
+		margin-top: 22upx;
 		
 		.detailItem{
 			display: flex;

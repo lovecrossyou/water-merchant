@@ -207,22 +207,12 @@
 			"style": {
 				"navigationBarTitleText": "店主信息"
 			}
-		}, {
-			"path": "pages/me/components/detailList",
-			"style": {
-				"navigationBarTitleText": "规格"
-			}
-		}, {
+		},{
 			"path": "pages/order/orderList",
 			"style": {
 				"navigationBarTitleText": "销售订单",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
-			}
-		}, {
-			"path": "pages/me/components/share",
-			"style": {
-				"navigationBarTitleText": "分享"
 			}
 		}
 	],
