@@ -1,11 +1,11 @@
 <template>
 	<view class="accountDetailMain">
 		<view class="switchTag">
-			<view class="leftTag" @click="leftSelected">收入明细</view>
+			<view class="leftTag" :class="{leftTagSelected:isselected===1}" @click="leftSelected">收入明细</view>
 			<view class="line"></view>
-			<view class="rightTag" @click="rightSelected">喜币明细</view>
+			<view class="rightTag" :class="{leftTagSelected:isselected===2}" @click="rightSelected">喜币明细</view>
 		</view>
-		<detailItem :detaillist='list'></detailItem>
+		<detailItem  :detaillist='list'></detailItem>
 	</view>
 </template>
 
@@ -19,8 +19,6 @@
 		data(){
 			return{
 				isselected:1,
-				rmbdetail:[],
-				xtbdetail:[],
 				list:[]
 			}
 		},
@@ -30,7 +28,7 @@
 					recordType:'rmb'
 				}
 				api.merchantAccountDetail(params).then((result)=>{
-					this.rmbdetail = result;
+					this.list = result;
 				}).catch((e)=>{
 					
 				})
@@ -40,24 +38,22 @@
 					recordType:'xtb'
 				}
 				api.merchantAccountDetail(params).then((result)=>{
-					this.xtbdetail = result;
+					this.list = result;
 				}).catch((e)=>{
 					
 				})
 			},
 			leftSelected(){
 				this.isselected = 1;
-				this.list = this.rmbdetail;
+				this.getrmbAccountDetail();
 			},
 			rightSelected(){
 				this.isselected = 2;
-				this.list = this.xtbdetail;
+				this.getxtbAccountDetail();
 			}
 		},
 		onLoad() {
-			this.getrmbAccountDetail();
-			this.getxtbAccountDetail();
-			this.list = this.rmbdetail;
+			this.leftSelected();
 		}
 	}
 </script>
@@ -65,9 +61,6 @@
 <style lang="scss">
 	.accountDetailMain{
 		width: 100%;
-		height: 100%;
-		position: fixed;
-		background: #eeeeee;
 		
 		.switchTag{
 			display: flex;
@@ -75,6 +68,7 @@
 			width: 100%;
 			height: 88upx;
 			border-top: 1upx solid rgba(232, 232, 232, 1);
+			border-bottom: 22upx solid  #eeeeee;
 			background: white;
 			
 			.leftTag{
@@ -95,7 +89,17 @@
 				color:rgba(51,51,51,1);
 				text-align: center;
 				line-height: 88upx;
-				border-bottom: 2upx solid #E81D26;
+			}
+			
+			.leftTagSelected{
+				width: 50%;
+				font-size:32upx;
+				font-family:PingFang-SC-Medium;
+				font-weight:500;
+				color:rgba(51,51,51,1);
+				text-align: center;
+				line-height: 88upx;
+				border-bottom: 4upx solid #FF4243;
 			}
 			
 			.line{
@@ -112,6 +116,17 @@
 				color:rgba(51,51,51,1);
 				text-align: center;
 				line-height: 88upx;
+			}
+			
+			.rightTagSelected{
+				width: 50%;
+				font-size:32upx;
+				font-family:PingFang-SC-Medium;
+				font-weight:500;
+				color:rgba(51,51,51,1);
+				text-align: center;
+				line-height: 88upx;
+				border-bottom: 4upx solid #FF4243;
 			}
 		}
 	}

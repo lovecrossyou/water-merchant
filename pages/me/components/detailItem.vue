@@ -11,7 +11,7 @@
 						<view class="recordType" v-if="item.recordType==='income'">+</view>
 						<view class="recordType" v-else-if="item.recordType==='outcome'">-</view>
 						<view class="recordType" v-else> </view>
-						<view class="deltaMount">{{item.deltaMount}}</view>
+						<view class="deltaMount">{{item.deltaMount/100|fnName}}</view>
 					</view>
 					<view class="ticketDeltaCount" v-if="item.ticketDeltaCount">{{item.ticketDeltaCount}}张</view>
 				</view>
@@ -27,7 +27,14 @@
 			}
 		},
 		props:{
-			detaillist:[]
+			detaillist:{
+				type:Array
+			}
+		},
+		filters: {
+			fnName: function(value) {
+				return value.toFixed(2)
+			}
 		}
 	}
 </script>
@@ -35,8 +42,9 @@
 <style lang="scss">
 	.main{
 		width: 100%;
-		background: white;
-		margin-top: 22upx;
+		height: 100%;
+		position: absolute;
+		background: #eeeeee;
 		
 		.detailItem{
 			display: flex;
@@ -45,6 +53,7 @@
 			width: 100%;
 			height: 117upx;
 			border-bottom: 1upx solid #eeeeee;
+			background: white;
 			
 			.left{
 				padding-left: 30upx;
