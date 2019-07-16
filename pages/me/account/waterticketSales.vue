@@ -1,7 +1,7 @@
 <template>
 	<view class="waterticketSalesMain">
 		<view class="salesWrapper">
-			<image class="icon" src="../../../static/account/icon.jpg"></image>
+			<image class="icon" src="../../../static/account/account_rmb_icon.png"></image>
 			<view class="text">水票销售</view>
 			<view class="price">￥{{sellWaterTicketMount}}</view>
 			<view class="back_text">水票回收：¥{{unFreezeWaterTicketMount}}</view>
@@ -9,29 +9,34 @@
 		<block v-for="(item,index) in saleslist" :key="index">
 			<view class="waterticketSalesItem">
 				<view class="firstRow">
-					<view class="firstRowText">{{item.name}}</view>
-					<view class="firstRowText">{{item.price}}</view>
+					<view class="firstRowText">{{item.content}}</view>
+					<view class="firstRowText" v-if="item.recordType==='income'">+{{item.deltaMount/100|decimals}}</view>
+					<view class="firstRowText" v-else-if="item.recordType==='outcome'">-{{item.deltaMount/100|decimals}}</view>
+					<view class="firstRowText" v-else>{{item.deltaMount/100|decimals}}</view>
 				</view>
 				<view class="secondRow">
 					<view class="secondRowText">{{item.time}}</view>
-					<view class="secondRowText">{{item.number}}张</view>
+					<view class="secondRowText">{{item.ticketDeltaCount }}张</view>
 				</view>
 			</view>
 		</block>
 	</view>
-</template>
+</template> 
 
 <script>
 import api from '@/util/api.js'
 export default {
 	data() {
 		return {
-			saleslist: [
-				{ name: '水票销售', price: '+220.00', time: '2017-5-17  19:58', number: '10' },
-				{ name: '水票回收', price: '-220.00', time: '2017-6-17  19:58', number: '10' }],
+			saleslist: [],
 			sellWaterTicketMount:0,
 			unFreezeWaterTicketMount:0
 		};
+	},
+	filters: {
+		decimals: function(value) {
+			return value.toFixed(2)
+		}
 	},
 	methods: {
 		async getwaterticketmount(){
@@ -41,14 +46,11 @@ export default {
 		},
 		async getmerchantticketdetail(){
 			let params = {
-				recordType:'xtb'
+				recordType:'ticket'
 			}
 			api.merchantAccountDetail(params).then((result)=>{
-				
-				console.log(result)
-				
+				this.saleslist = result
 			}).catch((error)=>{
-				
 			})
 		}
 	},
@@ -63,7 +65,7 @@ export default {
 .waterticketSalesMain {
 	width: 100%;
 	height: 100%;
-	position: fixed;
+	position: absolute;
 	background: #eeeeee;
 
 	.salesWrapper {

@@ -7,7 +7,7 @@
 		</view>
 		<detailItem  :detaillist='list'></detailItem>
 	</view>
-</template>
+</template> 
 
 <script>
 	import api from "@/util/api.js"

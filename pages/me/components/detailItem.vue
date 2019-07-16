@@ -11,7 +11,7 @@
 						<view class="recordType" v-if="item.recordType==='income'">+</view>
 						<view class="recordType" v-else-if="item.recordType==='outcome'">-</view>
 						<view class="recordType" v-else> </view>
-						<view class="deltaMount">{{item.deltaMount/100|fnName}}</view>
+						<view class="deltaMount">{{item.deltaMount/100|decimals}}</view>
 					</view>
 					<view class="ticketDeltaCount" v-if="item.ticketDeltaCount">{{item.ticketDeltaCount}}张</view>
 				</view>
@@ -32,7 +32,7 @@
 			}
 		},
 		filters: {
-			fnName: function(value) {
+			decimals: function(value) {
 				return value.toFixed(2)
 			}
 		}
